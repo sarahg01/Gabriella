@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>GT</title>
+ <link rel="icon" type="image/png" href="favicon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family: Arial, sans-serif; background:#fff; }
+
+/* ================= TOP BAR ================= */
+.topbar {
+    background:#000;
+    height:100px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    position:relative;
+    z-index:1001;
+}
+
+.menu-icon {
+    position:absolute;
+    left:20px;
+    font-size:28px;
+    color:white;
+    cursor:pointer;
+}
+
+.logo img {
+    height:60px;
+    object-fit:contain;
+}
+
+/* ================= SIDE MENU ================= */
+.side-menu {
+    position:fixed;
+    top:0;
+    left:-260px;
+    width:260px;
+    height:100%;
+    background:#000;
+    display:flex;
+    flex-direction:column;
+    padding-top:80px;
+    transition:0.4s ease;
+    z-index:1002;
+}
+
+.side-menu a,
+.menu-item {
+    color:white;
+    text-decoration:none;
+    padding:15px 25px;
+    font-size:18px;
+    cursor:pointer;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.side-menu a:hover,
+.menu-item:hover {
+    background:#111;
+}
+
+/* Close button */
+.close-btn {
+    position:absolute;
+    top:20px;
+    right:20px;
+    font-size:26px;
+    cursor:pointer;
+}
+
+/* Submenu */
+.sub-menu {
+    display:none;
+    flex-direction:column;
+    background:#111;
+}
+
+.sub-menu a {
+    padding-left:45px;
+    font-size:16px;
+}
+
+/* Rotate arrow */
+.rotate {
+    transform:rotate(180deg);
+    transition:0.3s;
+}
+
+/* ================= OVERLAY ================= */
+.overlay {
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.5);
+    opacity:0;
+    visibility:hidden;
+    transition:0.3s;
+    z-index:1000;
+}
+
+.overlay.active {
+    opacity:1;
+    visibility:visible;
+}
+
+/* ================= HERO ================= */
+.hero img {
+    width:100%;
+    height:auto;
+    display:block;
+}
+
+/* ================= PRODUCTS ================= */
+.products { padding:60px 50px; text-align:center; }
+.products h2 { font-size:32px; margin-bottom:40px; color:#e91e63; }
+
+.product-grid {
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
+    gap:25px;
+}
+
+.product-card {
+    background:white;
+    padding:20px;
+    border-radius:10px;
+    box-shadow:0 4px 10px rgba(0,0,0,0.08);
+    transition:0.3s;
+}
+
+.product-card:hover {
+    transform:translateY(-5px);
+}
+
+.product-card img {
+       width:100%;
+    height:250px;
+    object-fit:contain;
+    
+}
+
+.product-card h3 {
+    margin:15px 0 10px;
+}
+
+.product-card a {
+    display:inline-block;
+    margin-top:10px;
+    padding:8px 15px;
+    background:#e91e63;
+    color:white;
+    text-decoration:none;
+    border-radius:5px;
+    font-size:14px;
+}
+
+.product-card a:hover {
+    background:#c2185b;
+}
+
+/* ================= FOOTER ================= */
+footer {
+    text-align:center;
+    padding:20px;
+    margin-top:50px;
+    font-size:14px;
+}
+/* CATEGORY SECTION */
+.categories {
+    padding: 80px 20px;
+    text-align: center;
+}
+
+.category-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 60px;
+    flex-wrap: wrap;
+}
+
+.category-btn {
+    padding: 18px 50px;
+    font-size: 18px;
+    font-weight: bold;
+    text-decoration: none;
+    background: black;
+    color: white;
+    border-radius: 8px;
+    transition: 0.3s ease;
+    letter-spacing: 1px;
+}
+
+.category-btn:hover {
+    background: #e91e63;
+    transform: translateY(-3px);
+}
+</style>
+</head>
+
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+    <div class="menu-icon" onclick="openMenu()">☰</div>
+    <div class="logo">
+        <img src="smalllogo.png" alt="GT">
+    </div>
+</div>
+
+<!-- OVERLAY -->
+<div class="overlay" id="overlay" onclick="closeMenu()"></div>
+
+<!-- SIDE MENU -->
+<div class="side-menu" id="sideMenu">
+
+    <div class="close-btn" onclick="closeMenu()">×</div>
+
+    <a href="index.html">Home</a>
+ <a href="about.html">About</a>
+    <div class="menu-item" onclick="toggleShop()">
+        Shop 
+        <span id="arrow">▾</span>
+    </div>
+
+    <div class="sub-menu" id="shopSubMenu">
+        <a href="MEN.html">MEN</a>
+        <a href="WOMEN.html">WOMEN</a>
+       
+    </div>
+
+    <a href="#">Contact</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+    <img src="logo1.png" alt="Beauty Banner">
+</section>
+<!-- CATEGORY BUTTONS -->
+<section class="categories">
+    <div class="category-buttons">
+        <a href="MEN.html" class="category-btn">MEN</a>
+        <a href="WOMEN.html" class="category-btn">WOMEN</a>
+       
+    </div>
+</section>
+
+<!-- PRODUCTS -->
+<section class="products">
+  <h2>Hot girl summer starts with trusted product picks that never disappoint.</h2>
+    <div class="product-grid">
+
+        <div class="product-card">
+            <img src="ip.PNG" alt="perfume">
+            <h3>Skinn by Titan Celeste 100 ML Perfume for Women<br> ₹2,795</h3>
+            <a href="https://www.skinn.in/product/skinn-by-titan-celeste-100-ml-perfume-for-women-edp-fclw01pc.html" target="_blank" rel="nofollow noopener">Buy on SKINN</a>
+        </div>
+
+        <div class="product-card">
+            <img src="ip2.PNG" alt="perfume">
+            <h3>SKINN Noura Nectar Eau De Parfum for her - 100 ml<br> ₹ 2,801 </h3>
+            <a href="https://www.skinn.in/product/skinn-noura-nectar-eau-de-parfum-for-her---100-ml-fnrw03pc.html" target="_blank" rel="nofollow noopener">Buy on SKINN</a>
+        </div>
+
+        <div class="product-card">
+            <img src="ip3.PNG" alt="perfume">
+            <h3>Skinn by Titan Celeste Beyond 100 ML Perfume for Women EDP<br>₹ 2,895  </h3>
+            <a href="https://www.skinn.in/product/skinn-by-titan-celeste-beyond-100-ml-perfume-for-women-edp-fcfw02pc.html" target="_blank" rel="nofollow noopener">Buy on SKINN</a>
+        </div>
+
+    </div>
+</section>
+
+<footer>
+<p>Disclaimer: GT is an affiliate of SKINN. 
+We earn a small commission if you purchase through our links at no extra cost to you.</p>
+© 2026 Gabriella 
+</footer>
+
+<script>
+function openMenu() {
+    document.getElementById("sideMenu").style.left = "0";
+    document.getElementById("overlay").classList.add("active");
+}
+
+function closeMenu() {
+    document.getElementById("sideMenu").style.left = "-260px";
+    document.getElementById("overlay").classList.remove("active");
+}
+
+function toggleShop() {
+    var submenu = document.getElementById("shopSubMenu");
+    var arrow = document.getElementById("arrow");
+
+    if (submenu.style.display === "flex") {
+        submenu.style.display = "none";
+        arrow.classList.remove("rotate");
+    } else {
+        submenu.style.display = "flex";
+        arrow.classList.add("rotate");
+    }
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>About | Gabriella </title>
+<link rel="icon" type="image/png" href="favicon.png?v=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Google Font for luxury feel -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Poppins', sans-serif;
+    background:#f5c7d9;
+    font-size: 17px;
+    color:#222;
+}
+
+
+/* NAVBAR */
+.navbar{
+    background:#000;
+    padding:25px 60px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.logo img{
+    height:65px;
+}
+
+.nav-links{
+    list-style:none;
+    display:flex;
+    gap:40px;
+}
+
+.nav-links li{
+    position:relative;
+}
+
+.nav-links a{
+    color:#fff;
+    text-decoration:none;
+    font-weight:400;
+    letter-spacing:1px;
+    font-size:14px;
+}
+
+.nav-links a:hover{
+    opacity:0.7;
+}
+
+/* DROPDOWN */
+.dropdown-content{
+    display:none;
+    position:absolute;
+    background:#fff;
+    min-width:170px;
+    top:35px;
+    left:0;
+    box-shadow:0 10px 25px rgba(0,0,0,0.08);
+}
+
+.dropdown-content a{
+    display:block;
+    padding:14px;
+    color:#000;
+    font-size:13px;
+}
+
+.dropdown-content a:hover{
+    background:#f7f7f7;
+}
+
+/* ABOUT SECTION */
+.about-section{
+    padding:120px 20px 60px;
+    max-width:800px;
+    margin:auto;
+    text-align:center;
+}
+
+.founder-img{
+    width:200px;
+    height:200px;
+    border-radius:50%;
+    object-fit:cover;
+    margin-bottom:35px;
+}
+
+.about-section h1{
+    font-weight:600;
+    font-size:29px;
+    margin-bottom:30px;
+    letter-spacing:2px;
+}
+
+.about-section p{
+    font-weight:300;
+    font-size:20px;
+    line-height:1.9;
+    margin-bottom:25px;
+    color:#555;
+}
+
+/* SOCIAL ICONS */
+.social-icons{
+    margin-top:25px;
+}
+
+.social-icons a{
+    margin:0 12px;
+    font-size:20px;
+    color:#000;
+    transition:0.3s;
+}
+
+.social-icons a:hover{
+    color:#e91e63;
+}
+
+/* CONTACT SECTION */
+.contact-section{
+    padding:80px 20px;
+    background:#fafafa;
+    text-align:center;
+}
+
+.contact-section h2{
+    font-weight:600;
+    margin-bottom:30px;
+    letter-spacing:2px;
+}
+
+.contact-form{
+    max-width:500px;
+    margin:auto;
+}
+
+.contact-form input,
+.contact-form textarea{
+    width:100%;
+    padding:14px;
+    margin-bottom:18px;
+    border:1px solid #ddd;
+    font-family:'Poppins', sans-serif;
+    font-size:14px;
+}
+
+.contact-form button{
+    padding:14px 30px;
+    background:#000;
+    color:#fff;
+    border:none;
+    letter-spacing:2px;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.contact-form button:hover{
+    background:#e91e63;
+}
+
+/* PRIVACY */
+.privacy-section{
+    padding:80px 20px;
+    max-width:800px;
+    margin:auto;
+    text-align:center;
+}
+
+.privacy-section h2{
+    margin-bottom:25px;
+    font-weight:600;
+    letter-spacing:2px;
+}
+
+.privacy-section p{
+    font-size:15px;
+    line-height:1.8;
+    color:#555;
+}
+
+/* FOOTER */
+footer{
+    text-align:center;
+    padding:25px;
+    font-size:13px;
+    background:#fff;
+    border-top:1px solid #eee;
+    color:#777;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="navbar">
+    <div class="logo">
+        <a href="index.html">
+            <img src="logo.png" alt="Logo">
+        </a>
+    </div>
+
+    <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+
+        <li class="dropdown">
+            <a href="#" onclick="toggleDropdown(event)">Shop</a>
+            <div class="dropdown-content" id="shopDropdown">
+                <a href="MEN.html">MEN</a>
+                <a href="WOMEN.html">WOMENS</a>
+                <a href="about.html">About</a>
+            </div>
+        </li>
+
+        <li><a href="#contact">Contact</a></li>
+    </ul>
+</div>
+
+<section class="about-section">
+    <img src="founder.jpeg" class="founder-img" alt="Founder">
+
+    <h1>ABOUT GABRIELLA </h1><strong>
+
+    <p>
+        “Find your signature scent with Gabriella — crafted to define your presence.”
+    </p>
+
+    <p>
+        Every product featured here is carefully selected to align with quality,
+        effectiveness, and modern beauty trends.
+    </p>
+
+    <p>
+        As an affiliate platform, we may earn a small commission from purchases made
+        through our links — at no additional cost to you.
+    </p></strong>
+
+    <div class="social-icons">
+        <a href="https://instagram.com/yourinstagram" target="_blank">⌁</a>
+        <a href="#">✉</a>
+    </div>
+</section>
+
+<section class="contact-section" id="contact">
+    <h2>CONTACT</h2>
+
+    <form class="contact-form" action="mailto:youremail@example.com" method="POST" enctype="text/plain">
+        <input type="text" placeholder="Your Name" required>
+        <input type="email" placeholder="Your Email Address" required>
+        <textarea rows="5" placeholder="Your Message"></textarea>
+        <button type="submit">SEND MESSAGE</button>
+    </form>
+</section>
+
+<section class="privacy-section">
+    <h2>PRIVACY POLICY</h2>
+    <p>
+        We respect your privacy and do not sell personal data.
+        This website may use affiliate tracking cookies to monitor purchases
+        made through referral links. These cookies do not collect personal information.
+    </p>
+</section>
+
+<footer>
+    Disclaimer: Gabriella is an affiliate of SKINN.
+    We earn a small commission if you purchase through our links at no extra cost to you.
+    <br><br>
+    © 2026 Gabriella | Trusted Recommendations
+</footer>
+
+<script>
+function toggleDropdown(event){
+    event.preventDefault();
+    var dropdown = document.getElementById("shopDropdown");
+    dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+}
+
+document.addEventListener("click", function(event){
+    var dropdown = document.getElementById("shopDropdown");
+    var shopLink = event.target.closest(".dropdown");
+    if(!shopLink){
+        dropdown.style.display="none";
+    }
+});
+</script>
+
+</body>
+</html>
