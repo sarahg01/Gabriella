@@ -113,7 +113,7 @@
             margin-top: 15px;
             font-size: 16px;
         }
-
+      
         .buy-btn {
             display: inline-block;
             margin-top: 15px;
@@ -129,7 +129,93 @@
         .buy-btn:hover {
             background: #c2185b;
         }
+    /* ================= MOBILE RESPONSIVE ================= */
+@media (max-width: 768px) {
 
+    /* Topbar */
+    .topbar {
+        height: 70px;
+    }
+
+    .logo img {
+        height: 45px;
+    }
+
+    .menu-icon {
+        font-size: 24px;
+    }
+
+    /* Hero */
+    .hero img {
+        height: auto;
+    }
+
+    /* Categories */
+    .categories {
+        padding: 40px 15px;
+    }
+
+    .category-buttons {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .category-btn {
+        width: 100%;
+        padding: 15px;
+        font-size: 16px;
+    }
+
+    /* Products */
+    .products {
+        padding: 60px 50px;
+    }
+
+    .products h2 {
+        font-size: 22px;
+        line-height: 1.4;
+    }
+
+    .product-grid {
+        grid-template-columns: 1fr; /* Single column */
+        gap: 20px;
+    }
+
+    .product-card img {
+        height: 200px;
+    }
+
+    .product-card h3 {
+        font-size: 16px;
+    }
+
+    /* Side Menu */
+    .side-menu {
+        width: 220px;
+        left: -220px;
+    }
+}
+
+/* EXTRA SMALL DEVICES */
+@media (max-width: 480px) {
+
+    .products h2 {
+        font-size: 18px;
+    }
+
+    .category-btn {
+        font-size: 14px;
+        padding: 12px;
+    }
+
+    .product-card {
+        padding: 15px;
+    }
+
+    .product-card img {
+        height: 180px;
+    }
+}
     </style>
 </head>
 
@@ -142,7 +228,7 @@
 
     <ul class="nav-links">
         <li><a href="index.html">Home</a></li>
-        <li><a href="about.html">About</a></li>
+        <li><a href="index1.html">About</a></li>
 
         <li class="dropdown">
             <a href="#" onclick="toggleDropdown(event)">Shop</a>
