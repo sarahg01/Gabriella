@@ -2,9 +2,10 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>GT</title>
  <link rel="icon" type="image/png" href="favicon.png?v=1">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 
 <style>
 * { margin:0; padding:0; box-sizing:border-box; }
@@ -120,7 +121,7 @@ body { font-family: Arial, sans-serif; background:#fff; }
 }
 
 /* ================= PRODUCTS ================= */
-.products { padding:60px 50px; text-align:center; }
+.products { padding:60px 20px; }
 .products h2 { font-size:32px; margin-bottom:40px; color:#e91e63; }
 
 .product-grid {
@@ -142,12 +143,10 @@ body { font-family: Arial, sans-serif; background:#fff; }
 }
 
 .product-card img {
-       width:100%;
-    height:250px;
+    width:100%;
+    max-height:250px;
     object-fit:contain;
-    
 }
-
 .product-card h3 {
     margin:15px 0 10px;
 }
@@ -202,6 +201,93 @@ footer {
 .category-btn:hover {
     background: #e91e63;
     transform: translateY(-3px);
+}
+ /* ================= MOBILE RESPONSIVE ================= */
+@media (max-width: 768px) {
+
+    /* Topbar */
+    .topbar {
+        height: 70px;
+    }
+
+    .logo img {
+        height: 45px;
+    }
+
+    .menu-icon {
+        font-size: 24px;
+    }
+
+    /* Hero */
+    .hero img {
+        height: auto;
+    }
+
+    /* Categories */
+    .categories {
+        padding: 40px 15px;
+    }
+
+    .category-buttons {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .category-btn {
+        width: 100%;
+        padding: 15px;
+        font-size: 16px;
+    }
+
+    /* Products */
+    .products {
+        padding: 40px 15px;
+    }
+
+    .products h2 {
+        font-size: 22px;
+        line-height: 1.4;
+    }
+
+    .product-grid {
+        grid-template-columns: 1fr; /* Single column */
+        gap: 20px;
+    }
+
+    .product-card img {
+        height: 200px;
+    }
+
+    .product-card h3 {
+        font-size: 16px;
+    }
+
+    /* Side Menu */
+    .side-menu {
+        width: 220px;
+        left: -220px;
+    }
+}
+
+/* EXTRA SMALL DEVICES */
+@media (max-width: 480px) {
+
+    .products h2 {
+        font-size: 18px;
+    }
+
+    .category-btn {
+        font-size: 14px;
+        padding: 12px;
+    }
+
+    .product-card {
+        padding: 15px;
+    }
+
+    .product-card img {
+        height: 180px;
+    }
 }
 </style>
 </head>
