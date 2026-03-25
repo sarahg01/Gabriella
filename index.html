@@ -4,8 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>GT</title>
- <link rel="icon" type="image/png" href="favicon.png?v=1">
-
+<link rel="icon" type="image/png" href="favicon.png?v=1">
 
 <style>
 * { margin:0; padding:0; box-sizing:border-box; }
@@ -28,6 +27,8 @@ body { font-family: Arial, sans-serif; background:#fff; }
     font-size:28px;
     color:white;
     cursor:pointer;
+    /* Bigger tap target on mobile */
+    padding: 10px;
 }
 
 .logo img {
@@ -48,6 +49,7 @@ body { font-family: Arial, sans-serif; background:#fff; }
     padding-top:80px;
     transition:0.4s ease;
     z-index:1002;
+    overflow-y: auto; /* scroll if menu is tall */
 }
 
 .side-menu a,
@@ -60,6 +62,8 @@ body { font-family: Arial, sans-serif; background:#fff; }
     display:flex;
     justify-content:space-between;
     align-items:center;
+    /* Better tap targets */
+    min-height: 50px;
 }
 
 .side-menu a:hover,
@@ -74,6 +78,10 @@ body { font-family: Arial, sans-serif; background:#fff; }
     right:20px;
     font-size:26px;
     cursor:pointer;
+    color: white;
+    /* Bigger tap target */
+    padding: 8px;
+    line-height: 1;
 }
 
 /* Submenu */
@@ -160,6 +168,12 @@ body { font-family: Arial, sans-serif; background:#fff; }
     text-decoration:none;
     border-radius:5px;
     font-size:14px;
+    /* Better tap target */
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
 }
 
 .product-card a:hover {
@@ -172,8 +186,10 @@ footer {
     padding:20px;
     margin-top:50px;
     font-size:14px;
+    line-height: 1.6;
 }
-/* CATEGORY SECTION */
+
+/* ================= CATEGORY SECTION ================= */
 .categories {
     padding: 80px 20px;
     text-align: center;
@@ -196,13 +212,19 @@ footer {
     border-radius: 8px;
     transition: 0.3s ease;
     letter-spacing: 1px;
+    /* Better tap target */
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .category-btn:hover {
     background: #e91e63;
     transform: translateY(-3px);
 }
- /* ================= MOBILE RESPONSIVE ================= */
+
+/* ================= TABLET (768px) ================= */
 @media (max-width: 768px) {
 
     /* Topbar */
@@ -216,11 +238,13 @@ footer {
 
     .menu-icon {
         font-size: 24px;
+        left: 10px;
     }
 
     /* Hero */
     .hero img {
         height: auto;
+        width: 100%;
     }
 
     /* Categories */
@@ -230,11 +254,13 @@ footer {
 
     .category-buttons {
         flex-direction: column;
-        gap: 20px;
+        align-items: center;
+        gap: 15px;
     }
 
     .category-btn {
-        width: 100%;
+        width: 80%;
+        max-width: 300px;
         padding: 15px;
         font-size: 16px;
     }
@@ -247,6 +273,7 @@ footer {
     .products h2 {
         font-size: 22px;
         line-height: 1.4;
+        margin-bottom: 25px;
     }
 
     .product-grid {
@@ -256,21 +283,36 @@ footer {
 
     .product-card img {
         height: 200px;
+        object-fit: contain;
     }
 
     .product-card h3 {
         font-size: 16px;
     }
 
-    /* Side Menu */
+    /* Side Menu — narrower on mobile */
     .side-menu {
         width: 220px;
-        left: -220px;
+        left: -220px; /* must match width */
+    }
+
+    /* Footer */
+    footer {
+        padding: 20px 15px;
+        font-size: 13px;
     }
 }
 
-/* EXTRA SMALL DEVICES */
+/* ================= MOBILE (480px) ================= */
 @media (max-width: 480px) {
+
+    .topbar {
+        height: 60px;
+    }
+
+    .logo img {
+        height: 38px;
+    }
 
     .products h2 {
         font-size: 18px;
@@ -279,6 +321,7 @@ footer {
     .category-btn {
         font-size: 14px;
         padding: 12px;
+        width: 90%;
     }
 
     .product-card {
@@ -287,6 +330,19 @@ footer {
 
     .product-card img {
         height: 180px;
+    }
+
+    .product-card h3 {
+        font-size: 15px;
+    }
+
+    .product-card a {
+        font-size: 13px;
+        width: 100%; /* Full-width button on small screens */
+    }
+
+    footer {
+        font-size: 12px;
     }
 }
 </style>
@@ -311,7 +367,7 @@ footer {
     <div class="close-btn" onclick="closeMenu()">×</div>
 
     <a href="index.html">Home</a>
- <a href="index1.html">About</a>
+    <a href="index1.html">About</a>
     <div class="menu-item" onclick="toggleShop()">
         Shop 
         <span id="arrow">▾</span>
@@ -320,7 +376,6 @@ footer {
     <div class="sub-menu" id="shopSubMenu">
         <a href="MEN.html">MEN</a>
         <a href="WOMEN.html">WOMEN</a>
-       
     </div>
 
     <a href="#">Contact</a>
@@ -330,18 +385,18 @@ footer {
 <section class="hero">
     <img src="logo1.png" alt="Beauty Banner">
 </section>
+
 <!-- CATEGORY BUTTONS -->
 <section class="categories">
     <div class="category-buttons">
         <a href="MEN.html" class="category-btn">MEN</a>
         <a href="WOMEN.html" class="category-btn">WOMEN</a>
-       
     </div>
 </section>
 
 <!-- PRODUCTS -->
 <section class="products">
-  <h2>Hot girl summer starts with trusted product picks that never disappoint.</h2>
+    <h2>Hot girl summer starts with trusted product picks that never disappoint.</h2>
     <div class="product-grid">
 
         <div class="product-card">
@@ -352,13 +407,13 @@ footer {
 
         <div class="product-card">
             <img src="ip2.PNG" alt="perfume">
-            <h3>SKINN Noura Nectar Eau De Parfum for her - 100 ml<br> ₹ 2,801 </h3>
+            <h3>SKINN Noura Nectar Eau De Parfum for her - 100 ml<br> ₹ 2,801</h3>
             <a href="https://www.skinn.in/product/skinn-noura-nectar-eau-de-parfum-for-her---100-ml-fnrw03pc.html" target="_blank" rel="nofollow noopener">Buy on SKINN</a>
         </div>
 
         <div class="product-card">
             <img src="ip3.PNG" alt="perfume">
-            <h3>Skinn by Titan Celeste Beyond 100 ML Perfume for Women EDP<br>₹ 2,895  </h3>
+            <h3>Skinn by Titan Celeste Beyond 100 ML Perfume for Women EDP<br>₹ 2,895</h3>
             <a href="https://www.skinn.in/product/skinn-by-titan-celeste-beyond-100-ml-perfume-for-women-edp-fcfw02pc.html" target="_blank" rel="nofollow noopener">Buy on SKINN</a>
         </div>
 
@@ -366,34 +421,48 @@ footer {
 </section>
 
 <footer>
-<p>Disclaimer: GT is an affiliate of SKINN. 
-We earn a small commission if you purchase through our links at no extra cost to you.</p>
-© 2026 Gabriella 
+    <p>Disclaimer: GT is an affiliate of SKINN.<br>
+    We earn a small commission if you purchase through our links at no extra cost to you.</p>
+    <p style="margin-top:8px;">© 2026 Gabriella</p>
 </footer>
 
 <script>
-function openMenu() {
-    document.getElementById("sideMenu").style.left = "0";
-    document.getElementById("overlay").classList.add("active");
-}
-
-function closeMenu() {
-    document.getElementById("sideMenu").style.left = "-260px";
-    document.getElementById("overlay").classList.remove("active");
-}
-
-function toggleShop() {
-    var submenu = document.getElementById("shopSubMenu");
-    var arrow = document.getElementById("arrow");
-
-    if (submenu.style.display === "flex") {
-        submenu.style.display = "none";
-        arrow.classList.remove("rotate");
-    } else {
-        submenu.style.display = "flex";
-        arrow.classList.add("rotate");
+    // Detect screen width to set correct close offset
+    function getMenuWidth() {
+        return window.innerWidth <= 768 ? '-220px' : '-260px';
     }
-}
+
+    function openMenu() {
+        document.getElementById("sideMenu").style.left = "0";
+        document.getElementById("overlay").classList.add("active");
+        document.body.style.overflow = "hidden"; // prevent background scroll
+    }
+
+    function closeMenu() {
+        document.getElementById("sideMenu").style.left = getMenuWidth();
+        document.getElementById("overlay").classList.remove("active");
+        document.body.style.overflow = ""; // restore scroll
+    }
+
+    function toggleShop() {
+        var submenu = document.getElementById("shopSubMenu");
+        var arrow = document.getElementById("arrow");
+
+        if (submenu.style.display === "flex") {
+            submenu.style.display = "none";
+            arrow.classList.remove("rotate");
+        } else {
+            submenu.style.display = "flex";
+            arrow.classList.add("rotate");
+        }
+    }
+
+    // Close menu on window resize to avoid stuck states
+    window.addEventListener('resize', function() {
+        var sideMenu = document.getElementById("sideMenu");
+        if (sideMenu.style.left === "0px") return; // already open, don't touch
+        sideMenu.style.left = getMenuWidth();
+    });
 </script>
 
 </body>
