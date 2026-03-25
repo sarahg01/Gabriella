@@ -17,27 +17,26 @@
             font-family: Arial, sans-serif;
         }
 
-        /* NAVBAR */
+        /* ================= NAVBAR (Desktop) ================= */
         .navbar {
             background: #000;
             padding: 20px 50px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            position: relative;
+            z-index: 1001;
         }
-    
-        .navbar h2 {
-            color: white;
+
+        .navbar .logo img {
+            height: 50px;
+            object-fit: contain;
         }
 
         .nav-links {
             list-style: none;
             display: flex;
             gap: 30px;
-        }
-
-        .nav-links li {
-            position: relative;
         }
 
         .nav-links a {
@@ -57,6 +56,7 @@
             box-shadow: 0px 5px 15px rgba(0,0,0,0.2);
             border-radius: 6px;
             overflow: hidden;
+            z-index: 999;
         }
 
         .dropdown-content a {
@@ -70,8 +70,91 @@
             background: #f2f2f2;
         }
 
+        /* ================= HAMBURGER (Mobile only) ================= */
+        .menu-icon {
+            display: none;
+            font-size: 26px;
+            color: white;
+            cursor:pointer;
+            padding: 8px;
+        }
 
-        /* PAGE TITLE */
+        /* ================= MOBILE SIDE MENU ================= */
+        .side-menu {
+            position: fixed;
+            top: 0;
+            left: -260px;
+            width: 260px;
+            height: 100%;
+            background: #000;
+            display: flex;
+            flex-direction: column;
+            padding-top: 70px;
+            transition: 0.4s ease;
+            z-index: 1002;
+            overflow-y: auto;
+        }
+
+        .side-menu a,
+        .side-menu .menu-item {
+            color: white;
+            text-decoration: none;
+            padding: 15px 25px;
+            font-size: 17px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            min-height: 50px;
+        }
+
+        .side-menu a:hover,
+        .side-menu .menu-item:hover {
+            background: #111;
+        }
+
+        .side-menu .close-btn {
+            position: absolute;
+            top: 18px;
+            right: 18px;
+            font-size: 28px;
+            cursor: pointer;
+            color: white;
+            padding: 6px;
+            line-height: 1;
+        }
+
+        .side-sub-menu {
+            display: none;
+            flex-direction: column;
+            background: #111;
+        }
+
+        .side-sub-menu a {
+            padding-left: 45px;
+            font-size: 15px;
+        }
+
+        .rotate { transform: rotate(180deg); transition: 0.3s; }
+
+        /* ================= OVERLAY ================= */
+        .overlay {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5);
+            opacity: 0;
+            visibility: hidden;
+            transition: 0.3s;
+            z-index: 1000;
+        }
+
+        .overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* ================= PAGE TITLE ================= */
         .page-title {
             text-align: center;
             margin: 60px 0 40px;
@@ -79,7 +162,7 @@
             color: #e91e63;
         }
 
-        /* PRODUCT GRID */
+        /* ================= PRODUCT GRID ================= */
         .product-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
@@ -113,9 +196,11 @@
             margin-top: 15px;
             font-size: 16px;
         }
-      
+
         .buy-btn {
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
             margin-top: 15px;
             padding: 10px 20px;
             background: #e91e63;
@@ -123,198 +208,249 @@
             text-decoration: none;
             border-radius: 6px;
             font-size: 14px;
+            min-height: 44px;
             transition: 0.3s;
         }
 
         .buy-btn:hover {
             background: #c2185b;
         }
-    /* ================= MOBILE RESPONSIVE ================= */
-@media (max-width: 768px) {
 
-    /* Topbar */
-    .topbar {
-        height: 70px;
-    }
+        /* ================= FOOTER ================= */
+        footer {
+            text-align: center;
+            padding: 20px 15px;
+            margin-top: 30px;
+            font-size: 14px;
+            line-height: 1.6;
+        }
 
-    .logo img {
-        height: 45px;
-    }
+        /* ================= TABLET (max 768px) ================= */
+        @media (max-width: 768px) {
 
-    .menu-icon {
-        font-size: 24px;
-    }
+            /* Hide desktop nav links, show hamburger */
+            .nav-links { display: none; }
+            .menu-icon { display: block; }
 
-    /* Hero */
-    .hero img {
-        height: auto;
-    }
+            .navbar {
+                padding: 15px 20px;
+            }
 
-    /* Categories */
-    .categories {
-        padding: 40px 15px;
-    }
+            .navbar .logo img {
+                height: 42px;
+            }
 
-    .category-buttons {
-        flex-direction: column;
-        gap: 20px;
-    }
+            /* Page title */
+            .page-title {
+                font-size: 24px;
+                margin: 40px 0 25px;
+            }
 
-    .category-btn {
-        width: 100%;
-        padding: 15px;
-        font-size: 16px;
-    }
+            /* Product grid */
+            .product-grid {
+                grid-template-columns: 1fr 1fr; /* 2 columns on tablet */
+                gap: 20px;
+                padding: 0 20px 60px;
+            }
 
-    /* Products */
-    .products {
-        padding: 60px 50px;
-    }
+            .product-card img {
+                height: 180px;
+            }
 
-    .products h2 {
-        font-size: 22px;
-        line-height: 1.4;
-    }
+            .product-card h3 {
+                font-size: 14px;
+            }
 
-    .product-grid {
-        grid-template-columns: 1fr; /* Single column */
-        gap: 20px;
-    }
+            .buy-btn {
+                font-size: 13px;
+                padding: 8px 14px;
+                width: 100%;
+            }
+        }
 
-    .product-card img {
-        height: 200px;
-    }
+        /* ================= MOBILE (max 480px) ================= */
+        @media (max-width: 480px) {
 
-    .product-card h3 {
-        font-size: 16px;
-    }
+            .navbar {
+                padding: 12px 15px;
+            }
 
-    /* Side Menu */
-    .side-menu {
-        width: 220px;
-        left: -220px;
-    }
-}
+            .navbar .logo img {
+                height: 36px;
+            }
 
-/* EXTRA SMALL DEVICES */
-@media (max-width: 480px) {
+            .page-title {
+                font-size: 20px;
+                margin: 30px 0 20px;
+            }
 
-    .products h2 {
-        font-size: 18px;
-    }
+            /* Single column on phones */
+            .product-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+                padding: 0 15px 50px;
+            }
 
-    .category-btn {
-        font-size: 14px;
-        padding: 12px;
-    }
+            .product-card {
+                padding: 15px;
+            }
 
-    .product-card {
-        padding: 15px;
-    }
+            .product-card img {
+                height: 200px;
+            }
 
-    .product-card img {
-        height: 180px;
-    }
-}
+            .product-card h3 {
+                font-size: 15px;
+            }
+
+            footer {
+                font-size: 12px;
+                padding: 15px;
+            }
+        }
     </style>
 </head>
 
 <body>
 
+<!-- ===== NAVBAR (Desktop) ===== -->
 <div class="navbar">
+    <!-- Hamburger: visible only on mobile -->
+    <div class="menu-icon" onclick="openMenu()">☰</div>
+
     <div class="logo">
-        <img src="smalllogo.png" alt="Gabriella Cosmetics Logo">
+        <img src="smalllogo.png" alt="GT Logo">
     </div>
 
+    <!-- Desktop nav links -->
     <ul class="nav-links">
         <li><a href="index.html">Home</a></li>
         <li><a href="index1.html">About</a></li>
-
-        <li class="dropdown">
+        <li class="dropdown" style="position:relative;">
             <a href="#" onclick="toggleDropdown(event)">Shop</a>
             <div class="dropdown-content" id="shopDropdown">
                 <a href="MEN.html">MEN</a>
                 <a href="WOMEN.html">WOMEN</a>
             </div>
         </li>
-
         <li><a href="contact.html">Contact</a></li>
     </ul>
 </div>
 
-<h1 class="page-title"> Essentials ✨</h1>
+<!-- ===== OVERLAY ===== -->
+<div class="overlay" id="overlay" onclick="closeMenu()"></div>
 
+<!-- ===== MOBILE SIDE MENU ===== -->
+<div class="side-menu" id="sideMenu">
+    <div class="close-btn" onclick="closeMenu()">×</div>
+    <a href="index.html">Home</a>
+    <a href="index1.html">About</a>
+    <div class="menu-item" onclick="toggleSideShop()">
+        Shop <span id="sideArrow">▾</span>
+    </div>
+    <div class="side-sub-menu" id="sideShopMenu">
+        <a href="MEN.html">MEN</a>
+        <a href="WOMEN.html">WOMEN</a>
+    </div>
+    <a href="contact.html">Contact</a>
+</div>
+
+<!-- ===== PAGE TITLE ===== -->
+<h1 class="page-title">Essentials ✨</h1>
+
+<!-- ===== PRODUCT GRID ===== -->
 <div class="product-grid">
 
     <div class="product-card">
-        <img src="wp1.PNG">
-        <h3>Body Mist Citrus Zest <br> ₹ 895 </h3>
-        <a href="https://bilty.co/4dTd2z" target="_blank" class="buy-btn">Buy on SKINN</a>
+        <img src="wp1.PNG" alt="Body Mist Citrus Zest">
+        <h3>Body Mist Citrus Zest<br>₹895</h3>
+        <a href="https://bilty.co/4dTd2z" target="_blank" rel="nofollow noopener" class="buy-btn">Buy on SKINN</a>
     </div>
 
     <div class="product-card">
-        <img src="wp2.PNG">
-        <h3>Body Mist Lotus Bloom<br> ₹895  </h3>
-        <a href="https://www.skinn.in/product/body-mist-lotus-bloom-fw31mq1.html" target="_blank" class="buy-btn">Buy on SKINN</a>
+        <img src="wp2.PNG" alt="Body Mist Lotus Bloom">
+        <h3>Body Mist Lotus Bloom<br>₹895</h3>
+        <a href="https://www.skinn.in/product/body-mist-lotus-bloom-fw31mq1.html" target="_blank" rel="nofollow noopener" class="buy-btn">Buy on SKINN</a>
     </div>
 
     <div class="product-card">
-        <img src="wp3.PNG">
-        <h3>SKINN Body Mist Apple Allure<br>₹ 895</h3>
-        <a href="https://www.skinn.in/product/skinn-body-mist-apple-allure-fw33mq1.html" target="_blank" class="buy-btn">Buy on SKINN</a>
+        <img src="wp3.PNG" alt="Body Mist Apple Allure">
+        <h3>SKINN Body Mist Apple Allure<br>₹895</h3>
+        <a href="https://www.skinn.in/product/skinn-body-mist-apple-allure-fw33mq1.html" target="_blank" rel="nofollow noopener" class="buy-btn">Buy on SKINN</a>
     </div>
 
     <div class="product-card">
-        <img src="wp4.PNG">
-        <h3>Body Mist Velvet Indulgence<br> ₹ 895</h3>
-        <a href="https://www.skinn.in/product/body-mist-velvet-indulgence-fw28mq1.html" target="_blank" class="buy-btn">Buy on SKINN</a>
+        <img src="wp4.PNG" alt="Body Mist Velvet Indulgence">
+        <h3>Body Mist Velvet Indulgence<br>₹895</h3>
+        <a href="https://www.skinn.in/product/body-mist-velvet-indulgence-fw28mq1.html" target="_blank" rel="nofollow noopener" class="buy-btn">Buy on SKINN</a>
     </div>
 
     <div class="product-card">
-        <img src="wp5.PNG">
-        <h3>Body Mist Berry Rhapsody<br> ₹ 895     </h3>
-        <a href="https://www.skinn.in/product/body-mist-berry-rhapsody-fw27mq1.html" target="_blank" class="buy-btn">Buy on SKINN</a>
+        <img src="wp5.PNG" alt="Body Mist Berry Rhapsody">
+        <h3>Body Mist Berry Rhapsody<br>₹895</h3>
+        <a href="https://www.skinn.in/product/body-mist-berry-rhapsody-fw27mq1.html" target="_blank" rel="nofollow noopener" class="buy-btn">Buy on SKINN</a>
     </div>
-   <div class="product-card">
-        <img src="wp6.PNG">
-        <h3>SKINN Tales Vanilla 100 ml Eau De Parfum<br> ₹ 798   </h3>
-        <a href="https://www.skinn.in/product/skinn-tales-vanilla-100-ml-eau-de-parfum-ftlw03pc.html" target="_blank" class="buy-btn">Buy on SKINN</a>
-    </div>
-    <div class="product-card">
-        <img src="wp7.PNG">
-        <h3>Skinn Deodorant Spray Celeste For Women <br> ₹ 595  </h3>
-        <a href="https://www.skinn.in/product/skinn-deodorant-spray-celeste-for-women-fclw01dq.html" target="_blank" class="buy-btn">Buy on SKINN</a>
-    </div>
-    
 
+    <div class="product-card">
+        <img src="wp6.PNG" alt="SKINN Tales Vanilla">
+        <h3>SKINN Tales Vanilla 100 ml Eau De Parfum<br>₹798</h3>
+        <a href="https://www.skinn.in/product/skinn-tales-vanilla-100-ml-eau-de-parfum-ftlw03pc.html" target="_blank" rel="nofollow noopener" class="buy-btn">Buy on SKINN</a>
     </div>
+
+    <div class="product-card">
+        <img src="wp7.PNG" alt="Skinn Deodorant Celeste Women">
+        <h3>Skinn Deodorant Spray Celeste For Women<br>₹595</h3>
+        <a href="https://www.skinn.in/product/skinn-deodorant-spray-celeste-for-women-fclw01dq.html" target="_blank" rel="nofollow noopener" class="buy-btn">Buy on SKINN</a>
+    </div>
+
+</div>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+    <p>Disclaimer: GT is an affiliate of SKINN.<br>
+    We earn a small commission if you purchase through our links at no extra cost to you.</p>
+    <p style="margin-top:8px;">© 2026 Gabriella</p>
+</footer>
 
 <script>
-function toggleDropdown(event) {
-    event.preventDefault();
-    var dropdown = document.getElementById("shopDropdown");
-
-    if (dropdown.style.display === "block") {
-        dropdown.style.display = "none";
-    } else {
-        dropdown.style.display = "block";
+    /* ---- Desktop dropdown ---- */
+    function toggleDropdown(event) {
+        event.preventDefault();
+        var dropdown = document.getElementById("shopDropdown");
+        dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
     }
-}
 
-document.addEventListener("click", function(event) {
-    var dropdown = document.getElementById("shopDropdown");
-    var shopLink = event.target.closest(".dropdown");
+    document.addEventListener("click", function(event) {
+        if (!event.target.closest(".dropdown")) {
+            document.getElementById("shopDropdown").style.display = "none";
+        }
+    });
 
-    if (!shopLink) {
-        dropdown.style.display = "none";
+    /* ---- Mobile side menu ---- */
+    function openMenu() {
+        document.getElementById("sideMenu").style.left = "0";
+        document.getElementById("overlay").classList.add("active");
+        document.body.style.overflow = "hidden";
     }
-});
+
+    function closeMenu() {
+        document.getElementById("sideMenu").style.left = "-260px";
+        document.getElementById("overlay").classList.remove("active");
+        document.body.style.overflow = "";
+    }
+
+    function toggleSideShop() {
+        var sub = document.getElementById("sideShopMenu");
+        var arrow = document.getElementById("sideArrow");
+        if (sub.style.display === "flex") {
+            sub.style.display = "none";
+            arrow.classList.remove("rotate");
+        } else {
+            sub.style.display = "flex";
+            arrow.classList.add("rotate");
+        }
+    }
 </script>
-
-<footer>
-<p>Disclaimer: GT is an affiliate of SKINN. We earn a small commission if you purchase through our links at no extra cost to you.</p>
-© 2026 Gabriella 
-</footer>
 
 </body>
 </html>
