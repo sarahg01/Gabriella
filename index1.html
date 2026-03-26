@@ -2,347 +2,304 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>About| Gabriella </title>
+<title>About | Gabriella</title>
 <link rel="icon" type="image/png" href="favicon.png?v=1">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<!-- Google Font for luxury feel -->
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
-body{
-    font-family:'Poppins', sans-serif;
-    background:#f5c7d9;
+body {
+    font-family: 'Poppins', sans-serif;
+    background: #f5c7d9;
     font-size: 17px;
-    color:#222;
+    color: #222;
 }
 
-
-/* NAVBAR */
-.navbar{
-    background:#000;
-    padding:25px 60px;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
+/* ===== TOPBAR ===== */
+.topbar {
+    background: #000;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 25px;
+    position: relative;
+    z-index: 1001;
+    width: 100%;
 }
 
-.logo img{
-    height:65px;
+.topbar-left {
+    display: flex;
+    align-items: center;
+    gap: 18px;
 }
 
-.nav-links{
-    list-style:none;
-    display:flex;
-    gap:40px;
+.menu-icon {
+    font-size: 26px;
+    color: white;
+    cursor: pointer;
+    padding: 8px;
+    line-height: 1;
+    flex-shrink: 0;
 }
 
-.nav-links li{
-    position:relative;
+.topbar .logo img {
+    height: 52px;
+    object-fit: contain;
+    display: block;
 }
 
-.nav-links a{
-    color:#fff;
-    text-decoration:none;
-    font-weight:400;
-    letter-spacing:1px;
-    font-size:14px;
+/* ===== SIDE MENU ===== */
+.side-menu {
+    position: fixed;
+    top: 0;
+    left: -270px;
+    width: 260px;
+    height: 100%;
+    background: #000;
+    display: flex;
+    flex-direction: column;
+    padding-top: 75px;
+    transition: 0.4s ease;
+    z-index: 1002;
+    overflow-y: auto;
 }
 
-.nav-links a:hover{
-    opacity:0.7;
+.side-menu a {
+    color: white;
+    text-decoration: none;
+    padding: 16px 28px;
+    font-size: 16px;
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: 1px;
+    display: block;
+    border-bottom: 1px solid #1a1a1a;
+    transition: background 0.2s;
 }
 
-/* DROPDOWN */
-.dropdown-content{
-    display:none;
-    position:absolute;
-    background:#fff;
-    min-width:170px;
-    top:35px;
-    left:0;
-    box-shadow:0 10px 25px rgba(0,0,0,0.08);
+.side-menu a:hover { background: #111; }
+
+.side-menu .close-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 28px;
+    cursor: pointer;
+    color: white;
+    padding: 5px;
+    line-height: 1;
+    background: none;
+    border: none;
 }
 
-.dropdown-content a{
-    display:block;
-    padding:14px;
-    color:#000;
-    font-size:13px;
+/* ===== OVERLAY ===== */
+.overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.5);
+    opacity: 0;
+    visibility: hidden;
+    transition: 0.3s;
+    z-index: 1000;
+}
+.overlay.active { opacity: 1; visibility: visible; }
+
+/* ===== ABOUT SECTION ===== */
+.about-section {
+    padding: 80px 20px 60px;
+    max-width: 800px;
+    margin: auto;
+    text-align: center;
 }
 
-.dropdown-content a:hover{
-    background:#f7f7f7;
+.founder-img {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 35px;
 }
 
-/* ABOUT SECTION */
-.about-section{
-    padding:120px 20px 60px;
-    max-width:800px;
-    margin:auto;
-    text-align:center;
+.about-section h1 {
+    font-weight: 600;
+    font-size: 29px;
+    margin-bottom: 30px;
+    letter-spacing: 2px;
 }
 
-.founder-img{
-    width:200px;
-    height:200px;
-    border-radius:50%;
-    object-fit:cover;
-    margin-bottom:35px;
+.about-section p {
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 1.9;
+    margin-bottom: 25px;
+    color: #555;
 }
 
-.about-section h1{
-    font-weight:600;
-    font-size:29px;
-    margin-bottom:30px;
-    letter-spacing:2px;
+.about-section strong p { font-weight: 400; }
+
+/* ===== SOCIAL ICONS ===== */
+.social-icons { margin-top: 25px; }
+
+.social-icons a {
+    margin: 0 12px;
+    font-size: 22px;
+    color: #000;
+    transition: 0.3s;
+    text-decoration: none;
 }
 
-.about-section p{
-    font-weight:300;
-    font-size:20px;
-    line-height:1.9;
-    margin-bottom:25px;
-    color:#555;
+.social-icons a:hover { color: #e91e63; }
+
+/* ===== CONTACT SECTION ===== */
+.contact-section {
+    padding: 80px 20px;
+    background: #fafafa;
+    text-align: center;
 }
 
-/* SOCIAL ICONS */
-.social-icons{
-    margin-top:25px;
+.contact-section h2 {
+    font-weight: 600;
+    margin-bottom: 30px;
+    letter-spacing: 2px;
 }
 
-.social-icons a{
-    margin:0 12px;
-    font-size:20px;
-    color:#000;
-    transition:0.3s;
-}
-
-.social-icons a:hover{
-    color:#e91e63;
-}
-
-/* CONTACT SECTION */
-.contact-section{
-    padding:80px 20px;
-    background:#fafafa;
-    text-align:center;
-}
-
-.contact-section h2{
-    font-weight:600;
-    margin-bottom:30px;
-    letter-spacing:2px;
-}
-
-.contact-form{
-    max-width:500px;
-    margin:auto;
-}
+.contact-form { max-width: 500px; margin: auto; }
 
 .contact-form input,
-.contact-form textarea{
-    width:100%;
-    padding:14px;
-    margin-bottom:18px;
-    border:1px solid #ddd;
-    font-family:'Poppins', sans-serif;
-    font-size:14px;
+.contact-form textarea {
+    width: 100%;
+    padding: 14px;
+    margin-bottom: 18px;
+    border: 1px solid #ddd;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    border-radius: 4px;
+    outline: none;
+    transition: border-color 0.2s;
 }
 
-.contact-form button{
-    padding:14px 30px;
-    background:#000;
-    color:#fff;
-    border:none;
-    letter-spacing:2px;
-    cursor:pointer;
-    transition:0.3s;
+.contact-form input:focus,
+.contact-form textarea:focus { border-color: #e91e63; }
+
+.contact-form button {
+    padding: 14px 30px;
+    background: #000;
+    color: #fff;
+    border: none;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: 0.3s;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    border-radius: 4px;
 }
 
-.contact-form button:hover{
-    background:#e91e63;
+.contact-form button:hover { background: #e91e63; }
+
+/* ===== PRIVACY ===== */
+.privacy-section {
+    padding: 80px 20px;
+    max-width: 800px;
+    margin: auto;
+    text-align: center;
 }
 
-/* PRIVACY */
-.privacy-section{
-    padding:80px 20px;
-    max-width:800px;
-    margin:auto;
-    text-align:center;
+.privacy-section h2 {
+    margin-bottom: 25px;
+    font-weight: 600;
+    letter-spacing: 2px;
 }
 
-.privacy-section h2{
-    margin-bottom:25px;
-    font-weight:600;
-    letter-spacing:2px;
+.privacy-section p {
+    font-size: 15px;
+    line-height: 1.8;
+    color: #555;
 }
 
-.privacy-section p{
-    font-size:15px;
-    line-height:1.8;
-    color:#555;
+/* ===== FOOTER ===== */
+footer {
+    text-align: center;
+    padding: 25px 20px;
+    font-size: 13px;
+    background: #fff;
+    border-top: 1px solid #eee;
+    color: #777;
+    line-height: 1.8;
 }
 
-/* FOOTER */
-footer{
-    text-align:center;
-    padding:25px;
-    font-size:13px;
-    background:#fff;
-    border-top:1px solid #eee;
-    color:#777;
-}
-/* ================= MOBILE RESPONSIVE ================= */
+/* ===== TABLET ===== */
 @media (max-width: 768px) {
-
-    /* Topbar */
-    .topbar {
-        height: 70px;
-    }
-
-    .logo img {
-        height: 45px;
-    }
-
-    .menu-icon {
-        font-size: 24px;
-    }
-
-    /* Hero */
-    .hero img {
-        height: auto;
-    }
-
-    /* Categories */
-    .categories {
-        padding: 40px 15px;
-    }
-
-    .category-buttons {
-        flex-direction: column;
-        gap: 20px;
-    }
-
-    .category-btn {
-        width: 100%;
-        padding: 15px;
-        font-size: 16px;
-    }
-
-    /* Products */
-    .products {
-        padding: 40px 15px;
-    }
-
-    .products h2 {
-        font-size: 22px;
-        line-height: 1.4;
-    }
-
-    .product-grid {
-        grid-template-columns: 1fr; /* Single column */
-        gap: 20px;
-    }
-
-    .product-card img {
-        height: 200px;
-    }
-
-    .product-card h3 {
-        font-size: 16px;
-    }
-
-    /* Side Menu */
-    .side-menu {
-        width: 220px;
-        left: -220px;
-    }
+    .topbar { height: 68px; }
+    .topbar .logo img { height: 44px; }
+    .about-section { padding: 60px 20px 50px; }
+    .about-section h1 { font-size: 24px; }
+    .about-section p { font-size: 16px; }
 }
 
-/* EXTRA SMALL DEVICES */
+/* ===== MOBILE ===== */
 @media (max-width: 480px) {
-
-    .products h2 {
-        font-size: 18px;
-    }
-
-    .category-btn {
-        font-size: 14px;
-        padding: 12px;
-    }
-
-    .product-card {
-        padding: 15px;
-    }
-
-    .product-card img {
-        height: 180px;
-    }
+    .topbar { height: 60px; padding: 0 15px; }
+    .topbar .logo img { height: 38px; }
+    .menu-icon { font-size: 22px; }
+    .about-section { padding: 50px 15px 40px; }
+    .about-section h1 { font-size: 20px; }
+    .founder-img { width: 160px; height: 160px; }
+    .contact-section { padding: 50px 15px; }
+    .privacy-section { padding: 50px 15px; }
 }
 </style>
 </head>
 
 <body>
 
-<div class="navbar">
-    <div class="logo">
-        <a href="index.html">
-            <img src="logo.png" alt="Logo">
-        </a>
+<!-- ===== TOPBAR ===== -->
+<div class="topbar">
+    <div class="topbar-left">
+        <div class="menu-icon" onclick="openMenu()">☰</div>
+        <div class="logo">
+            <a href="index.html">
+                <img src="smalllogo.png" alt="Gabriella Logo">
+            </a>
+        </div>
     </div>
-
-    <ul class="nav-links">
-        <li><a href="index.html">Home</a></li>
-
-        <li class="dropdown">
-            <a href="#" onclick="toggleDropdown(event)">Shop</a>
-            <div class="dropdown-content" id="shopDropdown">
-                <a href="MEN.html">MEN</a>
-                <a href="WOMEN.html">WOMENS</a>
-               
-            </div>
-        </li>
-
-        <li><a href="#contact">Contact</a></li>
-    </ul>
 </div>
 
+<!-- OVERLAY -->
+<div class="overlay" id="overlay" onclick="closeMenu()"></div>
+
+<!-- SIDE MENU -->
+<div class="side-menu" id="sideMenu">
+    <button class="close-btn" onclick="closeMenu()">×</button>
+    <a href="index.html">Home</a>
+    <a href="MEN.html">Men</a>
+    <a href="WOMEN.html">Women</a>
+</div>
+
+<!-- ABOUT -->
 <section class="about-section">
     <img src="founder.jpeg" class="founder-img" alt="Founder">
 
-    <h1>ABOUT GABRIELLA </h1><strong>
+    <h1>ABOUT GABRIELLA</h1>
 
-    <p>
-        “Find your signature scent with Gabriella — crafted to define your presence.”
-    </p>
+    <p>"Find your signature scent with Gabriella — crafted to define your presence."</p>
 
-    <p>
-        Every product featured here is carefully selected to align with quality,
-        effectiveness, and modern beauty trends.
-    </p>
+    <p>Every product featured here is carefully selected to align with quality, effectiveness, and modern beauty trends.</p>
 
-    <p>
-        As an affiliate platform, we may earn a small commission from purchases made
-        through our links — at no additional cost to you.
-    </p></strong>
+    <p>As an affiliate platform, we may earn a small commission from purchases made through our links — at no additional cost to you.</p>
 
     <div class="social-icons">
-        <a href="https://instagram.com/yourinstagram" target="_blank">⌁</a>
-        <a href="#">✉</a>
+        <a href="https://www.instagram.com/gabriella.curates/" target="_blank" title="Instagram">⌁</a>
+        <a href="#contact" title="Contact">✉</a>
     </div>
 </section>
 
+<!-- CONTACT -->
 <section class="contact-section" id="contact">
     <h2>CONTACT</h2>
-
-    <form class="contact-form" action="mailto:youremail@example.com" method="POST" enctype="text/plain">
+    <form class="contact-form" action="mailto:gabriella.curates@gmail.com" method="POST" enctype="text/plain">
         <input type="text" placeholder="Your Name" required>
         <input type="email" placeholder="Your Email Address" required>
         <textarea rows="5" placeholder="Your Message"></textarea>
@@ -350,35 +307,35 @@ footer{
     </form>
 </section>
 
+<!-- PRIVACY -->
 <section class="privacy-section">
     <h2>PRIVACY POLICY</h2>
-    <p>
-        We respect your privacy and do not sell personal data.
-        This website may use affiliate tracking cookies to monitor purchases
-        made through referral links. These cookies do not collect personal information.
-    </p>
+    <p>We respect your privacy and do not sell personal data. This website may use affiliate tracking cookies to monitor purchases made through referral links. These cookies do not collect personal information.</p>
 </section>
 
+<!-- FOOTER -->
 <footer>
-    Disclaimer: Gabriella is an affiliate of SKINN.
+    Disclaimer: Gabriella is an affiliate of SKINN.<br>
     We earn a small commission if you purchase through our links at no extra cost to you.
     <br><br>
     © 2026 Gabriella | Trusted Recommendations
 </footer>
 
 <script>
-function toggleDropdown(event){
-    event.preventDefault();
-    var dropdown = document.getElementById("shopDropdown");
-    dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+function openMenu() {
+    document.getElementById("sideMenu").style.left = "0";
+    document.getElementById("overlay").classList.add("active");
+    document.body.style.overflow = "hidden";
 }
 
-document.addEventListener("click", function(event){
-    var dropdown = document.getElementById("shopDropdown");
-    var shopLink = event.target.closest(".dropdown");
-    if(!shopLink){
-        dropdown.style.display="none";
-    }
+function closeMenu() {
+    document.getElementById("sideMenu").style.left = "-270px";
+    document.getElementById("overlay").classList.remove("active");
+    document.body.style.overflow = "";
+}
+
+document.addEventListener("keydown", function(e) {
+    if (e.key === "Escape") closeMenu();
 });
 </script>
 
