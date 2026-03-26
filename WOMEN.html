@@ -7,322 +7,197 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; }
 
-        body {
-            font-family: Arial, sans-serif;
-        }
-
-        /* ================= NAVBAR (Desktop) ================= */
+        /* ===== NAVBAR ===== */
         .navbar {
-            background: #000;
-            padding: 20px 50px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: relative;
-            z-index: 1001;
+            background: #000; padding: 20px 50px;
+            display: flex; justify-content: space-between; align-items: center;
+            position: relative; z-index: 1001;
         }
-
-        .navbar .logo img {
-            height: 50px;
-            object-fit: contain;
-        }
-
-        .nav-links {
-            list-style: none;
-            display: flex;
-            gap: 30px;
-        }
-
-        .nav-links a {
-            color: white;
-            text-decoration: none;
-            font-weight: bold;
-        }
-
-        /* DROPDOWN */
+        .navbar .logo img { height: 50px; object-fit: contain; }
+        .nav-links { list-style: none; display: flex; gap: 30px; }
+        .nav-links a { color: white; text-decoration: none; font-weight: bold; }
         .dropdown-content {
-            display: none;
-            position: absolute;
-            background: white;
-            min-width: 160px;
-            top: 40px;
-            left: 0;
-            box-shadow: 0px 5px 15px rgba(0,0,0,0.2);
-            border-radius: 6px;
-            overflow: hidden;
-            z-index: 999;
+            display: none; position: absolute; background: white; min-width: 160px;
+            top: 40px; left: 0; box-shadow: 0px 5px 15px rgba(0,0,0,0.2);
+            border-radius: 6px; overflow: hidden; z-index: 999;
         }
+        .dropdown-content a { display: block; padding: 12px; color: black; text-decoration: none; }
+        .dropdown-content a:hover { background: #f2f2f2; }
 
-        .dropdown-content a {
-            display: block;
-            padding: 12px;
-            color: black;
-            text-decoration: none;
-        }
+        /* ===== HAMBURGER ===== */
+        .menu-icon { display: none; font-size: 26px; color: white; cursor: pointer; padding: 8px; }
 
-        .dropdown-content a:hover {
-            background: #f2f2f2;
-        }
-
-        /* ================= HAMBURGER (Mobile only) ================= */
-        .menu-icon {
-            display: none;
-            font-size: 26px;
-            color: white;
-            cursor:pointer;
-            padding: 8px;
-        }
-
-        /* ================= MOBILE SIDE MENU ================= */
+        /* ===== SIDE MENU ===== */
         .side-menu {
-            position: fixed;
-            top: 0;
-            left: -260px;
-            width: 260px;
-            height: 100%;
-            background: #000;
-            display: flex;
-            flex-direction: column;
-            padding-top: 70px;
-            transition: 0.4s ease;
-            z-index: 1002;
-            overflow-y: auto;
+            position: fixed; top: 0; left: -260px; width: 260px; height: 100%;
+            background: #000; display: flex; flex-direction: column;
+            padding-top: 70px; transition: 0.4s ease; z-index: 1002; overflow-y: auto;
         }
-
-        .side-menu a,
-        .side-menu .menu-item {
-            color: white;
-            text-decoration: none;
-            padding: 15px 25px;
-            font-size: 17px;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            min-height: 50px;
+        .side-menu a, .side-menu .menu-item {
+            color: white; text-decoration: none; padding: 15px 25px; font-size: 17px;
+            cursor: pointer; display: flex; justify-content: space-between; align-items: center; min-height: 50px;
         }
-
-        .side-menu a:hover,
-        .side-menu .menu-item:hover {
-            background: #111;
-        }
-
+        .side-menu a:hover, .side-menu .menu-item:hover { background: #111; }
         .side-menu .close-btn {
-            position: absolute;
-            top: 18px;
-            right: 18px;
-            font-size: 28px;
-            cursor: pointer;
-            color: white;
-            padding: 6px;
-            line-height: 1;
+            position: absolute; top: 18px; right: 18px; font-size: 28px;
+            cursor: pointer; color: white; padding: 6px; line-height: 1;
         }
-
-        .side-sub-menu {
-            display: none;
-            flex-direction: column;
-            background: #111;
-        }
-
-        .side-sub-menu a {
-            padding-left: 45px;
-            font-size: 15px;
-        }
-
+        .side-sub-menu { display: none; flex-direction: column; background: #111; }
+        .side-sub-menu a { padding-left: 45px; font-size: 15px; }
         .rotate { transform: rotate(180deg); transition: 0.3s; }
 
-        /* ================= OVERLAY ================= */
+        /* ===== PAGE OVERLAY ===== */
         .overlay {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: rgba(0,0,0,0.5);
-            opacity: 0;
-            visibility: hidden;
-            transition: 0.3s;
-            z-index: 1000;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5); opacity: 0; visibility: hidden; transition: 0.3s; z-index: 1000;
         }
+        .overlay.active { opacity: 1; visibility: visible; }
 
-        .overlay.active {
-            opacity: 1;
-            visibility: visible;
-        }
+        /* ===== PAGE TITLE ===== */
+        .page-title { text-align: center; margin: 60px 0 40px; font-size: 32px; color: #e91e63; }
 
-        /* ================= PAGE TITLE ================= */
-        .page-title {
-            text-align: center;
-            margin: 60px 0 40px;
-            font-size: 32px;
-            color: #e91e63;
-        }
-
-        /* ================= PRODUCT GRID ================= */
-        .product-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-            gap: 30px;
-            padding: 0 60px 80px;
-        }
+        /* ===== PRODUCT GRID ===== */
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 30px; padding: 0 60px 80px; }
 
         .product-card {
-            background: white;
-            padding: 20px;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-            text-align: center;
-            transition: 0.3s;
+            background: white; padding: 20px; border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08); text-align: center;
+            transition: 0.3s; position: relative;
         }
-
-        .product-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 6px 18px rgba(0,0,0,0.15);
-        }
-
-        .product-card img {
-            width: 100%;
-            height: 220px;
-            object-fit: contain;
-            background: #fff;
-            padding: 10px;
-        }
-
-        .product-card h3 {
-            margin-top: 15px;
-            font-size: 16px;
-        }
+        .product-card:hover { transform: translateY(-5px); box-shadow: 0 6px 18px rgba(0,0,0,0.15); }
+        .product-card img { width: 100%; height: 220px; object-fit: contain; background: #fff; padding: 10px; }
+        .product-card h3 { margin-top: 15px; font-size: 16px; }
 
         .buy-btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            margin-top: 15px;
-            padding: 10px 20px;
-            background: #e91e63;
-            color: white;
-            text-decoration: none;
-            border-radius: 6px;
-            font-size: 14px;
-            min-height: 44px;
-            transition: 0.3s;
+            display: inline-flex; align-items: center; justify-content: center;
+            margin-top: 15px; padding: 10px 20px; background: #e91e63; color: white;
+            text-decoration: none; border-radius: 6px; font-size: 14px; min-height: 44px;
+            width: 100%; transition: 0.3s;
+        }
+        .buy-btn:hover { background: #c2185b; }
+
+        /* ===== EYE BUTTON ===== */
+        .eye-btn {
+            position: absolute; top: 12px; right: 12px;
+            width: 36px; height: 36px; background: rgba(255,255,255,0.95);
+            border: 1.5px solid #ddd; border-radius: 50%; cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            transition: 0.2s; z-index: 2;
+        }
+        .eye-btn:hover { background: #e91e63; border-color: #e91e63; }
+        .eye-btn:hover svg path, .eye-btn:hover svg circle { stroke: white; }
+        .eye-btn svg { width: 17px; height: 17px; }
+
+        /* ===== POPUP OVERLAY ===== */
+        .popup-overlay {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.65); z-index: 2000;
+            align-items: center; justify-content: center; padding: 20px;
+        }
+        .popup-overlay.open { display: flex; }
+
+        /* ===== POPUP BOX ===== */
+        .popup-box {
+            background: white; border-radius: 14px; width: 100%; max-width: 420px;
+            max-height: 90vh; overflow-y: auto; position: relative;
+            animation: popIn 0.22s ease;
+        }
+        @keyframes popIn { from { transform: scale(0.93); opacity:0; } to { transform: scale(1); opacity:1; } }
+
+        .popup-close {
+            position: absolute; top: 12px; right: 16px; font-size: 26px;
+            cursor: pointer; color: #555; z-index: 10; line-height: 1; background: none; border: none;
+        }
+        .popup-close:hover { color: #e91e63; }
+
+        /* ===== SLIDER ===== */
+        .slider-wrap { position: relative; background: #f7f7f7; border-radius: 14px 14px 0 0; overflow: hidden; }
+        .slides { display: flex; transition: transform 0.32s ease; }
+        .slides img { min-width: 100%; height: 280px; object-fit: contain; padding: 20px; background: #f7f7f7; }
+
+        .slider-arrow {
+            position: absolute; top: 50%; transform: translateY(-50%);
+            background: rgba(255,255,255,0.92); border: none; border-radius: 50%;
+            width: 34px; height: 34px; font-size: 20px; cursor: pointer;
+            display: flex; align-items: center; justify-content: center; color: #333; transition: 0.2s; z-index: 5;
+        }
+        .slider-arrow:hover { background: #e91e63; color: white; }
+        .slider-arrow.prev { left: 10px; }
+        .slider-arrow.next { right: 10px; }
+
+        .slider-dots { display: flex; justify-content: center; gap: 7px; padding: 10px 0 6px; background: #f7f7f7; }
+        .dot { width: 8px; height: 8px; border-radius: 50%; background: #ccc; cursor: pointer; transition: 0.2s; }
+        .dot.active { background: #e91e63; }
+
+        .new-badge {
+            position: absolute; top: 14px; left: 14px; background: #e91e63; color: white;
+            font-size: 11px; font-weight: bold; padding: 4px 10px; border-radius: 4px; z-index: 5;
         }
 
-        .buy-btn:hover {
-            background: #c2185b;
+        /* ===== POPUP DETAILS ===== */
+        .popup-details { padding: 18px 22px 24px; }
+        .popup-details .sku { font-size: 12px; color: #999; margin-bottom: 5px; }
+        .popup-details h2 { font-size: 17px; font-weight: bold; color: #111; margin-bottom: 10px; line-height: 1.45; }
+        .popup-stars { font-size: 17px; margin-bottom: 13px; letter-spacing: 1px; }
+        .star-filled { color: #f5a623; }
+        .star-empty { color: #ddd; }
+        .popup-price { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 3px; }
+        .popup-price .offer { font-size: 22px; font-weight: bold; color: #111; }
+        .popup-price .mrp { font-size: 14px; color: #aaa; text-decoration: line-through; }
+        .popup-price .discount { font-size: 12px; background: #f0f0f0; color: #666; padding: 3px 10px; border-radius: 20px; }
+        .popup-tax { font-size: 12px; color: #999; margin-bottom: 15px; }
+        .popup-desc { font-size: 14px; color: #444; line-height: 1.65; margin-bottom: 16px; border-top: 1px solid #f0f0f0; padding-top: 14px; }
+        .size-label { font-size: 13px; font-weight: bold; color: #333; margin-bottom: 8px; }
+        .size-box { display: inline-block; border: 1.5px solid #333; padding: 8px 22px; border-radius: 6px; font-size: 14px; color: #333; margin-bottom: 18px; }
+        .popup-buy-btn {
+            display: block; width: 100%; padding: 14px; background: #e91e63; color: white;
+            text-align: center; text-decoration: none; border-radius: 8px; font-size: 15px;
+            font-weight: bold; letter-spacing: 1px; transition: 0.3s; min-height: 50px; line-height: 1.4;
         }
+        .popup-buy-btn:hover { background: #c2185b; }
 
-        /* ================= FOOTER ================= */
-        footer {
-            text-align: center;
-            padding: 20px 15px;
-            margin-top: 30px;
-            font-size: 14px;
-            line-height: 1.6;
-        }
+        /* ===== FOOTER ===== */
+        footer { text-align: center; padding: 20px 15px; margin-top: 30px; font-size: 14px; line-height: 1.6; }
 
-        /* ================= TABLET (max 768px) ================= */
+        /* ===== TABLET ===== */
         @media (max-width: 768px) {
-
-            /* Hide desktop nav links, show hamburger */
             .nav-links { display: none; }
             .menu-icon { display: block; }
-
-            .navbar {
-                padding: 15px 20px;
-            }
-
-            .navbar .logo img {
-                height: 42px;
-            }
-
-            /* Page title */
-            .page-title {
-                font-size: 24px;
-                margin: 40px 0 25px;
-            }
-
-            /* Product grid */
-            .product-grid {
-                grid-template-columns: 1fr 1fr; /* 2 columns on tablet */
-                gap: 20px;
-                padding: 0 20px 60px;
-            }
-
-            .product-card img {
-                height: 180px;
-            }
-
-            .product-card h3 {
-                font-size: 14px;
-            }
-
-            .buy-btn {
-                font-size: 13px;
-                padding: 8px 14px;
-                width: 100%;
-            }
+            .navbar { padding: 15px 20px; }
+            .navbar .logo img { height: 42px; }
+            .page-title { font-size: 24px; margin: 40px 0 25px; }
+            .product-grid { grid-template-columns: 1fr 1fr; gap: 20px; padding: 0 20px 60px; }
+            .product-card img { height: 180px; }
+            .product-card h3 { font-size: 14px; }
+            .buy-btn { font-size: 13px; padding: 8px 14px; }
+            .slides img { height: 240px; }
         }
 
-        /* ================= MOBILE (max 480px) ================= */
+        /* ===== MOBILE ===== */
         @media (max-width: 480px) {
-
-            .navbar {
-                padding: 12px 15px;
-            }
-
-            .navbar .logo img {
-                height: 36px;
-            }
-
-            .page-title {
-                font-size: 20px;
-                margin: 30px 0 20px;
-            }
-
-            /* Single column on phones */
-            .product-grid {
-                grid-template-columns: 1fr;
-                gap: 15px;
-                padding: 0 15px 50px;
-            }
-
-            .product-card {
-                padding: 15px;
-            }
-
-            .product-card img {
-                height: 200px;
-            }
-
-            .product-card h3 {
-                font-size: 15px;
-            }
-
-            footer {
-                font-size: 12px;
-                padding: 15px;
-            }
+            .navbar { padding: 12px 15px; }
+            .navbar .logo img { height: 36px; }
+            .page-title { font-size: 20px; margin: 30px 0 20px; }
+            .product-grid { grid-template-columns: 1fr; gap: 15px; padding: 0 15px 50px; }
+            .product-card { padding: 15px; }
+            .product-card img { height: 200px; }
+            .product-card h3 { font-size: 15px; }
+            footer { font-size: 12px; }
+            .popup-overlay { align-items: flex-end; padding: 0; }
+            .popup-box { max-width: 100%; border-radius: 18px 18px 0 0; }
+            .slides img { height: 210px; }
         }
     </style>
 </head>
-
 <body>
 
-<!-- ===== NAVBAR (Desktop) ===== -->
+<!-- NAVBAR -->
 <div class="navbar">
-    <!-- Hamburger: visible only on mobile -->
     <div class="menu-icon" onclick="openMenu()">☰</div>
-
-    <div class="logo">
-        <img src="smalllogo.png" alt="GT Logo">
-    </div>
-
-    <!-- Desktop nav links -->
+    <div class="logo"><img src="smalllogo.png" alt="GT Logo"></div>
     <ul class="nav-links">
         <li><a href="index.html">Home</a></li>
         <li><a href="index1.html">About</a></li>
@@ -337,17 +212,15 @@
     </ul>
 </div>
 
-<!-- ===== OVERLAY ===== -->
+<!-- PAGE OVERLAY (menu) -->
 <div class="overlay" id="overlay" onclick="closeMenu()"></div>
 
-<!-- ===== MOBILE SIDE MENU ===== -->
+<!-- SIDE MENU -->
 <div class="side-menu" id="sideMenu">
     <div class="close-btn" onclick="closeMenu()">×</div>
     <a href="index.html">Home</a>
     <a href="index1.html">About</a>
-    <div class="menu-item" onclick="toggleSideShop()">
-        Shop <span id="sideArrow">▾</span>
-    </div>
+    <div class="menu-item" onclick="toggleSideShop()">Shop <span id="sideArrow">▾</span></div>
     <div class="side-sub-menu" id="sideShopMenu">
         <a href="MEN.html">MEN</a>
         <a href="WOMEN.html">WOMEN</a>
@@ -355,49 +228,70 @@
     <a href="contact.html">Contact</a>
 </div>
 
-<!-- ===== PAGE TITLE ===== -->
+<!-- PAGE TITLE -->
 <h1 class="page-title">Essentials ✨</h1>
 
-<!-- ===== PRODUCT GRID ===== -->
+<!-- PRODUCT GRID -->
 <div class="product-grid">
 
     <div class="product-card">
+        <button class="eye-btn" onclick="openPopup(0)" aria-label="Quick view">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="#333" stroke-width="2"/></svg>
+        </button>
         <img src="wp1.PNG" alt="Body Mist Citrus Zest">
         <h3>Body Mist Citrus Zest<br>₹895</h3>
         <a href="https://bilty.co/4dTd2z" target="_blank" rel="nofollow noopener" class="buy-btn">Buy on SKINN</a>
     </div>
 
     <div class="product-card">
+        <button class="eye-btn" onclick="openPopup(1)" aria-label="Quick view">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="#333" stroke-width="2"/></svg>
+        </button>
         <img src="wp2.PNG" alt="Body Mist Lotus Bloom">
         <h3>Body Mist Lotus Bloom<br>₹895</h3>
         <a href="https://www.skinn.in/product/body-mist-lotus-bloom-fw31mq1.html" target="_blank" rel="nofollow noopener" class="buy-btn">Buy on SKINN</a>
     </div>
 
     <div class="product-card">
+        <button class="eye-btn" onclick="openPopup(2)" aria-label="Quick view">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="#333" stroke-width="2"/></svg>
+        </button>
         <img src="wp3.PNG" alt="Body Mist Apple Allure">
         <h3>SKINN Body Mist Apple Allure<br>₹895</h3>
         <a href="https://www.skinn.in/product/skinn-body-mist-apple-allure-fw33mq1.html" target="_blank" rel="nofollow noopener" class="buy-btn">Buy on SKINN</a>
     </div>
 
     <div class="product-card">
+        <button class="eye-btn" onclick="openPopup(3)" aria-label="Quick view">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="#333" stroke-width="2"/></svg>
+        </button>
         <img src="wp4.PNG" alt="Body Mist Velvet Indulgence">
         <h3>Body Mist Velvet Indulgence<br>₹895</h3>
         <a href="https://www.skinn.in/product/body-mist-velvet-indulgence-fw28mq1.html" target="_blank" rel="nofollow noopener" class="buy-btn">Buy on SKINN</a>
     </div>
 
     <div class="product-card">
+        <button class="eye-btn" onclick="openPopup(4)" aria-label="Quick view">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="#333" stroke-width="2"/></svg>
+        </button>
         <img src="wp5.PNG" alt="Body Mist Berry Rhapsody">
         <h3>Body Mist Berry Rhapsody<br>₹895</h3>
         <a href="https://www.skinn.in/product/body-mist-berry-rhapsody-fw27mq1.html" target="_blank" rel="nofollow noopener" class="buy-btn">Buy on SKINN</a>
     </div>
 
     <div class="product-card">
+        <button class="eye-btn" onclick="openPopup(5)" aria-label="Quick view">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="#333" stroke-width="2"/></svg>
+        </button>
         <img src="wp6.PNG" alt="SKINN Tales Vanilla">
         <h3>SKINN Tales Vanilla 100 ml Eau De Parfum<br>₹798</h3>
         <a href="https://www.skinn.in/product/skinn-tales-vanilla-100-ml-eau-de-parfum-ftlw03pc.html" target="_blank" rel="nofollow noopener" class="buy-btn">Buy on SKINN</a>
     </div>
 
     <div class="product-card">
+        <button class="eye-btn" onclick="openPopup(6)" aria-label="Quick view">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="#333" stroke-width="2"/></svg>
+        </button>
         <img src="wp7.PNG" alt="Skinn Deodorant Celeste Women">
         <h3>Skinn Deodorant Spray Celeste For Women<br>₹595</h3>
         <a href="https://www.skinn.in/product/skinn-deodorant-spray-celeste-for-women-fclw01dq.html" target="_blank" rel="nofollow noopener" class="buy-btn">Buy on SKINN</a>
@@ -405,7 +299,38 @@
 
 </div>
 
-<!-- ===== FOOTER ===== -->
+<!-- QUICK VIEW POPUP -->
+<div class="popup-overlay" id="popupOverlay" onclick="handleOverlayClick(event)">
+    <div class="popup-box" id="popupBox">
+        <button class="popup-close" onclick="closePopup()">×</button>
+
+        <div class="slider-wrap">
+            <span class="new-badge" id="popupBadge">New Drop</span>
+            <div class="slides" id="popupSlides"></div>
+            <button class="slider-arrow prev" onclick="slideMove(-1)">&#8249;</button>
+            <button class="slider-arrow next" onclick="slideMove(1)">&#8250;</button>
+            <div class="slider-dots" id="sliderDots"></div>
+        </div>
+
+        <div class="popup-details">
+            <div class="sku" id="popupSku"></div>
+            <h2 id="popupTitle"></h2>
+            <div class="popup-stars" id="popupStars"></div>
+            <div class="popup-price">
+                <span class="offer" id="popupOffer"></span>
+                <span class="mrp" id="popupMrp"></span>
+                <span class="discount" id="popupDiscount"></span>
+            </div>
+            <div class="popup-tax">(Inclusive of all taxes)</div>
+            <div class="popup-desc" id="popupDesc"></div>
+            <div class="size-label">Size</div>
+            <div class="size-box" id="popupSize"></div>
+            <a class="popup-buy-btn" id="popupBuyBtn" target="_blank" rel="nofollow noopener">BUY ON SKINN</a>
+        </div>
+    </div>
+</div>
+
+<!-- FOOTER -->
 <footer>
     <p>Disclaimer: GT is an affiliate of SKINN.<br>
     We earn a small commission if you purchase through our links at no extra cost to you.</p>
@@ -413,43 +338,201 @@
 </footer>
 
 <script>
-    /* ---- Desktop dropdown ---- */
-    function toggleDropdown(event) {
-        event.preventDefault();
-        var dropdown = document.getElementById("shopDropdown");
-        dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+/* ======= PRODUCT DATA ======= */
+/* To add more images per product, add more filenames to the images array e.g. ["wp1.PNG","wp1b.PNG","wp1c.PNG"] */
+const products = [
+    {
+        sku: "FW29MQ1",
+        title: "Body Mist Citrus Zest",
+        stars: 4,
+        offer: "₹895",
+        mrp: "₹999",
+        discount: "10% OFF",
+        size: "200 ml",
+        badge: false,
+        desc: "A zesty citrus burst that keeps you fresh all day. Infused with top notes of lemon and orange, this light body mist is perfect for everyday wear. Leaves a subtle trail of freshness on your skin.",
+        images: ["wp1.PNG"],
+        link: "https://bilty.co/4dTd2z"
+    },
+    {
+        sku: "FW31MQ1",
+        title: "Body Mist Lotus Bloom",
+        stars: 4,
+        offer: "₹895",
+        mrp: "₹999",
+        discount: "10% OFF",
+        size: "200 ml",
+        badge: false,
+        desc: "Delicate lotus blossoms meet soft aquatic notes in this graceful body mist. Gentle, feminine, and long-lasting — ideal for daily use or layering with your favourite perfume.",
+        images: ["wp2.PNG"],
+        link: "https://www.skinn.in/product/body-mist-lotus-bloom-fw31mq1.html"
+    },
+    {
+        sku: "FW33MQ1",
+        title: "SKINN Body Mist Apple Allure",
+        stars: 4,
+        offer: "₹895",
+        mrp: "₹999",
+        discount: "10% OFF",
+        size: "200 ml",
+        badge: true,
+        desc: "Sweet, crisp apple notes blend with warm woody undertones in this alluring body mist. A fruity yet sophisticated scent that lingers beautifully through the day.",
+        images: ["wp3.PNG"],
+        link: "https://www.skinn.in/product/skinn-body-mist-apple-allure-fw33mq1.html"
+    },
+    {
+        sku: "FW28MQ1",
+        title: "Body Mist Velvet Indulgence",
+        stars: 5,
+        offer: "₹895",
+        mrp: "₹999",
+        discount: "10% OFF",
+        size: "200 ml",
+        badge: false,
+        desc: "Rich and sensuous, Velvet Indulgence wraps you in warm vanilla and musk. A luxurious everyday mist that feels like a second skin — great for evenings and special occasions.",
+        images: ["wp4.PNG"],
+        link: "https://www.skinn.in/product/body-mist-velvet-indulgence-fw28mq1.html"
+    },
+    {
+        sku: "FW27MQ1",
+        title: "Body Mist Berry Rhapsody",
+        stars: 4,
+        offer: "₹895",
+        mrp: "₹999",
+        discount: "10% OFF",
+        size: "200 ml",
+        badge: false,
+        desc: "A playful burst of wild berries layered over floral heart notes. Berry Rhapsody is vibrant, youthful, and utterly refreshing — the perfect companion for sunny days.",
+        images: ["wp5.PNG"],
+        link: "https://www.skinn.in/product/body-mist-berry-rhapsody-fw27mq1.html"
+    },
+    {
+        sku: "FTLW03PC",
+        title: "SKINN Tales Vanilla 100 ml Eau De Parfum",
+        stars: 5,
+        offer: "₹798",
+        mrp: "₹1,095",
+        discount: "27% OFF",
+        size: "100 ml",
+        badge: true,
+        desc: "A warm, comforting vanilla EDP crafted for those who love soft oriental fragrances. Opens with sweet caramel and dries down to a creamy sandalwood base. Long-lasting and skin-safe.",
+        images: ["wp6.PNG"],
+        link: "https://www.skinn.in/product/skinn-tales-vanilla-100-ml-eau-de-parfum-ftlw03pc.html"
+    },
+    {
+        sku: "FCLW01DQ",
+        title: "Skinn Deodorant Spray Celeste For Women",
+        stars: 4,
+        offer: "₹595",
+        mrp: "₹695",
+        discount: "14% OFF",
+        size: "150 ml",
+        badge: false,
+        desc: "Stay fresh with 48-hour odour protection. Celeste Deodorant features a light floral fragrance that pairs beautifully with the Celeste perfume range. Alcohol-free formula, gentle on skin.",
+        images: ["wp7.PNG"],
+        link: "https://www.skinn.in/product/skinn-deodorant-spray-celeste-for-women-fclw01dq.html"
     }
+];
 
-    document.addEventListener("click", function(event) {
-        if (!event.target.closest(".dropdown")) {
-            document.getElementById("shopDropdown").style.display = "none";
-        }
-    });
+/* ======= SLIDER STATE ======= */
+let currentSlide = 0;
+let totalSlides = 0;
 
-    /* ---- Mobile side menu ---- */
-    function openMenu() {
-        document.getElementById("sideMenu").style.left = "0";
-        document.getElementById("overlay").classList.add("active");
-        document.body.style.overflow = "hidden";
-    }
+function openPopup(index) {
+    const p = products[index];
+    currentSlide = 0;
+    totalSlides = p.images.length;
 
-    function closeMenu() {
-        document.getElementById("sideMenu").style.left = "-260px";
-        document.getElementById("overlay").classList.remove("active");
-        document.body.style.overflow = "";
-    }
+    document.getElementById("popupBadge").style.display = p.badge ? "block" : "none";
 
-    function toggleSideShop() {
-        var sub = document.getElementById("sideShopMenu");
-        var arrow = document.getElementById("sideArrow");
-        if (sub.style.display === "flex") {
-            sub.style.display = "none";
-            arrow.classList.remove("rotate");
-        } else {
-            sub.style.display = "flex";
-            arrow.classList.add("rotate");
-        }
-    }
+    const slidesEl = document.getElementById("popupSlides");
+    slidesEl.innerHTML = p.images.map(src => `<img src="${src}" alt="${p.title}">`).join("");
+    slidesEl.style.transform = "translateX(0)";
+
+    const dotsEl = document.getElementById("sliderDots");
+    dotsEl.innerHTML = p.images.map((_, i) =>
+        `<div class="dot ${i===0?'active':''}" onclick="goToSlide(${i})"></div>`
+    ).join("");
+
+    const showArrows = totalSlides > 1;
+    document.querySelector(".slider-arrow.prev").style.display = showArrows ? "flex" : "none";
+    document.querySelector(".slider-arrow.next").style.display = showArrows ? "flex" : "none";
+
+    document.getElementById("popupSku").textContent = p.sku;
+    document.getElementById("popupTitle").textContent = p.title;
+
+    const starsEl = document.getElementById("popupStars");
+    starsEl.innerHTML =
+        '<span class="star-filled">' + "★".repeat(p.stars) + '</span>' +
+        '<span class="star-empty">' + "★".repeat(5 - p.stars) + '</span>';
+
+    document.getElementById("popupOffer").textContent = p.offer;
+    document.getElementById("popupMrp").textContent = "MRP " + p.mrp;
+    document.getElementById("popupDiscount").textContent = p.discount;
+    document.getElementById("popupDesc").textContent = p.desc;
+    document.getElementById("popupSize").textContent = p.size;
+    document.getElementById("popupBuyBtn").href = p.link;
+
+    document.getElementById("popupOverlay").classList.add("open");
+    document.body.style.overflow = "hidden";
+}
+
+function closePopup() {
+    document.getElementById("popupOverlay").classList.remove("open");
+    document.body.style.overflow = "";
+}
+
+function handleOverlayClick(e) {
+    if (e.target === document.getElementById("popupOverlay")) closePopup();
+}
+
+function slideMove(dir) {
+    currentSlide = (currentSlide + dir + totalSlides) % totalSlides;
+    goToSlide(currentSlide);
+}
+
+function goToSlide(n) {
+    currentSlide = n;
+    document.getElementById("popupSlides").style.transform = `translateX(-${n * 100}%)`;
+    document.querySelectorAll(".dot").forEach((d, i) => d.classList.toggle("active", i === n));
+}
+
+/* Touch swipe */
+let touchStartX = 0;
+document.getElementById("popupSlides").addEventListener("touchstart", e => { touchStartX = e.touches[0].clientX; });
+document.getElementById("popupSlides").addEventListener("touchend", e => {
+    const diff = touchStartX - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 40) slideMove(diff > 0 ? 1 : -1);
+});
+
+/* ESC to close */
+document.addEventListener("keydown", e => { if (e.key === "Escape") closePopup(); });
+
+/* ======= NAV ======= */
+function toggleDropdown(event) {
+    event.preventDefault();
+    var dd = document.getElementById("shopDropdown");
+    dd.style.display = dd.style.display === "block" ? "none" : "block";
+}
+document.addEventListener("click", function(e) {
+    if (!e.target.closest(".dropdown")) document.getElementById("shopDropdown").style.display = "none";
+});
+function openMenu() {
+    document.getElementById("sideMenu").style.left = "0";
+    document.getElementById("overlay").classList.add("active");
+    document.body.style.overflow = "hidden";
+}
+function closeMenu() {
+    document.getElementById("sideMenu").style.left = "-260px";
+    document.getElementById("overlay").classList.remove("active");
+    document.body.style.overflow = "";
+}
+function toggleSideShop() {
+    var sub = document.getElementById("sideShopMenu");
+    var arrow = document.getElementById("sideArrow");
+    if (sub.style.display === "flex") { sub.style.display = "none"; arrow.classList.remove("rotate"); }
+    else { sub.style.display = "flex"; arrow.classList.add("rotate"); }
+}
 </script>
 
 </body>
