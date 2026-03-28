@@ -9,7 +9,7 @@
 
 <style>
 * { margin:0; padding:0; box-sizing:border-box; }
-body { font-family: 'Lato', sans-serif; background:#fff; }
+body { font-family: 'Lato', sans-serif; background:#fff; overflow-x:hidden; }
 
 /* ================= TOP BAR ================= */
 .topbar {
@@ -118,10 +118,14 @@ body { font-family: 'Lato', sans-serif; background:#fff; }
 }
 
 /* ================= HERO ================= */
+.hero {
+    width:100%;
+    overflow:hidden;
+}
+
 .hero img {
     width:100%;
     height:auto;
-    object-fit:contain;
     display:block;
 }
 
@@ -246,6 +250,12 @@ footer {
     .logo img { height: 45px; }
     .menu-icon { font-size: 24px; left: 10px; }
 
+    .hero img {
+        height: 220px;
+        object-fit: cover;
+        object-position: center;
+    }
+
     .categories { padding: 40px 15px; }
 
     .category-buttons {
@@ -287,6 +297,13 @@ footer {
 
     .topbar { height: 60px; }
     .logo img { height: 38px; }
+
+    .hero img {
+        height: 180px;
+        object-fit: cover;
+        object-position: center;
+    }
+
     .products h2 { font-size: 18px; }
 
     .category-btn {
