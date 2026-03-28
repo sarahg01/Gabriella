@@ -5,10 +5,11 @@
     <title>MEN | GT</title>
     <link rel="icon" type="image/png" href="favicon.png?v=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
 
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: Arial, sans-serif; }
+        body { font-family: 'Lato', sans-serif; }
 
         /* ===== NAVBAR ===== */
         .navbar {
@@ -22,7 +23,6 @@
             gap: 14px;
         }
 
-        /* Hamburger — top left */
         .menu-icon {
             font-size: 26px;
             color: white;
@@ -35,7 +35,6 @@
         }
         .menu-icon:hover { color: #e91e63; }
 
-        /* Search bar — right side */
         .search-wrap {
             display: flex;
             align-items: center;
@@ -58,11 +57,11 @@
             outline: none;
             color: white;
             font-size: 14px;
+            font-family: 'Lato', sans-serif;
             width: 100%;
         }
         .search-input::placeholder { color: #888; }
 
-        /* Search results dropdown */
         .search-results {
             display: none;
             position: absolute;
@@ -86,6 +85,7 @@
             text-decoration: none;
             color: #111;
             transition: background 0.15s;
+            font-family: 'Lato', sans-serif;
         }
         .search-result-item:last-child { border-bottom: none; }
         .search-result-item:hover { background: #fce4ec; }
@@ -95,9 +95,8 @@
         }
         .search-result-name { font-size: 13px; font-weight: 600; line-height: 1.35; }
         .search-result-price { font-size: 12px; color: #e91e63; margin-top: 2px; }
-        .search-no-result { padding: 16px; font-size: 13px; color: #888; text-align: center; }
+        .search-no-result { padding: 16px; font-size: 13px; color: #888; text-align: center; font-family: 'Lato', sans-serif; }
 
-        /* Nav links hidden */
         .nav-links { display: none; }
 
         /* ===== OVERLAY ===== */
@@ -118,6 +117,7 @@
         .side-menu.open { left: 0; }
         .side-menu a, .side-menu .menu-item {
             color: white; text-decoration: none; padding: 14px 24px; font-size: 16px;
+            font-family: 'Lato', sans-serif;
             cursor: pointer; display: flex; justify-content: space-between;
             align-items: center; min-height: 48px; border-bottom: 1px solid #111;
         }
@@ -133,7 +133,14 @@
         #sideArrow.rotate { transform: rotate(180deg); }
 
         /* ===== PAGE ===== */
-        .page-title { text-align: center; margin: 60px 0 40px; font-size: 32px; color: #e91e63; }
+        .page-title {
+            text-align: center;
+            margin: 60px 0 40px;
+            font-size: 32px;
+            color: #e91e63;
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+        }
 
         .product-grid {
             display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
@@ -146,13 +153,20 @@
         }
         .product-card:hover { transform: translateY(-5px); box-shadow: 0 6px 18px rgba(0,0,0,0.15); }
         .product-card img { width: 100%; height: 220px; object-fit: contain; background: #fff; padding: 10px; }
-        .product-card h3 { margin-top: 15px; font-size: 16px; }
+        .product-card h3 {
+            margin-top: 15px;
+            font-size: 15px;
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+            line-height: 1.5;
+        }
 
         .buy-btn {
             display: inline-flex; align-items: center; justify-content: center;
             margin-top: 15px; padding: 10px 20px; background: #e91e63; color: white;
-            text-decoration: none; border-radius: 6px; font-size: 14px; min-height: 44px;
-            width: 100%; transition: 0.3s;
+            text-decoration: none; border-radius: 6px; font-size: 14px;
+            font-family: 'Lato', sans-serif; font-weight: 700; letter-spacing: 0.5px;
+            min-height: 44px; width: 100%; transition: 0.3s;
         }
         .buy-btn:hover { background: #c2185b; }
 
@@ -203,10 +217,14 @@
         .new-badge {
             position: absolute; top: 14px; left: 14px; background: #e91e63; color: white;
             font-size: 11px; font-weight: bold; padding: 4px 10px; border-radius: 4px; z-index: 5;
+            font-family: 'Lato', sans-serif; letter-spacing: 1px;
         }
-        .popup-details { padding: 18px 22px 24px; }
+        .popup-details { padding: 18px 22px 24px; font-family: 'Lato', sans-serif; }
         .popup-details .sku { font-size: 12px; color: #999; margin-bottom: 5px; }
-        .popup-details h2 { font-size: 17px; font-weight: bold; color: #111; margin-bottom: 10px; line-height: 1.45; }
+        .popup-details h2 {
+            font-size: 17px; font-weight: bold; color: #111; margin-bottom: 10px; line-height: 1.45;
+            font-family: 'Playfair Display', serif;
+        }
         .popup-stars { font-size: 17px; margin-bottom: 13px; letter-spacing: 1px; }
         .star-filled { color: #f5a623; }
         .star-empty { color: #ddd; }
@@ -221,18 +239,23 @@
         .popup-buy-btn {
             display: block; width: 100%; padding: 14px; background: #e91e63; color: white;
             text-align: center; text-decoration: none; border-radius: 8px; font-size: 15px;
-            font-weight: bold; letter-spacing: 1px; transition: 0.3s; min-height: 50px; line-height: 1.4;
+            font-family: 'Lato', sans-serif; font-weight: bold; letter-spacing: 1px;
+            transition: 0.3s; min-height: 50px; line-height: 1.4;
         }
         .popup-buy-btn:hover { background: #c2185b; }
 
-        footer { text-align: center; padding: 20px 15px; margin-top: 30px; font-size: 14px; line-height: 1.6; }
+        footer {
+            text-align: center; padding: 20px 15px; margin-top: 30px;
+            font-size: 14px; line-height: 1.6;
+            font-family: 'Lato', sans-serif; color: #555;
+        }
 
         /* ===== RESPONSIVE ===== */
         @media (max-width: 768px) {
             .page-title { font-size: 24px; margin: 40px 0 25px; }
             .product-grid { grid-template-columns: 1fr 1fr; gap: 20px; padding: 0 20px 60px; }
             .product-card img { height: 180px; }
-            .product-card h3 { font-size: 14px; }
+            .product-card h3 { font-size: 13px; }
             .buy-btn { font-size: 13px; padding: 8px 14px; }
             .slides img { height: 240px; }
             .search-wrap { max-width: 220px; }
@@ -245,7 +268,7 @@
             .product-grid { grid-template-columns: 1fr; gap: 15px; padding: 0 15px 50px; }
             .product-card { padding: 15px; }
             .product-card img { height: 200px; }
-            .product-card h3 { font-size: 15px; }
+            .product-card h3 { font-size: 14px; }
             footer { font-size: 12px; }
             .popup-overlay { align-items: flex-end; padding: 0; }
             .popup-box { max-width: 100%; border-radius: 18px 18px 0 0; }
@@ -258,10 +281,7 @@
 
 <!-- NAVBAR -->
 <div class="navbar">
-    <!-- Hamburger — top left -->
     <button class="menu-icon" onclick="openMenu()" aria-label="Open menu">☰</button>
-
-    <!-- Search bar — right -->
     <div class="search-wrap">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
             <circle cx="11" cy="11" r="8" stroke="#888" stroke-width="2"/>
@@ -299,7 +319,7 @@
 </div>
 
 <!-- PAGE TITLE -->
-<h1 class="page-title">Get your daily dose of Radiance!!</h1>
+<h1 class="page-title">Power. Presence. Perfume</h1>
 
 <!-- PRODUCT GRID -->
 <div class="product-grid">
@@ -483,7 +503,6 @@
 </footer>
 
 <script>
-/* ======= PRODUCT DATA ======= */
 const products = [
     { sku:"FCLM04PC", title:"Skinn by Titan Nova for Men - 100 ml", stars:4, offer:"₹3,095", mrp:"₹3,595", discount:"14% OFF", size:"100 ml", badge:true, desc:"Nova is a bold, sophisticated fragrance for the modern man. Fresh top notes of bergamot and grapefruit open into a heart of cedarwood and vetiver, settling into a warm base of amber and musk. Long-lasting and commanding.", images:["mp1.PNG"], link:"https://www.skinn.in/product/skinn-by-titan-nova-for-men---100-ml-fclm04pc.html" },
     { sku:"FAQU02PK", title:"Skinn Amalfi Riviera Unisex Eau de Parfum 90 ml", stars:5, offer:"₹3,095", mrp:"₹3,595", discount:"14% OFF", size:"90 ml", badge:true, desc:"Inspired by the sun-kissed coasts of the Amalfi Riviera, this unisex EDP opens with sparkling citrus and sea breeze notes, blossoming into a floral heart with a warm driftwood base. Effortlessly elegant.", images:["mp2.PNG"], link:"https://www.skinn.in/product/skinn-amalfi-riviera-unisex-eau-de-parfum-90-ml-faqu02pk.html" },
@@ -507,7 +526,6 @@ const products = [
     { sku:"DEOAMALFIBLUEMEN", title:"Skinn Deodorant Spray Amalfi Bleu For Men", stars:4, offer:"₹595", mrp:"₹695", discount:"14% OFF", size:"150 ml", badge:false, desc:"Skinn Amalfi Bleu Deodorant Spray brings the fresh, aquatic spirit of Amalfi Bleu into an everyday deodorant. Crisp marine notes and lavender keep you cool and refreshed from morning through evening.", images:["mp20.PNG"], link:"https://bilty.co/iPLhA7" }
 ];
 
-/* ===== SEARCH ===== */
 const navLinks = [
     { name: "Home", url: "index.html" },
     { name: "About", url: "index1.html" },
@@ -520,39 +538,19 @@ function handleSearch(query) {
     const resultsEl = document.getElementById("searchResults");
     const q = query.trim().toLowerCase();
     if (!q) { resultsEl.classList.remove("open"); resultsEl.innerHTML = ""; return; }
-
     const matchedNav = navLinks.filter(n => n.name.toLowerCase().includes(q));
-    const matchedProducts = products
-        .map((p, i) => ({ ...p, index: i }))
-        .filter(p => p.title.toLowerCase().includes(q))
-        .slice(0, 5);
-
+    const matchedProducts = products.map((p, i) => ({ ...p, index: i })).filter(p => p.title.toLowerCase().includes(q)).slice(0, 5);
     if (matchedNav.length === 0 && matchedProducts.length === 0) {
         resultsEl.innerHTML = `<div class="search-no-result">No results for "${query}"</div>`;
-        resultsEl.classList.add("open");
-        return;
+        resultsEl.classList.add("open"); return;
     }
-
     let html = "";
     matchedNav.forEach(n => {
-        html += `<a class="search-result-item" href="${n.url}">
-            <div style="width:42px;height:42px;display:flex;align-items:center;justify-content:center;background:#f7f7f7;border-radius:6px;flex-shrink:0;font-size:20px;">🔗</div>
-            <div>
-                <div class="search-result-name">${n.name}</div>
-                <div class="search-result-price" style="color:#888;">Page</div>
-            </div>
-        </a>`;
+        html += `<a class="search-result-item" href="${n.url}"><div style="width:42px;height:42px;display:flex;align-items:center;justify-content:center;background:#f7f7f7;border-radius:6px;flex-shrink:0;font-size:20px;">🔗</div><div><div class="search-result-name">${n.name}</div><div class="search-result-price" style="color:#888;">Page</div></div></a>`;
     });
     matchedProducts.forEach(p => {
-        html += `<div class="search-result-item" onclick="openPopup(${p.index}); closeSearchResults();">
-            <img src="${p.images[0]}" alt="${p.title}">
-            <div>
-                <div class="search-result-name">${p.title}</div>
-                <div class="search-result-price">${p.offer}</div>
-            </div>
-        </div>`;
+        html += `<div class="search-result-item" onclick="openPopup(${p.index}); closeSearchResults();"><img src="${p.images[0]}" alt="${p.title}"><div><div class="search-result-name">${p.title}</div><div class="search-result-price">${p.offer}</div></div></div>`;
     });
-
     resultsEl.innerHTML = html;
     resultsEl.classList.add("open");
 }
@@ -563,12 +561,9 @@ function closeSearchResults() {
 }
 
 document.addEventListener("click", function(e) {
-    if (!e.target.closest(".search-wrap")) {
-        document.getElementById("searchResults").classList.remove("open");
-    }
+    if (!e.target.closest(".search-wrap")) document.getElementById("searchResults").classList.remove("open");
 });
 
-/* ===== SLIDER ===== */
 let currentSlide = 0, totalSlides = 0;
 
 function openPopup(index) {
@@ -618,7 +613,6 @@ document.getElementById("popupSlides").addEventListener("touchend", e => {
 
 document.addEventListener("keydown", e => { if (e.key === "Escape") closePopup(); });
 
-/* ===== SIDE MENU ===== */
 function openMenu() {
     document.getElementById("sideMenu").classList.add("open");
     document.getElementById("overlay").classList.add("active");
