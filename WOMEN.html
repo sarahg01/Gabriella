@@ -10,52 +10,136 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: Arial, sans-serif; }
 
+        /* ===== NAVBAR ===== */
         .navbar {
-            background: #000; padding: 20px 50px;
-            display: flex; justify-content: space-between; align-items: center;
-            position: relative; z-index: 1001;
+            background: #000;
+            padding: 14px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+            z-index: 1001;
+            gap: 14px;
         }
-        .navbar .logo img { height: 50px; object-fit: contain; }
-        .nav-links { list-style: none; display: flex; gap: 30px; }
-        .nav-links a { color: white; text-decoration: none; font-weight: bold; }
-        .dropdown-content {
-            display: none; position: absolute; background: white; min-width: 160px;
-            top: 40px; left: 0; box-shadow: 0px 5px 15px rgba(0,0,0,0.2);
-            border-radius: 6px; overflow: hidden; z-index: 999;
-        }
-        .dropdown-content a { display: block; padding: 12px; color: black; text-decoration: none; }
-        .dropdown-content a:hover { background: #f2f2f2; }
 
-        .menu-icon { display: none; font-size: 26px; color: white; cursor: pointer; padding: 8px; }
+        /* Hamburger — top left */
+        .menu-icon {
+            font-size: 26px;
+            color: white;
+            cursor: pointer;
+            padding: 6px 8px;
+            flex-shrink: 0;
+            line-height: 1;
+            background: none;
+            border: none;
+        }
+        .menu-icon:hover { color: #e91e63; }
 
-        .side-menu {
-            position: fixed; top: 0; left: -260px; width: 260px; height: 100%;
-            background: #000; display: flex; flex-direction: column;
-            padding-top: 70px; transition: 0.4s ease; z-index: 1002; overflow-y: auto;
+        /* Search bar — right side */
+        .search-wrap {
+            display: flex;
+            align-items: center;
+            background: #1a1a1a;
+            border: 1.5px solid #333;
+            border-radius: 30px;
+            padding: 7px 16px;
+            gap: 8px;
+            flex: 1;
+            max-width: 380px;
+            margin-left: auto;
+            transition: border-color 0.2s;
         }
-        .side-menu a, .side-menu .menu-item {
-            color: white; text-decoration: none; padding: 15px 25px; font-size: 17px;
-            cursor: pointer; display: flex; justify-content: space-between; align-items: center; min-height: 50px;
+        .search-wrap:focus-within { border-color: #e91e63; }
+        .search-wrap svg { flex-shrink: 0; }
+        .search-input {
+            background: none;
+            border: none;
+            outline: none;
+            color: white;
+            font-size: 14px;
+            width: 100%;
         }
-        .side-menu a:hover, .side-menu .menu-item:hover { background: #111; }
-        .side-menu .close-btn {
-            position: absolute; top: 18px; right: 18px; font-size: 28px;
-            cursor: pointer; color: white; padding: 6px; line-height: 1;
-        }
-        .side-sub-menu { display: none; flex-direction: column; background: #111; }
-        .side-sub-menu a { padding-left: 45px; font-size: 15px; }
-        .rotate { transform: rotate(180deg); transition: 0.3s; }
+        .search-input::placeholder { color: #888; }
 
+        /* Search results dropdown */
+        .search-results {
+            display: none;
+            position: absolute;
+            top: calc(100% + 6px);
+            right: 0;
+            width: 320px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.18);
+            z-index: 2000;
+            overflow: hidden;
+        }
+        .search-results.open { display: block; }
+        .search-result-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 11px 16px;
+            cursor: pointer;
+            border-bottom: 1px solid #f5f5f5;
+            text-decoration: none;
+            color: #111;
+            transition: background 0.15s;
+        }
+        .search-result-item:last-child { border-bottom: none; }
+        .search-result-item:hover { background: #fce4ec; }
+        .search-result-item img {
+            width: 42px; height: 42px; object-fit: contain;
+            background: #f7f7f7; border-radius: 6px; flex-shrink: 0;
+        }
+        .search-result-name { font-size: 13px; font-weight: 600; line-height: 1.35; }
+        .search-result-price { font-size: 12px; color: #e91e63; margin-top: 2px; }
+        .search-no-result { padding: 16px; font-size: 13px; color: #888; text-align: center; }
+
+        /* Nav links (hidden — using side menu only) */
+        .nav-links { display: none; }
+
+        /* ===== OVERLAY ===== */
         .overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.5); opacity: 0; visibility: hidden; transition: 0.3s; z-index: 1000;
+            background: rgba(0,0,0,0.5); opacity: 0; visibility: hidden;
+            transition: 0.3s; z-index: 1000;
         }
         .overlay.active { opacity: 1; visibility: visible; }
 
+        /* ===== SIDE MENU ===== */
+        .side-menu {
+            position: fixed; top: 0; left: -270px; width: 260px; height: 100%;
+            background: #000; display: flex; flex-direction: column;
+            padding-top: 70px; transition: 0.35s cubic-bezier(.4,0,.2,1);
+            z-index: 1002; overflow-y: auto;
+        }
+        .side-menu.open { left: 0; }
+
+        .side-menu a, .side-menu .menu-item {
+            color: white; text-decoration: none; padding: 14px 24px; font-size: 16px;
+            cursor: pointer; display: flex; justify-content: space-between;
+            align-items: center; min-height: 48px; border-bottom: 1px solid #111;
+        }
+        .side-menu a:hover, .side-menu .menu-item:hover { background: #181818; color: #e91e63; }
+        .side-menu .close-btn {
+            position: absolute; top: 16px; right: 16px; font-size: 28px;
+            cursor: pointer; color: white; padding: 6px; line-height: 1; background: none; border: none;
+        }
+        .side-menu .close-btn:hover { color: #e91e63; }
+
+        .side-sub-menu { display: none; flex-direction: column; background: #111; }
+        .side-sub-menu a { padding-left: 44px; font-size: 15px; border-bottom: 1px solid #1a1a1a; }
+        #sideArrow { transition: transform 0.3s; display: inline-block; }
+        #sideArrow.rotate { transform: rotate(180deg); }
+
+        /* ===== PAGE ===== */
         .page-title { text-align: center; margin: 60px 0 40px; font-size: 32px; color: #e91e63; }
 
-        .product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 30px; padding: 0 60px 80px; }
-
+        .product-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 30px; padding: 0 60px 80px;
+        }
         .product-card {
             background: white; padding: 20px; border-radius: 12px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.08); text-align: center;
@@ -84,30 +168,27 @@
         .eye-btn:hover svg path, .eye-btn:hover svg circle { stroke: white; }
         .eye-btn svg { width: 17px; height: 17px; }
 
+        /* ===== POPUP ===== */
         .popup-overlay {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.65); z-index: 2000;
             align-items: center; justify-content: center; padding: 20px;
         }
         .popup-overlay.open { display: flex; }
-
         .popup-box {
             background: white; border-radius: 14px; width: 100%; max-width: 420px;
             max-height: 90vh; overflow-y: auto; position: relative;
             animation: popIn 0.22s ease;
         }
         @keyframes popIn { from { transform: scale(0.93); opacity:0; } to { transform: scale(1); opacity:1; } }
-
         .popup-close {
             position: absolute; top: 12px; right: 16px; font-size: 26px;
             cursor: pointer; color: #555; z-index: 10; line-height: 1; background: none; border: none;
         }
         .popup-close:hover { color: #e91e63; }
-
         .slider-wrap { position: relative; background: #f7f7f7; border-radius: 14px 14px 0 0; overflow: hidden; }
         .slides { display: flex; transition: transform 0.32s ease; }
         .slides img { min-width: 100%; height: 280px; object-fit: contain; padding: 20px; background: #f7f7f7; }
-
         .slider-arrow {
             position: absolute; top: 50%; transform: translateY(-50%);
             background: rgba(255,255,255,0.92); border: none; border-radius: 50%;
@@ -117,16 +198,13 @@
         .slider-arrow:hover { background: #e91e63; color: white; }
         .slider-arrow.prev { left: 10px; }
         .slider-arrow.next { right: 10px; }
-
         .slider-dots { display: flex; justify-content: center; gap: 7px; padding: 10px 0 6px; background: #f7f7f7; }
         .dot { width: 8px; height: 8px; border-radius: 50%; background: #ccc; cursor: pointer; transition: 0.2s; }
         .dot.active { background: #e91e63; }
-
         .new-badge {
             position: absolute; top: 14px; left: 14px; background: #e91e63; color: white;
             font-size: 11px; font-weight: bold; padding: 4px 10px; border-radius: 4px; z-index: 5;
         }
-
         .popup-details { padding: 18px 22px 24px; }
         .popup-details .sku { font-size: 12px; color: #999; margin-bottom: 5px; }
         .popup-details h2 { font-size: 17px; font-weight: bold; color: #111; margin-bottom: 10px; line-height: 1.45; }
@@ -150,22 +228,20 @@
 
         footer { text-align: center; padding: 20px 15px; margin-top: 30px; font-size: 14px; line-height: 1.6; }
 
+        /* ===== RESPONSIVE ===== */
         @media (max-width: 768px) {
-            .nav-links { display: none; }
-            .menu-icon { display: block; }
-            .navbar { padding: 15px 20px; }
-            .navbar .logo img { height: 42px; }
             .page-title { font-size: 24px; margin: 40px 0 25px; }
             .product-grid { grid-template-columns: 1fr 1fr; gap: 20px; padding: 0 20px 60px; }
             .product-card img { height: 180px; }
             .product-card h3 { font-size: 14px; }
             .buy-btn { font-size: 13px; padding: 8px 14px; }
             .slides img { height: 240px; }
+            .search-wrap { max-width: 220px; }
         }
 
         @media (max-width: 480px) {
-            .navbar { padding: 12px 15px; }
-            .navbar .logo img { height: 36px; }
+            .navbar { padding: 12px 14px; }
+            .search-wrap { max-width: 180px; padding: 6px 12px; }
             .page-title { font-size: 20px; margin: 30px 0 20px; }
             .product-grid { grid-template-columns: 1fr; gap: 15px; padding: 0 15px 50px; }
             .product-card { padding: 15px; }
@@ -175,6 +251,7 @@
             .popup-overlay { align-items: flex-end; padding: 0; }
             .popup-box { max-width: 100%; border-radius: 18px 18px 0 0; }
             .slides img { height: 210px; }
+            .search-results { width: 260px; right: -10px; }
         }
     </style>
 </head>
@@ -182,32 +259,42 @@
 
 <!-- NAVBAR -->
 <div class="navbar">
-    <div class="menu-icon" onclick="openMenu()">☰</div>
-    <div class="logo"><img src="smalllogo.png" alt="GT Logo"></div>
-    <ul class="nav-links">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="index1.html">About</a></li>
-        <li class="dropdown" style="position:relative;">
-            <a href="#" onclick="toggleDropdown(event)">Shop</a>
-            <div class="dropdown-content" id="shopDropdown">
-                <a href="MEN.html">MEN</a>
-                <a href="WOMEN.html">WOMEN</a>
-            </div>
-        </li>
-        <li><a href="contact.html">Contact</a></li>
-    </ul>
+    <!-- Hamburger — top left -->
+    <button class="menu-icon" onclick="openMenu()" aria-label="Open menu">☰</button>
+
+    <!-- Search bar — right -->
+    <div class="search-wrap" style="position:relative;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+            <circle cx="11" cy="11" r="8" stroke="#888" stroke-width="2"/>
+            <path d="M21 21l-4.35-4.35" stroke="#888" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        <input
+            class="search-input"
+            id="searchInput"
+            type="text"
+            placeholder="Search products..."
+            autocomplete="off"
+            oninput="handleSearch(this.value)"
+            onfocus="handleSearch(this.value)"
+        >
+        <div class="search-results" id="searchResults"></div>
+    </div>
 </div>
 
+<!-- Overlay -->
 <div class="overlay" id="overlay" onclick="closeMenu()"></div>
 
+<!-- Side Menu -->
 <div class="side-menu" id="sideMenu">
-    <div class="close-btn" onclick="closeMenu()">×</div>
+    <button class="close-btn" onclick="closeMenu()" aria-label="Close menu">×</button>
     <a href="index.html">Home</a>
     <a href="index1.html">About</a>
-    <div class="menu-item" onclick="toggleSideShop()">Shop <span id="sideArrow">▾</span></div>
+    <div class="menu-item" onclick="toggleSideShop()">
+        Shop <span id="sideArrow">▾</span>
+    </div>
     <div class="side-sub-menu" id="sideShopMenu">
-        <a href="MEN.html">MEN</a>
-        <a href="WOMEN.html">WOMEN</a>
+        <a href="WOMEN.html">Women</a>
+        <a href="MEN.html">Men</a>
     </div>
     <a href="contact.html">Contact</a>
 </div>
@@ -439,216 +526,125 @@
 </footer>
 
 <script>
-/*
-  PRODUCT DATA — all 23 products (indices 0–22).
-  Prices verified from skinn.in & authorised retailers (March 2026).
-  Body Mists (0–4): SKINN lists a flat ₹895 with no separate MRP strikethrough.
-  Noura Floret/Iris (9–10): Currently listed at ₹3,295 flat on skinn.in.
-  Mini Gift Set (22): Flat ₹1,995 on skinn.in.
-*/
 const products = [
-    /* 0 */ {
-        sku: "FW32MQ1",
-        title: "Body Mist Citrus Zest",
-        stars: 4, offer: "₹895", mrp: "", discount: "", size: "230 ml", badge: false,
-        desc: "A zesty citrus burst that keeps you fresh all day. Top notes of Mandarin Orange and Cardamom open into a heart of Orange Blossom, Jasmine and White Flowers, settling on a warm base of Amber, Heliotrope and Vanilla Musk. Light, long-lasting and perfect for everyday wear.",
-        images: ["wp1.PNG"], link: "https://bilty.co/4dTd2z"
-    },
-    /* 1 */ {
-        sku: "FW31MQ1",
-        title: "Body Mist Lotus Bloom",
-        stars: 4, offer: "₹895", mrp: "", discount: "", size: "230 ml", badge: false,
-        desc: "Delicate lotus blossoms meet soft aquatic notes. Top notes of Lemon, Pomegranate and Lime open into a heart of Lotus, Peony and Magnolia, settling on a warm base of Sandalwood, Amber and Musk. Gentle, feminine and long-lasting — ideal for daily use.",
-        images: ["wp2.PNG"], link: "https://www.skinn.in/product/body-mist-lotus-bloom-fw31mq1.html"
-    },
-    /* 2 */ {
-        sku: "FW33MQ1",
-        title: "SKINN Body Mist Apple Allure",
-        stars: 4, offer: "₹895", mrp: "", discount: "", size: "230 ml", badge: true,
-        desc: "Sweet, crisp Apple and Neroli top notes blend with a creamy heart of Orange Flower, Jasmine and Coconut, resting on a soft base of Vanilla and Musk. A fruity yet sophisticated scent that lingers beautifully through the day.",
-        images: ["wp3.PNG"], link: "https://www.skinn.in/product/skinn-body-mist-apple-allure-fw33mq1.html"
-    },
-    /* 3 */ {
-        sku: "FW28MQ1",
-        title: "Body Mist Velvet Indulgence",
-        stars: 5, offer: "₹895", mrp: "", discount: "", size: "230 ml", badge: false,
-        desc: "Rich and sensuous, Velvet Indulgence wraps you in warm Vanilla and Musk with velvety floral and coconut accords. A luxurious everyday mist that feels like a second skin — great for evenings and special occasions.",
-        images: ["wp4.PNG"], link: "https://www.skinn.in/product/body-mist-velvet-indulgence-fw28mq1.html"
-    },
-    /* 4 */ {
-        sku: "FW27MQ1",
-        title: "Body Mist Berry Rhapsody",
-        stars: 4, offer: "₹895", mrp: "", discount: "", size: "230 ml", badge: false,
-        desc: "A playful burst of wild berries. Top notes of Lemon, Orange and Mandarin open into a juicy berry heart, settling on a warm base of Vanilla and Musk. Vibrant, youthful and utterly refreshing — the perfect companion for sunny days.",
-        images: ["wp5.PNG"], link: "https://www.skinn.in/product/body-mist-berry-rhapsody-fw27mq1.html"
-    },
-    /* 5 */ {
-        sku: "FTLW03PC",
-        title: "SKINN Tales Vanilla 100 ml Eau De Parfum",
-        stars: 5, offer: "₹798", mrp: "₹1,095", discount: "27% OFF", size: "100 ml", badge: true,
-        desc: "A warm, comforting vanilla EDP for those who love soft oriental fragrances. Opens with sweet caramel accords and dries down to a creamy sandalwood base. Crafted in France, long-lasting and skin-safe.",
-        images: ["wp6.PNG"], link: "https://www.skinn.in/product/skinn-tales-vanilla-100-ml-eau-de-parfum-ftlw03pc.html"
-    },
-    /* 6 */ {
-        sku: "FCLW01DQ",
-        title: "Skinn Deodorant Spray Celeste For Women",
-        stars: 4, offer: "₹595", mrp: "₹695", discount: "14% OFF", size: "150 ml", badge: false,
-        desc: "48-hour odour protection with a light floral fragrance that pairs beautifully with the Celeste EDP range. Gentle on skin and perfect for everyday freshness.",
-        images: ["wp7.PNG"], link: "https://www.skinn.in/product/skinn-deodorant-spray-celeste-for-women-fclw01dq.html"
-    },
-    /* 7 */ {
-        sku: "FCLW01PC",
-        title: "Skinn by Titan Celeste 20 ML Perfume for Women EDP",
-        stars: 5, offer: "₹556", mrp: "₹695", discount: "20% OFF", size: "20 ml", badge: false,
-        desc: "The iconic Celeste EDP in a travel-friendly 20 ml size. Crafted in France, it opens with fresh florals and pink pepper, blooming into a heart of Rose and Jasmine over a warm Musk and Sandalwood base. Perfect for your handbag or travel kit.",
-        images: ["wp8.PNG"], link: "https://bilty.co/x3PPfk"
-    },
-    /* 8 */ {
-        sku: "FNXW02PC",
-        title: "SKINN Nox Oud Femme 100 ml Eau De Parfum",
-        stars: 5, offer: "₹3,996", mrp: "₹4,995", discount: "20% OFF", size: "100 ml", badge: true,
-        desc: "Crafted in France, Nox Oud Femme is an opulent oriental EDP for the woman who commands attention. Dark Oud and Saffron open boldly, softening into a heart of Rose and Jasmine, with a rich base of Amber and Patchouli. Luxurious and unforgettable.",
-        images: ["wp9.PNG"], link: "https://bilty.co/a2TpSQ"
-    },
-    /* 9 */ {
-        sku: "FNRW02PC",
-        title: "SKINN Noura Floret Eau De Parfum For her",
-        stars: 4, offer: "₹3,295", mrp: "", discount: "", size: "100 ml", badge: false,
-        desc: "A light-hearted fruity-floral EDP. Top notes of Tangerine, Grapefruit and Pineapple open into a heart of Rose and Pepper, settling on a luxurious base of Vanilla, Praline, Patchouli and Amber. Perfect for joyful moments and evening outings.",
-        images: ["wp10.PNG"], link: "https://bilty.co/iR6304"
-    },
-    /* 10 */ {
-        sku: "FNRW01PC",
-        title: "SKINN Noura Iris Eau De Parfum For her",
-        stars: 4, offer: "₹3,295", mrp: "", discount: "", size: "100 ml", badge: false,
-        desc: "Classic white florals meet quiet elegance. Top notes of Lime, Jasmine and Freesia open into a graceful heart of Narcissus, Tuberose and Jasmine, settling on a soft base of Amber, Woods and Musk. Ideal for daytime calm and intimate settings.",
-        images: ["wp11.PNG"], link: "https://bilty.co/ni7Mox"
-    },
-    /* 11 */ {
-        sku: "F247FW01PC",
-        title: "SKINN 247 Floral 100 ml Eau De Parfum",
-        stars: 4, offer: "₹1,483", mrp: "₹1,745", discount: "15% OFF", size: "100 ml", badge: false,
-        desc: "A fresh garden-inspired floral EDP from the 24Seven collection. Delicate Rose, Peony and Tuberose bloom over a soft musk base, creating a feminine and timeless fragrance perfect for everyday wear from morning to evening.",
-        images: ["wp12.PNG"], link: "https://bilty.co/MCURra"
-    },
-    /* 12 */ {
-        sku: "F247WW01PC",
-        title: "SKINN 247 Woody 100 ml Eau De Parfum",
-        stars: 4, offer: "₹1,483", mrp: "₹1,745", discount: "15% OFF", size: "100 ml", badge: false,
-        desc: "A warm, mysterious woody EDP from the 24Seven collection. Rich Patchouli and Vanilla are layered with deep Amber, creating a seductive scent that evolves through the day. Perfect for evenings and occasions when you want to leave a lasting impression.",
-        images: ["wp13.PNG"], link: "https://bilty.co/VsOy7K"
-    },
-    /* 13 */ {
-        sku: "FSHRW01PC",
-        title: "Skinn by Titan Sheer 20 ML Perfume for Women EDP",
-        stars: 4, offer: "₹556", mrp: "₹695", discount: "20% OFF", size: "20 ml", badge: false,
-        desc: "Sheer is a glamorous, sparkling EDP. Crisp Green Pear and Clementine accented with Pink Pepper lead into a floral heart of Jasmine, Peony and Strawberry, settling on a soft musk base. Sweet, luminous and effortlessly elegant for daily wear.",
-        images: ["wp14.PNG"], link: "https://bilty.co/bQc5LP"
-    },
-    /* 14 */ {
-        sku: "FNDEW01PC",
-        title: "Skinn by Titan Nude 20 ML Perfume for Women EDP",
-        stars: 4, offer: "₹556", mrp: "₹695", discount: "20% OFF", size: "20 ml", badge: false,
-        desc: "Nude evokes the blush of a summer romance. Sparkling Lychee and Raspberry with playful Bergamot make way for the sensuous lushness of Rose, finished with a hint of Musk. A fruity, floral and woody fragrance that is romantically nostalgic.",
-        images: ["wp15.PNG"], link: "https://bilty.co/25SZRh"
-    },
-    /* 15 */ {
-        sku: "FABW01DQ",
-        title: "Skinn Deodorant Spray Amalfi Bleu For Women",
-        stars: 4, offer: "₹595", mrp: "₹695", discount: "14% OFF", size: "150 ml", badge: false,
-        desc: "Fresh, aquatic and uplifting — Amalfi Bleu Deodorant captures the spirit of blooming flowers and the cool Mediterranean breeze. Provides long-lasting freshness and pairs perfectly with the Amalfi Bleu EDP.",
-        images: ["wp16.PNG"], link: "https://bilty.co/JtOHz4"
-    },
-    /* 16 */ {
-        sku: "FNDEW01DQ",
-        title: "Skinn Deodorant Spray Nude For Women",
-        stars: 4, offer: "₹595", mrp: "₹695", discount: "14% OFF", size: "150 ml", badge: false,
-        desc: "Stay confidently fresh with the Nude Deodorant. A soft blend of fruity and floral notes inspired by the Nude EDP, offering long-lasting odour protection. Gentle, skin-safe and perfect for daily use.",
-        images: ["wp17.PNG"], link: "https://bilty.co/VfhsJ3"
-    },
-    /* 17 */ {
-        sku: "FABW01PC30",
-        title: "Skinn by Titan Amalfi Bleu 30 ML Perfume for Women",
-        stars: 4, offer: "₹1,276", mrp: "₹1,595", discount: "20% OFF", size: "30 ml", badge: false,
-        desc: "Amalfi Bleu is a refreshing, aquatic EDP inspired by the stunning Italian coastline. Fresh citrus and floral notes evoke the sea breeze and blooming orange leaves. Light, invigorating and perfect for everyday wear or gifting.",
-        images: ["wp18.PNG"], link: "https://bilty.co/KiGyU5"
-    },
-    /* 18 */ {
-        sku: "F247CW01PC",
-        title: "SKINN 247 Caramel 100 ml Eau De Parfum",
-        stars: 4, offer: "₹1,484", mrp: "₹1,745", discount: "15% OFF", size: "100 ml", badge: false,
-        desc: "Indulge in the decadent warmth of 247 Caramel. Top notes of Rose and Praline open into a heart of Sea Salt and Caramel, settling on a rich base of Amber and Oud Accord. A luxurious, long-lasting scent for evenings when you want to feel irresistible.",
-        images: ["wp19.PNG"], link: "https://bilty.co/JIou7T"
-    },
-    /* 19 */ {
-        sku: "FSHRW02PC",
-        title: "Skinn by Titan Sheer 50 ML Perfume for Women EDP",
-        stars: 4, offer: "₹1,595", mrp: "₹1,895", discount: "16% OFF", size: "50 ml", badge: false,
-        desc: "Sheer is a glamorous, sparkling EDP. Crisp Green Pear and Clementine accented with Pink Pepper lead into a floral heart of Jasmine, Peony and Strawberry, settling on a soft musk base. Sweet, luminous and effortlessly elegant — in a generous 50 ml size.",
-        images: ["wp20.PNG"], link: "https://bilty.co/e1eBRa"
-    },
-    /* 20 */ {
-        sku: "FNDEW02PC",
-        title: "Skinn by Titan Nude 50 ML Perfume for Women EDP",
-        stars: 4, offer: "₹1,595", mrp: "₹1,895", discount: "16% OFF", size: "50 ml", badge: false,
-        desc: "Nude evokes the blush of a summer romance. Sparkling Lychee and Raspberry with playful Bergamot make way for the sensuous lushness of Rose, finished with a hint of Musk. A fruity, floral and woody fragrance — in a generous 50 ml size.",
-        images: ["wp21.PNG"], link: "https://bilty.co/PygOwQ"
-    },
-    /* 21 */ {
-        sku: "FPRW02PC",
-        title: "Skinn by Titan Pristine 50 ML Perfume for Women EDP",
-        stars: 4, offer: "₹1,800", mrp: "₹1,895", discount: "5% OFF", size: "50 ml", badge: false,
-        desc: "Pristine imitates the freshness of a spring morning rain with sparkling citrus and clean aquatic notes. A contemporary, refreshing EDP perfect for the modern woman who prefers a light, airy signature scent for daily wear.",
-        images: ["wp22.PNG"], link: "https://bilty.co/PVezoX"
-    },
-    /* 22 */ {
-        sku: "FW11PA5",
-        title: "Skinn by Titan Mini Gift Set for Women",
-        stars: 5, offer: "₹1,995", mrp: "", discount: "", size: "5 × 2 ml", badge: true,
-        desc: "Discover your signature scent with this elegant mini gift set featuring five iconic SKINN women's fragrances — Celeste, Nude, Sheer, Pristine and Amalfi Bleu — each in a 2 ml bottle. Perfect for gifting or trialling before committing to a full size.",
-        images: ["wp23.PNG"], link: "https://bilty.co/SzQffD"
-    }
+    /* 0 */ { sku:"FW32MQ1", title:"Body Mist Citrus Zest", stars:4, offer:"₹895", mrp:"", discount:"", size:"230 ml", badge:false, desc:"A zesty citrus burst that keeps you fresh all day. Top notes of Mandarin Orange and Cardamom open into a heart of Orange Blossom, Jasmine and White Flowers, settling on a warm base of Amber, Heliotrope and Vanilla Musk. Light, long-lasting and perfect for everyday wear.", images:["wp1.PNG"], link:"https://bilty.co/4dTd2z" },
+    /* 1 */ { sku:"FW31MQ1", title:"Body Mist Lotus Bloom", stars:4, offer:"₹895", mrp:"", discount:"", size:"230 ml", badge:false, desc:"Delicate lotus blossoms meet soft aquatic notes. Top notes of Lemon, Pomegranate and Lime open into a heart of Lotus, Peony and Magnolia, settling on a warm base of Sandalwood, Amber and Musk. Gentle, feminine and long-lasting — ideal for daily use.", images:["wp2.PNG"], link:"https://www.skinn.in/product/body-mist-lotus-bloom-fw31mq1.html" },
+    /* 2 */ { sku:"FW33MQ1", title:"SKINN Body Mist Apple Allure", stars:4, offer:"₹895", mrp:"", discount:"", size:"230 ml", badge:true, desc:"Sweet, crisp Apple and Neroli top notes blend with a creamy heart of Orange Flower, Jasmine and Coconut, resting on a soft base of Vanilla and Musk. A fruity yet sophisticated scent that lingers beautifully through the day.", images:["wp3.PNG"], link:"https://www.skinn.in/product/skinn-body-mist-apple-allure-fw33mq1.html" },
+    /* 3 */ { sku:"FW28MQ1", title:"Body Mist Velvet Indulgence", stars:5, offer:"₹895", mrp:"", discount:"", size:"230 ml", badge:false, desc:"Rich and sensuous, Velvet Indulgence wraps you in warm Vanilla and Musk with velvety floral and coconut accords. A luxurious everyday mist that feels like a second skin — great for evenings and special occasions.", images:["wp4.PNG"], link:"https://www.skinn.in/product/body-mist-velvet-indulgence-fw28mq1.html" },
+    /* 4 */ { sku:"FW27MQ1", title:"Body Mist Berry Rhapsody", stars:4, offer:"₹895", mrp:"", discount:"", size:"230 ml", badge:false, desc:"A playful burst of wild berries. Top notes of Lemon, Orange and Mandarin open into a juicy berry heart, settling on a warm base of Vanilla and Musk. Vibrant, youthful and utterly refreshing — the perfect companion for sunny days.", images:["wp5.PNG"], link:"https://www.skinn.in/product/body-mist-berry-rhapsody-fw27mq1.html" },
+    /* 5 */ { sku:"FTLW03PC", title:"SKINN Tales Vanilla 100 ml Eau De Parfum", stars:5, offer:"₹798", mrp:"₹1,095", discount:"27% OFF", size:"100 ml", badge:true, desc:"A warm, comforting vanilla EDP for those who love soft oriental fragrances. Opens with sweet caramel accords and dries down to a creamy sandalwood base. Crafted in France, long-lasting and skin-safe.", images:["wp6.PNG"], link:"https://www.skinn.in/product/skinn-tales-vanilla-100-ml-eau-de-parfum-ftlw03pc.html" },
+    /* 6 */ { sku:"FCLW01DQ", title:"Skinn Deodorant Spray Celeste For Women", stars:4, offer:"₹595", mrp:"₹695", discount:"14% OFF", size:"150 ml", badge:false, desc:"48-hour odour protection with a light floral fragrance that pairs beautifully with the Celeste EDP range. Gentle on skin and perfect for everyday freshness.", images:["wp7.PNG"], link:"https://www.skinn.in/product/skinn-deodorant-spray-celeste-for-women-fclw01dq.html" },
+    /* 7 */ { sku:"FCLW01PC", title:"Skinn by Titan Celeste 20 ML Perfume for Women EDP", stars:5, offer:"₹556", mrp:"₹695", discount:"20% OFF", size:"20 ml", badge:false, desc:"The iconic Celeste EDP in a travel-friendly 20 ml size. Crafted in France, it opens with fresh florals and pink pepper, blooming into a heart of Rose and Jasmine over a warm Musk and Sandalwood base. Perfect for your handbag or travel kit.", images:["wp8.PNG"], link:"https://bilty.co/x3PPfk" },
+    /* 8 */ { sku:"FNXW02PC", title:"SKINN Nox Oud Femme 100 ml Eau De Parfum", stars:5, offer:"₹3,996", mrp:"₹4,995", discount:"20% OFF", size:"100 ml", badge:true, desc:"Crafted in France, Nox Oud Femme is an opulent oriental EDP for the woman who commands attention. Dark Oud and Saffron open boldly, softening into a heart of Rose and Jasmine, with a rich base of Amber and Patchouli. Luxurious and unforgettable.", images:["wp9.PNG"], link:"https://bilty.co/a2TpSQ" },
+    /* 9 */ { sku:"FNRW02PC", title:"SKINN Noura Floret Eau De Parfum For her", stars:4, offer:"₹3,295", mrp:"", discount:"", size:"100 ml", badge:false, desc:"A light-hearted fruity-floral EDP. Top notes of Tangerine, Grapefruit and Pineapple open into a heart of Rose and Pepper, settling on a luxurious base of Vanilla, Praline, Patchouli and Amber. Perfect for joyful moments and evening outings.", images:["wp10.PNG"], link:"https://bilty.co/iR6304" },
+    /* 10 */ { sku:"FNRW01PC", title:"SKINN Noura Iris Eau De Parfum For her", stars:4, offer:"₹3,295", mrp:"", discount:"", size:"100 ml", badge:false, desc:"Classic white florals meet quiet elegance. Top notes of Lime, Jasmine and Freesia open into a graceful heart of Narcissus, Tuberose and Jasmine, settling on a soft base of Amber, Woods and Musk. Ideal for daytime calm and intimate settings.", images:["wp11.PNG"], link:"https://bilty.co/ni7Mox" },
+    /* 11 */ { sku:"F247FW01PC", title:"SKINN 247 Floral 100 ml Eau De Parfum", stars:4, offer:"₹1,483", mrp:"₹1,745", discount:"15% OFF", size:"100 ml", badge:false, desc:"A fresh garden-inspired floral EDP from the 24Seven collection. Delicate Rose, Peony and Tuberose bloom over a soft musk base, creating a feminine and timeless fragrance perfect for everyday wear from morning to evening.", images:["wp12.PNG"], link:"https://bilty.co/MCURra" },
+    /* 12 */ { sku:"F247WW01PC", title:"SKINN 247 Woody 100 ml Eau De Parfum", stars:4, offer:"₹1,483", mrp:"₹1,745", discount:"15% OFF", size:"100 ml", badge:false, desc:"A warm, mysterious woody EDP from the 24Seven collection. Rich Patchouli and Vanilla are layered with deep Amber, creating a seductive scent that evolves through the day. Perfect for evenings and occasions when you want to leave a lasting impression.", images:["wp13.PNG"], link:"https://bilty.co/VsOy7K" },
+    /* 13 */ { sku:"FSHRW01PC", title:"Skinn by Titan Sheer 20 ML Perfume for Women EDP", stars:4, offer:"₹556", mrp:"₹695", discount:"20% OFF", size:"20 ml", badge:false, desc:"Sheer is a glamorous, sparkling EDP. Crisp Green Pear and Clementine accented with Pink Pepper lead into a floral heart of Jasmine, Peony and Strawberry, settling on a soft musk base. Sweet, luminous and effortlessly elegant for daily wear.", images:["wp14.PNG"], link:"https://bilty.co/bQc5LP" },
+    /* 14 */ { sku:"FNDEW01PC", title:"Skinn by Titan Nude 20 ML Perfume for Women EDP", stars:4, offer:"₹556", mrp:"₹695", discount:"20% OFF", size:"20 ml", badge:false, desc:"Nude evokes the blush of a summer romance. Sparkling Lychee and Raspberry with playful Bergamot make way for the sensuous lushness of Rose, finished with a hint of Musk. A fruity, floral and woody fragrance that is romantically nostalgic.", images:["wp15.PNG"], link:"https://bilty.co/25SZRh" },
+    /* 15 */ { sku:"FABW01DQ", title:"Skinn Deodorant Spray Amalfi Bleu For Women", stars:4, offer:"₹595", mrp:"₹695", discount:"14% OFF", size:"150 ml", badge:false, desc:"Fresh, aquatic and uplifting — Amalfi Bleu Deodorant captures the spirit of blooming flowers and the cool Mediterranean breeze. Provides long-lasting freshness and pairs perfectly with the Amalfi Bleu EDP.", images:["wp16.PNG"], link:"https://bilty.co/JtOHz4" },
+    /* 16 */ { sku:"FNDEW01DQ", title:"Skinn Deodorant Spray Nude For Women", stars:4, offer:"₹595", mrp:"₹695", discount:"14% OFF", size:"150 ml", badge:false, desc:"Stay confidently fresh with the Nude Deodorant. A soft blend of fruity and floral notes inspired by the Nude EDP, offering long-lasting odour protection. Gentle, skin-safe and perfect for daily use.", images:["wp17.PNG"], link:"https://bilty.co/VfhsJ3" },
+    /* 17 */ { sku:"FABW01PC30", title:"Skinn by Titan Amalfi Bleu 30 ML Perfume for Women", stars:4, offer:"₹1,276", mrp:"₹1,595", discount:"20% OFF", size:"30 ml", badge:false, desc:"Amalfi Bleu is a refreshing, aquatic EDP inspired by the stunning Italian coastline. Fresh citrus and floral notes evoke the sea breeze and blooming orange leaves. Light, invigorating and perfect for everyday wear or gifting.", images:["wp18.PNG"], link:"https://bilty.co/KiGyU5" },
+    /* 18 */ { sku:"F247CW01PC", title:"SKINN 247 Caramel 100 ml Eau De Parfum", stars:4, offer:"₹1,484", mrp:"₹1,745", discount:"15% OFF", size:"100 ml", badge:false, desc:"Indulge in the decadent warmth of 247 Caramel. Top notes of Rose and Praline open into a heart of Sea Salt and Caramel, settling on a rich base of Amber and Oud Accord. A luxurious, long-lasting scent for evenings when you want to feel irresistible.", images:["wp19.PNG"], link:"https://bilty.co/JIou7T" },
+    /* 19 */ { sku:"FSHRW02PC", title:"Skinn by Titan Sheer 50 ML Perfume for Women EDP", stars:4, offer:"₹1,595", mrp:"₹1,895", discount:"16% OFF", size:"50 ml", badge:false, desc:"Sheer is a glamorous, sparkling EDP. Crisp Green Pear and Clementine accented with Pink Pepper lead into a floral heart of Jasmine, Peony and Strawberry, settling on a soft musk base. Sweet, luminous and effortlessly elegant — in a generous 50 ml size.", images:["wp20.PNG"], link:"https://bilty.co/e1eBRa" },
+    /* 20 */ { sku:"FNDEW02PC", title:"Skinn by Titan Nude 50 ML Perfume for Women EDP", stars:4, offer:"₹1,595", mrp:"₹1,895", discount:"16% OFF", size:"50 ml", badge:false, desc:"Nude evokes the blush of a summer romance. Sparkling Lychee and Raspberry with playful Bergamot make way for the sensuous lushness of Rose, finished with a hint of Musk. A fruity, floral and woody fragrance — in a generous 50 ml size.", images:["wp21.PNG"], link:"https://bilty.co/PygOwQ" },
+    /* 21 */ { sku:"FPRW02PC", title:"Skinn by Titan Pristine 50 ML Perfume for Women EDP", stars:4, offer:"₹1,800", mrp:"₹1,895", discount:"5% OFF", size:"50 ml", badge:false, desc:"Pristine imitates the freshness of a spring morning rain with sparkling citrus and clean aquatic notes. A contemporary, refreshing EDP perfect for the modern woman who prefers a light, airy signature scent for daily wear.", images:["wp22.PNG"], link:"https://bilty.co/PVezoX" },
+    /* 22 */ { sku:"FW11PA5", title:"Skinn by Titan Mini Gift Set for Women", stars:5, offer:"₹1,995", mrp:"", discount:"", size:"5 × 2 ml", badge:true, desc:"Discover your signature scent with this elegant mini gift set featuring five iconic SKINN women's fragrances — Celeste, Nude, Sheer, Pristine and Amalfi Bleu — each in a 2 ml bottle. Perfect for gifting or trialling before committing to a full size.", images:["wp23.PNG"], link:"https://bilty.co/SzQffD" }
 ];
 
-/* ======= SLIDER STATE ======= */
-let currentSlide = 0;
-let totalSlides = 0;
+/* ===== SEARCH ===== */
+// Nav page links for search
+const navLinks = [
+    { name: "Home", url: "index.html" },
+    { name: "About", url: "index1.html" },
+    { name: "Shop – Women", url: "WOMEN.html" },
+    { name: "Shop – Men", url: "MEN.html" },
+    { name: "Contact", url: "contact.html" }
+];
+
+function handleSearch(query) {
+    const resultsEl = document.getElementById("searchResults");
+    const q = query.trim().toLowerCase();
+
+    if (!q) { resultsEl.classList.remove("open"); resultsEl.innerHTML = ""; return; }
+
+    // Match nav links
+    const matchedNav = navLinks.filter(n => n.name.toLowerCase().includes(q));
+    // Match products
+    const matchedProducts = products
+        .map((p, i) => ({ ...p, index: i }))
+        .filter(p => p.title.toLowerCase().includes(q))
+        .slice(0, 5);
+
+    if (matchedNav.length === 0 && matchedProducts.length === 0) {
+        resultsEl.innerHTML = `<div class="search-no-result">No results for "${query}"</div>`;
+        resultsEl.classList.add("open");
+        return;
+    }
+
+    let html = "";
+
+    matchedNav.forEach(n => {
+        html += `<a class="search-result-item" href="${n.url}">
+            <div style="width:42px;height:42px;display:flex;align-items:center;justify-content:center;background:#f7f7f7;border-radius:6px;flex-shrink:0;font-size:20px;">🔗</div>
+            <div>
+                <div class="search-result-name">${n.name}</div>
+                <div class="search-result-price" style="color:#888;">Page</div>
+            </div>
+        </a>`;
+    });
+
+    matchedProducts.forEach(p => {
+        html += `<div class="search-result-item" onclick="openPopup(${p.index}); closeSearchResults();">
+            <img src="${p.images[0]}" alt="${p.title}">
+            <div>
+                <div class="search-result-name">${p.title}</div>
+                <div class="search-result-price">${p.offer}</div>
+            </div>
+        </div>`;
+    });
+
+    resultsEl.innerHTML = html;
+    resultsEl.classList.add("open");
+}
+
+function closeSearchResults() {
+    document.getElementById("searchResults").classList.remove("open");
+    document.getElementById("searchInput").value = "";
+}
+
+// Close search on outside click
+document.addEventListener("click", function(e) {
+    if (!e.target.closest(".search-wrap")) {
+        document.getElementById("searchResults").classList.remove("open");
+    }
+});
+
+/* ===== SLIDER ===== */
+let currentSlide = 0, totalSlides = 0;
 
 function openPopup(index) {
     const p = products[index];
-    currentSlide = 0;
-    totalSlides = p.images.length;
-
+    currentSlide = 0; totalSlides = p.images.length;
     document.getElementById("popupBadge").style.display = p.badge ? "block" : "none";
-
     const slidesEl = document.getElementById("popupSlides");
     slidesEl.innerHTML = p.images.map(src => `<img src="${src}" alt="${p.title}">`).join("");
     slidesEl.style.transform = "translateX(0)";
-
     const dotsEl = document.getElementById("sliderDots");
-    dotsEl.innerHTML = p.images.map((_, i) =>
-        `<div class="dot ${i===0?'active':''}" onclick="goToSlide(${i})"></div>`
-    ).join("");
-
+    dotsEl.innerHTML = p.images.map((_, i) => `<div class="dot ${i===0?'active':''}" onclick="goToSlide(${i})"></div>`).join("");
     const showArrows = totalSlides > 1;
     document.querySelector(".slider-arrow.prev").style.display = showArrows ? "flex" : "none";
     document.querySelector(".slider-arrow.next").style.display = showArrows ? "flex" : "none";
-
     document.getElementById("popupSku").textContent = p.sku;
     document.getElementById("popupTitle").textContent = p.title;
-
     const starsEl = document.getElementById("popupStars");
-    starsEl.innerHTML =
-        '<span class="star-filled">' + "★".repeat(p.stars) + '</span>' +
-        '<span class="star-empty">' + "★".repeat(5 - p.stars) + '</span>';
-
+    starsEl.innerHTML = '<span class="star-filled">'+"★".repeat(p.stars)+'</span><span class="star-empty">'+"★".repeat(5-p.stars)+'</span>';
     document.getElementById("popupOffer").textContent = p.offer;
-    document.getElementById("popupMrp").textContent = p.mrp ? "MRP " + p.mrp : "";
+    document.getElementById("popupMrp").textContent = p.mrp ? "MRP "+p.mrp : "";
     document.getElementById("popupDiscount").textContent = p.discount;
     document.getElementById("popupDesc").textContent = p.desc;
     document.getElementById("popupSize").textContent = p.size;
     document.getElementById("popupBuyBtn").href = p.link;
-
     document.getElementById("popupOverlay").classList.add("open");
     document.body.style.overflow = "hidden";
 }
@@ -657,20 +653,12 @@ function closePopup() {
     document.getElementById("popupOverlay").classList.remove("open");
     document.body.style.overflow = "";
 }
-
-function handleOverlayClick(e) {
-    if (e.target === document.getElementById("popupOverlay")) closePopup();
-}
-
-function slideMove(dir) {
-    currentSlide = (currentSlide + dir + totalSlides) % totalSlides;
-    goToSlide(currentSlide);
-}
-
+function handleOverlayClick(e) { if (e.target === document.getElementById("popupOverlay")) closePopup(); }
+function slideMove(dir) { currentSlide = (currentSlide+dir+totalSlides)%totalSlides; goToSlide(currentSlide); }
 function goToSlide(n) {
     currentSlide = n;
-    document.getElementById("popupSlides").style.transform = `translateX(-${n * 100}%)`;
-    document.querySelectorAll(".dot").forEach((d, i) => d.classList.toggle("active", i === n));
+    document.getElementById("popupSlides").style.transform = `translateX(-${n*100}%)`;
+    document.querySelectorAll(".dot").forEach((d,i) => d.classList.toggle("active", i===n));
 }
 
 let touchStartX = 0;
@@ -682,29 +670,23 @@ document.getElementById("popupSlides").addEventListener("touchend", e => {
 
 document.addEventListener("keydown", e => { if (e.key === "Escape") closePopup(); });
 
-function toggleDropdown(event) {
-    event.preventDefault();
-    var dd = document.getElementById("shopDropdown");
-    dd.style.display = dd.style.display === "block" ? "none" : "block";
-}
-document.addEventListener("click", function(e) {
-    if (!e.target.closest(".dropdown")) document.getElementById("shopDropdown").style.display = "none";
-});
+/* ===== SIDE MENU ===== */
 function openMenu() {
-    document.getElementById("sideMenu").style.left = "0";
+    document.getElementById("sideMenu").classList.add("open");
     document.getElementById("overlay").classList.add("active");
     document.body.style.overflow = "hidden";
 }
 function closeMenu() {
-    document.getElementById("sideMenu").style.left = "-260px";
+    document.getElementById("sideMenu").classList.remove("open");
     document.getElementById("overlay").classList.remove("active");
     document.body.style.overflow = "";
 }
 function toggleSideShop() {
-    var sub = document.getElementById("sideShopMenu");
-    var arrow = document.getElementById("sideArrow");
-    if (sub.style.display === "flex") { sub.style.display = "none"; arrow.classList.remove("rotate"); }
-    else { sub.style.display = "flex"; arrow.classList.add("rotate"); }
+    const sub = document.getElementById("sideShopMenu");
+    const arrow = document.getElementById("sideArrow");
+    const isOpen = sub.style.display === "flex";
+    sub.style.display = isOpen ? "none" : "flex";
+    arrow.classList.toggle("rotate", !isOpen);
 }
 </script>
 
