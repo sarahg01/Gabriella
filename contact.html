@@ -134,7 +134,6 @@ body { font-family: 'Lato', sans-serif; background:#fff; }
     letter-spacing: 1px;
 }
 
-/* Pink accent bar */
 .accent-bar {
     height: 4px;
     background: #e91e63;
@@ -208,31 +207,6 @@ body { font-family: 'Lato', sans-serif; background:#fff; }
 
 .info-text a:hover {
     text-decoration: underline;
-}
-
-/* Social icons */
-.social-row {
-    display: flex;
-    gap: 12px;
-    margin-top: 10px;
-}
-
-.social-btn {
-    width: 42px;
-    height: 42px;
-    background: #000;
-    color: white;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 16px;
-    text-decoration: none;
-    transition: background 0.3s;
-}
-
-.social-btn:hover {
-    background: #e91e63;
 }
 
 /* ---- Form column ---- */
@@ -314,19 +288,6 @@ body { font-family: 'Lato', sans-serif; background:#fff; }
     transform: translateY(-2px);
 }
 
-/* Success message */
-.success-msg {
-    display: none;
-    background: #e8f5e9;
-    border: 1px solid #a5d6a7;
-    color: #2e7d32;
-    padding: 14px 18px;
-    border-radius: 6px;
-    font-size: 15px;
-    margin-top: 16px;
-    text-align: center;
-}
-
 /* ================= FOOTER ================= */
 footer {
     text-align:center;
@@ -406,7 +367,6 @@ footer {
     <div class="contact-info">
         <h2>Get In Touch</h2>
 
-        <!-- FIX 1: Simple mailto: link instead of Gmail compose URL -->
         <div class="info-item">
             <div class="info-icon">✉</div>
             <div class="info-text">
@@ -415,7 +375,6 @@ footer {
             </div>
         </div>
 
-        <!-- FIX 2: Instagram link with correct URL format -->
         <div class="info-item">
             <div class="info-icon">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="white">
@@ -429,39 +388,47 @@ footer {
         </div>
     </div>
 
-    <!-- Form -->
+    <!-- Form — powered by Formspree -->
     <div class="contact-form">
         <h2>Send a Message</h2>
 
-        <div class="form-group">
-            <label for="name">Your Name</label>
-            <input type="text" id="name" placeholder="e.g. Priya Sharma">
-        </div>
+        <form action="https://formspree.io/f/maqlqgoy" method="POST">
 
-        <div class="form-group">
-            <label for="email">Email Address</label>
-            <input type="email" id="email" placeholder="you@example.com">
-        </div>
+            <!-- Redirect back to your site after submission -->
+            <input type="hidden" name="_next" value="https://sarahg01.github.io/contact.html?sent=true">
 
-        <div class="form-group">
-            <label for="subject">Subject</label>
-            <select id="subject">
-                <option value="" disabled selected>Select a topic</option>
-                <option>Product Recommendation</option>
-                <option>Affiliate &amp; Collaboration</option>
-                <option>Order / Purchase Help</option>
-                <option>General Enquiry</option>
-                <option>Other</option>
-            </select>
-        </div>
+            <div class="form-group">
+                <label for="name">Your Name</label>
+                <input type="text" id="name" name="name" placeholder="e.g. Priya Sharma" required>
+            </div>
 
-        <div class="form-group">
-            <label for="message">Message</label>
-            <textarea id="message" placeholder="Write your message here…"></textarea>
-        </div>
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" placeholder="you@example.com" required>
+            </div>
 
-        <button class="submit-btn" onclick="handleSubmit()">Send Message</button>
+            <div class="form-group">
+                <label for="subject">Subject</label>
+                <select id="subject" name="subject">
+                    <option value="" disabled selected>Select a topic</option>
+                    <option>Product Recommendation</option>
+                    <option>Affiliate &amp; Collaboration</option>
+                    <option>Order / Purchase Help</option>
+                    <option>General Enquiry</option>
+                    <option>Other</option>
+                </select>
+            </div>
 
+            <div class="form-group">
+                <label for="message">Message</label>
+                <textarea id="message" name="message" placeholder="Write your message here…" required></textarea>
+            </div>
+
+            <button type="submit" class="submit-btn">Send Message</button>
+
+        </form>
+
+        <!-- Success banner shown when redirected back with ?sent=true -->
         <div class="success-msg" id="successMsg">
             ✓ Thank you! Your message has been sent. We'll get back to you within 24–48 hours.
         </div>
@@ -511,30 +478,11 @@ footer {
         sideMenu.style.left = getMenuWidth();
     });
 
-    function handleSubmit() {
-        var name = document.getElementById("name").value.trim();
-        var email = document.getElementById("email").value.trim();
-        var message = document.getElementById("message").value.trim();
-
-        if (!name || !email || !message) {
-            alert("Please fill in your name, email, and message before sending.");
-            return;
-        }
-
-        // Show success message
-        var msg = document.getElementById("successMsg");
-        msg.style.display = "block";
-
-        // Clear form
-        document.getElementById("name").value = "";
-        document.getElementById("email").value = "";
-        document.getElementById("subject").selectedIndex = 0;
-        document.getElementById("message").value = "";
-
-        // Hide success after 5 seconds
-        setTimeout(function () {
-            msg.style.display = "none";
-        }, 5000);
+    // Show success banner if redirected back with ?sent=true
+    if (window.location.search.includes('sent=true')) {
+        document.getElementById('successMsg').style.display = 'block';
+        // Clean the URL without reloading
+        window.history.replaceState({}, document.title, window.location.pathname);
     }
 </script>
 
