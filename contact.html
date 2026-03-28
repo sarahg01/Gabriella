@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GT – Contact</title>
+<link rel="icon" type="image/png" href="favicon.png?v=1">
+
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family: Arial, sans-serif; background:#fff; }
+
+/* ================= TOP BAR ================= */
+.topbar {
+    background:#000;
+    height:100px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    position:relative;
+    z-index:1001;
+}
+
+.menu-icon {
+    position:absolute;
+    left:20px;
+    font-size:28px;
+    color:white;
+    cursor:pointer;
+    padding: 10px;
+}
+
+.logo img {
+    height:60px;
+    object-fit:contain;
+}
+
+/* ================= SIDE MENU ================= */
+.side-menu {
+    position:fixed;
+    top:0;
+    left:-260px;
+    width:260px;
+    height:100%;
+    background:#000;
+    display:flex;
+    flex-direction:column;
+    padding-top:80px;
+    transition:0.4s ease;
+    z-index:1002;
+    overflow-y: auto;
+}
+
+.side-menu a,
+.menu-item {
+    color:white;
+    text-decoration:none;
+    padding:15px 25px;
+    font-size:18px;
+    cursor:pointer;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    min-height: 50px;
+}
+
+.side-menu a:hover,
+.menu-item:hover {
+    background:#111;
+}
+
+.close-btn {
+    position:absolute;
+    top:20px;
+    right:20px;
+    font-size:26px;
+    cursor:pointer;
+    color: white;
+    padding: 8px;
+    line-height: 1;
+}
+
+.sub-menu {
+    display:none;
+    flex-direction:column;
+    background:#111;
+}
+
+.sub-menu a {
+    padding-left:45px;
+    font-size:16px;
+}
+
+.rotate {
+    transform:rotate(180deg);
+    transition:0.3s;
+}
+
+/* ================= OVERLAY ================= */
+.overlay {
+    position:fixed;
+    top:0; left:0;
+    width:100%; height:100%;
+    background:rgba(0,0,0,0.5);
+    opacity:0;
+    visibility:hidden;
+    transition:0.3s;
+    z-index:1000;
+}
+
+.overlay.active {
+    opacity:1;
+    visibility:visible;
+}
+
+/* ================= CONTACT SECTION ================= */
+.contact-hero {
+    background: #000;
+    color: white;
+    text-align: center;
+    padding: 60px 20px 50px;
+}
+
+.contact-hero h1 {
+    font-size: 42px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+}
+
+.contact-hero p {
+    font-size: 16px;
+    color: #aaa;
+    letter-spacing: 1px;
+}
+
+/* Pink accent bar */
+.accent-bar {
+    height: 4px;
+    background: #e91e63;
+    width: 80px;
+    margin: 16px auto 0;
+    border-radius: 2px;
+}
+
+/* ================= CONTACT BODY ================= */
+.contact-body {
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+    max-width: 600px;
+    margin: 60px auto;
+    padding: 0 30px;
+}
+
+/* ---- Info column ---- */
+.contact-info {
+    flex: 1 1 260px;
+}
+
+.contact-info h2 {
+    font-size: 22px;
+    color: #e91e63;
+    margin-bottom: 24px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.info-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    margin-bottom: 28px;
+}
+
+.info-icon {
+    width: 44px;
+    height: 44px;
+    background: #000;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+}
+
+.info-text strong {
+    display: block;
+    font-size: 14px;
+    color: #333;
+    margin-bottom: 3px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.info-text span {
+    font-size: 15px;
+    color: #555;
+}
+
+.info-text a {
+    font-size: 15px;
+    color: #e91e63;
+    text-decoration: none;
+}
+
+.info-text a:hover {
+    text-decoration: underline;
+}
+
+/* Social icons */
+.social-row {
+    display: flex;
+    gap: 12px;
+    margin-top: 10px;
+}
+
+.social-btn {
+    width: 42px;
+    height: 42px;
+    background: #000;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    text-decoration: none;
+    transition: background 0.3s;
+}
+
+.social-btn:hover {
+    background: #e91e63;
+}
+
+/* ---- Form column ---- */
+.contact-form {
+    flex: 1 1 320px;
+    background: #fce4ec;
+    padding: 40px 30px;
+    margin: 0 -30px;
+    width: calc(100% + 60px);
+}
+
+.contact-form h2 {
+    font-size: 22px;
+    color: #e91e63;
+    margin-bottom: 24px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 13px;
+    font-weight: bold;
+    color: #333;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 7px;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+    width: 100%;
+    padding: 13px 15px;
+    font-size: 15px;
+    font-family: Arial, sans-serif;
+    border: 2px solid #e0e0e0;
+    border-radius: 6px;
+    outline: none;
+    transition: border-color 0.3s;
+    background: #fff;
+    color: #222;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+    border-color: #e91e63;
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 130px;
+}
+
+.submit-btn {
+    display: inline-block;
+    padding: 14px 40px;
+    background: #e91e63;
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+    width: 100%;
+    min-height: 50px;
+}
+
+.submit-btn:hover {
+    background: #c2185b;
+    transform: translateY(-2px);
+}
+
+/* Success message */
+.success-msg {
+    display: none;
+    background: #e8f5e9;
+    border: 1px solid #a5d6a7;
+    color: #2e7d32;
+    padding: 14px 18px;
+    border-radius: 6px;
+    font-size: 15px;
+    margin-top: 16px;
+    text-align: center;
+}
+
+/* ================= FOOTER ================= */
+footer {
+    text-align:center;
+    padding:20px;
+    margin-top:50px;
+    font-size:14px;
+    line-height: 1.6;
+    border-top: 1px solid #eee;
+}
+
+/* ================= TABLET ================= */
+@media (max-width: 768px) {
+    .topbar { height: 70px; }
+    .logo img { height: 45px; }
+    .menu-icon { font-size: 24px; left: 10px; }
+    .side-menu { width: 220px; left: -220px; }
+
+    .contact-hero h1 { font-size: 28px; letter-spacing: 2px; }
+    .contact-body { padding: 0 15px; gap: 30px; margin: 40px auto; }
+    .contact-info h2, .contact-form h2 { font-size: 18px; }
+
+    footer { padding: 20px 15px; font-size: 13px; }
+}
+
+/* ================= MOBILE ================= */
+@media (max-width: 480px) {
+    .topbar { height: 60px; }
+    .logo img { height: 38px; }
+    .contact-hero { padding: 40px 15px 35px; }
+    .contact-hero h1 { font-size: 22px; }
+    .contact-hero p { font-size: 14px; }
+    footer { font-size: 12px; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+    <div class="menu-icon" onclick="openMenu()">☰</div>
+    <div class="logo">
+        <img src="smalllogo.png" alt="GT">
+    </div>
+</div>
+
+<!-- OVERLAY -->
+<div class="overlay" id="overlay" onclick="closeMenu()"></div>
+
+<!-- SIDE MENU -->
+<div class="side-menu" id="sideMenu">
+    <div class="close-btn" onclick="closeMenu()">×</div>
+    <a href="index.html">Home</a>
+    <a href="index1.html">About</a>
+    <div class="menu-item" onclick="toggleShop()">
+        Shop
+        <span id="arrow">▾</span>
+    </div>
+    <div class="sub-menu" id="shopSubMenu">
+        <a href="MEN.html">MEN</a>
+        <a href="WOMEN.html">WOMEN</a>
+    </div>
+    <a href="contact.html">Contact</a>
+</div>
+
+<!-- CONTACT HERO -->
+<section class="contact-hero">
+    <h1>Contact Us</h1>
+    <p>We'd love to hear from you — reach out anytime.</p>
+    <div class="accent-bar"></div>
+</section>
+
+<!-- CONTACT BODY -->
+<div class="contact-body">
+
+    <!-- Info -->
+    <div class="contact-info">
+        <h2>Get In Touch</h2>
+
+        <div class="info-item">
+            <div class="info-icon">✉</div>
+            <div class="info-text">
+                <strong>Email</strong>
+                <a href="mailto:hello@gabriella.com">hello@gabriella.com</a>
+            </div>
+        </div>
+
+        <div class="info-item">
+            <div class="info-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="white">
+                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                </svg>
+            </div>
+            <div class="info-text">
+                <strong>Instagram</strong>
+                <a href="https://www.instagram.com/" target="_blank" rel="noopener">@gabriella</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Form -->
+    <div class="contact-form">
+        <h2>Send a Message</h2>
+
+        <div class="form-group">
+            <label for="name">Your Name</label>
+            <input type="text" id="name" placeholder="e.g. Priya Sharma">
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" placeholder="you@example.com">
+        </div>
+
+        <div class="form-group">
+            <label for="subject">Subject</label>
+            <select id="subject">
+                <option value="" disabled selected>Select a topic</option>
+                <option>Product Recommendation</option>
+                <option>Affiliate & Collaboration</option>
+                <option>Order / Purchase Help</option>
+                <option>General Enquiry</option>
+                <option>Other</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="message">Message</label>
+            <textarea id="message" placeholder="Write your message here…"></textarea>
+        </div>
+
+        <button class="submit-btn" onclick="handleSubmit()">Send Message</button>
+
+        <div class="success-msg" id="successMsg">
+            ✓ Thank you! Your message has been sent. We'll get back to you within 24–48 hours.
+        </div>
+    </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+    <p>Disclaimer: GT is an affiliate of SKINN.<br>
+    We earn a small commission if you purchase through our links at no extra cost to you.</p>
+    <p style="margin-top:8px;">© 2026 Gabriella</p>
+</footer>
+
+<script>
+    function getMenuWidth() {
+        return window.innerWidth <= 768 ? '-220px' : '-260px';
+    }
+
+    function openMenu() {
+        document.getElementById("sideMenu").style.left = "0";
+        document.getElementById("overlay").classList.add("active");
+        document.body.style.overflow = "hidden";
+    }
+
+    function closeMenu() {
+        document.getElementById("sideMenu").style.left = getMenuWidth();
+        document.getElementById("overlay").classList.remove("active");
+        document.body.style.overflow = "";
+    }
+
+    function toggleShop() {
+        var submenu = document.getElementById("shopSubMenu");
+        var arrow = document.getElementById("arrow");
+        if (submenu.style.display === "flex") {
+            submenu.style.display = "none";
+            arrow.classList.remove("rotate");
+        } else {
+            submenu.style.display = "flex";
+            arrow.classList.add("rotate");
+        }
+    }
+
+    window.addEventListener('resize', function () {
+        var sideMenu = document.getElementById("sideMenu");
+        if (sideMenu.style.left === "0px") return;
+        sideMenu.style.left = getMenuWidth();
+    });
+
+    function handleSubmit() {
+        var name = document.getElementById("name").value.trim();
+        var email = document.getElementById("email").value.trim();
+        var message = document.getElementById("message").value.trim();
+
+        if (!name || !email || !message) {
+            alert("Please fill in your name, email, and message before sending.");
+            return;
+        }
+
+        // Show success message
+        var msg = document.getElementById("successMsg");
+        msg.style.display = "block";
+
+        // Clear form
+        document.getElementById("name").value = "";
+        document.getElementById("email").value = "";
+        document.getElementById("subject").selectedIndex = 0;
+        document.getElementById("message").value = "";
+
+        // Hide success after 5 seconds
+        setTimeout(function () {
+            msg.style.display = "none";
+        }, 5000);
+    }
+</script>
+
+</body>
+</html>
