@@ -406,14 +406,16 @@ footer {
     <div class="contact-info">
         <h2>Get In Touch</h2>
 
+        <!-- FIX 1: Simple mailto: link instead of Gmail compose URL -->
         <div class="info-item">
             <div class="info-icon">✉</div>
             <div class="info-text">
                 <strong>Email</strong>
-                <a href="https://mail.google.com/mail/u/0/?tab=rm&ogbl#inbox?compose=CllgCKCBkLfmWGZrbvVvlxbNVxvlkQhvPrcVDvdrcLVxfQJrWFnFQzQbqmnJZKGkmkltTrZzWWg">gabriella.curates@gmail.com</a>
+                <a href="mailto:gabriella.curates@gmail.com">gabriella.curates@gmail.com</a>
             </div>
         </div>
 
+        <!-- FIX 2: Instagram link with correct URL format -->
         <div class="info-item">
             <div class="info-icon">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="white">
@@ -422,7 +424,7 @@ footer {
             </div>
             <div class="info-text">
                 <strong>Instagram</strong>
-                <a href="https://www.instagram.com/gabriella.curates" target="_blank" rel="noopener">gabriella.curates</a>
+                <a href="https://www.instagram.com/gabriella.curates/" target="_blank" rel="noopener">@gabriella.curates</a>
             </div>
         </div>
     </div>
@@ -446,7 +448,7 @@ footer {
             <select id="subject">
                 <option value="" disabled selected>Select a topic</option>
                 <option>Product Recommendation</option>
-                <option>Affiliate & Collaboration</option>
+                <option>Affiliate &amp; Collaboration</option>
                 <option>Order / Purchase Help</option>
                 <option>General Enquiry</option>
                 <option>Other</option>
