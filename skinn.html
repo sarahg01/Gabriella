@@ -11,7 +11,6 @@
 * { margin:0; padding:0; box-sizing:border-box; }
 body { font-family: 'Lato', sans-serif; background:#fff; overflow-x:hidden; }
 
-/* ================= TOP BAR ================= */
 .topbar {
     background:#000;
     height:100px;
@@ -36,7 +35,6 @@ body { font-family: 'Lato', sans-serif; background:#fff; overflow-x:hidden; }
     object-fit:contain;
 }
 
-/* ================= SIDE MENU ================= */
 .side-menu {
     position:fixed;
     top:0;
@@ -64,6 +62,7 @@ body { font-family: 'Lato', sans-serif; background:#fff; overflow-x:hidden; }
     justify-content:space-between;
     align-items:center;
     min-height: 50px;
+    border-bottom: 1px solid #1a1a1a;
 }
 
 .side-menu a:hover,
@@ -80,6 +79,8 @@ body { font-family: 'Lato', sans-serif; background:#fff; overflow-x:hidden; }
     color: white;
     padding: 8px;
     line-height: 1;
+    background: none;
+    border: none;
 }
 
 .sub-menu {
@@ -98,7 +99,6 @@ body { font-family: 'Lato', sans-serif; background:#fff; overflow-x:hidden; }
     transition:0.3s;
 }
 
-/* ================= OVERLAY ================= */
 .overlay {
     position:fixed;
     top:0;
@@ -117,7 +117,6 @@ body { font-family: 'Lato', sans-serif; background:#fff; overflow-x:hidden; }
     visibility:visible;
 }
 
-/* ================= HERO ================= */
 .hero {
     width:100%;
     overflow:hidden;
@@ -129,7 +128,6 @@ body { font-family: 'Lato', sans-serif; background:#fff; overflow-x:hidden; }
     display:block;
 }
 
-/* ================= PRODUCTS ================= */
 .products { padding:60px 20px; }
 
 .products h2 {
@@ -175,7 +173,9 @@ body { font-family: 'Lato', sans-serif; background:#fff; overflow-x:hidden; }
 }
 
 .product-card a {
-    display:inline-block;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
     margin-top:10px;
     padding:8px 15px;
     background:#e91e63;
@@ -187,9 +187,7 @@ body { font-family: 'Lato', sans-serif; background:#fff; overflow-x:hidden; }
     font-weight: 700;
     letter-spacing: 0.5px;
     min-height: 44px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    width: 100%;
     text-align: center;
 }
 
@@ -197,7 +195,6 @@ body { font-family: 'Lato', sans-serif; background:#fff; overflow-x:hidden; }
     background:#c2185b;
 }
 
-/* ================= FOOTER ================= */
 footer {
     text-align:center;
     padding:20px;
@@ -208,7 +205,6 @@ footer {
     color: #555;
 }
 
-/* ================= CATEGORY SECTION ================= */
 .categories {
     padding: 80px 20px;
     text-align: center;
@@ -243,82 +239,31 @@ footer {
     transform: translateY(-3px);
 }
 
-/* ================= TABLET (768px) ================= */
 @media (max-width: 768px) {
-
     .topbar { height: 70px; }
     .logo img { height: 45px; }
     .menu-icon { font-size: 24px; left: 10px; }
-
-    .hero img {
-      height: auto;
-    width: 100%;
-    }
-
     .categories { padding: 40px 15px; }
-
-    .category-buttons {
-        flex-direction: column;
-        align-items: center;
-        gap: 15px;
-    }
-
-    .category-btn {
-        width: 80%;
-        max-width: 300px;
-        padding: 15px;
-        font-size: 16px;
-    }
-
+    .category-buttons { flex-direction: column; align-items: center; gap: 15px; }
+    .category-btn { width: 80%; max-width: 300px; padding: 15px; font-size: 16px; }
     .products { padding: 40px 15px; }
-
-    .products h2 {
-        font-size: 22px;
-        line-height: 1.4;
-        margin-bottom: 25px;
-    }
-
-    .product-grid {
-        grid-template-columns: 1fr;
-        gap: 20px;
-    }
-
+    .products h2 { font-size: 22px; line-height: 1.4; margin-bottom: 25px; }
+    .product-grid { grid-template-columns: 1fr; gap: 20px; }
     .product-card img { height: 200px; object-fit: contain; }
     .product-card h3 { font-size: 15px; }
-
     .side-menu { width: 220px; left: -220px; }
-
     footer { padding: 20px 15px; font-size: 13px; }
 }
 
-/* ================= MOBILE (480px) ================= */
 @media (max-width: 480px) {
-
     .topbar { height: 60px; }
     .logo img { height: 38px; }
-
-    .hero img {
-        height: auto;
-    width: 100%;
-    }
-
     .products h2 { font-size: 18px; }
-
-    .category-btn {
-        font-size: 14px;
-        padding: 12px;
-        width: 90%;
-    }
-
+    .category-btn { font-size: 14px; padding: 12px; width: 90%; }
     .product-card { padding: 15px; }
     .product-card img { height: 180px; }
     .product-card h3 { font-size: 14px; }
-
-    .product-card a {
-        font-size: 13px;
-        width: 100%;
-    }
-
+    .product-card a { font-size: 13px; width: 100%; }
     footer { font-size: 12px; }
 }
 </style>
@@ -326,17 +271,17 @@ footer {
 
 <body>
 
-<!-- TOP BAR -->
 <div class="topbar">
     <div class="menu-icon" onclick="openMenu()">☰</div>
     <div class="logo">
-        <img src="smalllogo.png" alt="GT">
+        <a href="MB.html">
+            <img src="smalllogo.png" alt="GT">
+        </a>
     </div>
 </div>
 
-<!-- OVERLAY -->
 <div class="overlay" id="overlay" onclick="closeMenu()"></div>
- 
+
 <div class="side-menu" id="sideMenu">
     <button class="close-btn" onclick="closeMenu()">×</button>
     <a href="MB.html">Home</a>
@@ -352,12 +297,11 @@ footer {
     <a href="DK.html">Dot &amp; Key</a>
     <a href="contact.html">Contact</a>
 </div>
-<!-- HERO -->
+
 <section class="hero">
     <img src="logo1.png" alt="Beauty Banner">
 </section>
 
-<!-- CATEGORY BUTTONS -->
 <section class="categories">
     <div class="category-buttons">
         <a href="MEN.html" class="category-btn">MEN</a>
@@ -365,26 +309,25 @@ footer {
     </div>
 </section>
 
-<!-- PRODUCTS -->
 <section class="products">
     <h2>For the girl who walks in and leaves a memory.</h2>
     <div class="product-grid">
 
         <div class="product-card">
             <img src="ip.PNG" alt="perfume">
-            <h3>Skinn by Titan Celeste 100 ML Perfume for Women<br> ₹2,795</h3>
+            <h3>Skinn by Titan Celeste 100 ML Perfume for Women<br>₹2,795</h3>
             <a href="https://bilty.co/WDZVYx" target="_blank" rel="nofollow noopener">Buy on SKINN</a>
         </div>
 
         <div class="product-card">
             <img src="ip2.PNG" alt="perfume">
-            <h3>SKINN Noura Nectar Eau De Parfum for her - 100 ml<br> ₹ 2,801</h3>
+            <h3>SKINN Noura Nectar Eau De Parfum for her - 100 ml<br>₹2,801</h3>
             <a href="https://bilty.co/HIkjXT" target="_blank" rel="nofollow noopener">Buy on SKINN</a>
         </div>
 
         <div class="product-card">
             <img src="ip3.PNG" alt="perfume">
-            <h3>Skinn by Titan Celeste Beyond 100 ML Perfume for Women EDP<br>₹ 2,895</h3>
+            <h3>Skinn by Titan Celeste Beyond 100 ML Perfume for Women EDP<br>₹2,895</h3>
             <a href="https://bilty.co/C9YRV7" target="_blank" rel="nofollow noopener">Buy on SKINN</a>
         </div>
 
@@ -392,7 +335,7 @@ footer {
 </section>
 
 <footer>
-    <p>Disclaimer: GT is an affiliate of SKINN And Dot & Key.<br>
+    <p>Disclaimer: GT is an affiliate of SKINN And Dot &amp; Key.<br>
     We earn a small commission if you purchase through our links at no extra cost to you.</p>
     <p style="margin-top:8px;">© 2026 Gabriella</p>
 </footer>
@@ -417,7 +360,6 @@ footer {
     function toggleShop() {
         var submenu = document.getElementById("shopSubMenu");
         var arrow = document.getElementById("arrow");
-
         if (submenu.style.display === "flex") {
             submenu.style.display = "none";
             arrow.classList.remove("rotate");
