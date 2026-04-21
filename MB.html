@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>GT | Gabriella Curates</title>
+    <link rel="icon" type="image/png" href="favicon.png?v=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,wght@0,400;0,600;0,800;1,400;1,600&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg:      #faf7f5;
+            --bg2:     #f2ede8;
+            --ink:     #1a1018;
+            --rose:    #c0415a;
+            --rose2:   #a33050;
+            --blush:   #f0d6dc;
+            --taupe:   #8c7a82;
+            --linen:   #e8ddd8;
+            --gold:    #b8966e;
+            --offwhite:#fdf9f7;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: var(--bg);
+            color: var(--ink);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* ── SIDE ACCENT LINE ── */
+        body::after {
+            content: '';
+            position: fixed;
+            left: 0; top: 0; bottom: 0;
+            width: 3px;
+            background: linear-gradient(to bottom, transparent 0%, var(--rose) 30%, var(--gold) 70%, transparent 100%);
+            z-index: 500;
+            pointer-events: none;
+        }
+
+        /* ── NAVBAR ── */
+        .navbar {
+            position: fixed; top: 0; left: 0; right: 0;
+            padding: 20px 48px;
+            display: flex; align-items: center; justify-content: space-between;
+            z-index: 100;
+            background: rgba(250,247,245,0.95);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid var(--linen);
+        }
+        .menu-icon {
+            font-size: 20px; color: var(--ink); cursor: pointer;
+            background: none; border: none; padding: 6px 8px; line-height: 1;
+            opacity: 0.7; transition: opacity 0.2s, color 0.2s;
+            letter-spacing: 3px;
+        }
+        .menu-icon:hover { opacity: 1; color: var(--rose); }
+
+        .nav-right {
+            font-family: 'Outfit', sans-serif;
+            font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+            color: var(--taupe); font-weight: 500;
+        }
+
+        /* ── OVERLAY ── */
+        .overlay {
+            position: fixed; inset: 0;
+            background: rgba(26,16,24,0.5);
+            opacity: 0; visibility: hidden;
+            transition: 0.3s; z-index: 200;
+        }
+        .overlay.active { opacity: 1; visibility: visible; }
+
+        /* ── SIDE MENU ── */
+        .side-menu {
+            position: fixed; top: 0; left: -300px; width: 280px; height: 100%;
+            background: var(--ink);
+            display: flex; flex-direction: column;
+            padding-top: 80px;
+            transition: left 0.38s cubic-bezier(.4,0,.2,1);
+            z-index: 300; overflow-y: auto;
+        }
+        .side-menu.open { left: 0; }
+        .side-menu .close-btn {
+            position: absolute; top: 20px; right: 20px;
+            font-size: 24px; color: rgba(255,255,255,0.35);
+            background: none; border: none; cursor: pointer; transition: color 0.2s;
+        }
+        .side-menu .close-btn:hover { color: var(--rose); }
+
+        .side-section-label {
+            font-size: 9px; letter-spacing: 4px; text-transform: uppercase;
+            color: rgba(255,255,255,0.2); padding: 22px 30px 8px;
+        }
+        .side-menu a, .side-menu .side-item {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 14px 30px; text-decoration: none;
+            color: rgba(255,255,255,0.6); font-size: 13px;
+            font-family: 'Outfit', sans-serif; letter-spacing: 1px;
+            text-transform: uppercase;
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+            cursor: pointer; transition: all 0.2s; min-height: 50px;
+        }
+        .side-menu a:hover, .side-menu .side-item:hover {
+            color: white; padding-left: 36px;
+            border-left: 2px solid var(--rose);
+        }
+        .side-arrow { transition: transform 0.3s; font-size: 10px; opacity: 0.35; }
+        .side-arrow.open { transform: rotate(180deg); }
+        .side-submenu { display: none; flex-direction: column; }
+        .side-submenu a {
+            padding-left: 50px; font-size: 12px;
+            color: rgba(255,255,255,0.35); text-transform: uppercase; letter-spacing: 1.5px;
+        }
+        .side-submenu a:hover { color: var(--gold); padding-left: 56px; border-left: none; }
+        .side-menu-footer {
+            margin-top: auto; padding: 28px 30px;
+            font-size: 10px; color: rgba(255,255,255,0.15);
+            letter-spacing: 2px; text-transform: uppercase;
+            border-top: 1px solid rgba(255,255,255,0.06);
+        }
+
+        /* ── HERO ── */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            padding: 100px 80px 60px 80px;
+            gap: 60px;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        /* big background letter */
+        .hero-bg-letter {
+            position: absolute;
+            font-family: 'Bodoni Moda', serif;
+            font-size: 38vw;
+            font-weight: 800;
+            color: rgba(192,65,90,0.04);
+            right: -6vw; top: 50%;
+            transform: translateY(-50%);
+            line-height: 1;
+            pointer-events: none;
+            user-select: none;
+            letter-spacing: -10px;
+        }
+
+        /* left: text */
+        .hero-left {
+            position: relative; z-index: 2;
+        }
+
+        .hero-label {
+            display: inline-flex; align-items: center; gap: 10px;
+            font-size: 10px; letter-spacing: 4px; text-transform: uppercase;
+            color: var(--rose); font-weight: 600; margin-bottom: 28px;
+            animation: slideRight 0.9s ease 0.3s both;
+        }
+        .hero-label::before {
+            content: '';
+            width: 28px; height: 1px; background: var(--rose);
+        }
+
+        .hero-title {
+            font-family: 'Bodoni Moda', serif;
+            font-size: clamp(44px, 5.5vw, 82px);
+            font-weight: 800; line-height: 1.0;
+            color: var(--ink); margin-bottom: 20px;
+            animation: slideRight 0.9s ease 0.5s both;
+        }
+        .hero-title em {
+            font-style: italic;
+            font-weight: 400;
+            color: var(--rose);
+            display: block;
+        }
+
+        .hero-subtitle {
+            font-size: 15px; font-weight: 300;
+            color: var(--taupe); line-height: 1.7;
+            max-width: 360px; margin-bottom: 44px;
+            animation: slideRight 0.9s ease 0.7s both;
+        }
+
+        /* ── RIGHT: BRAND CARDS ── */
+        .hero-right {
+            position: relative; z-index: 2;
+            display: flex; flex-direction: column; gap: 18px;
+            animation: slideLeft 0.9s ease 0.5s both;
+        }
+
+        .brand-card {
+            position: relative;
+            text-decoration: none;
+            display: flex; align-items: stretch;
+            border-radius: 4px;
+            overflow: hidden;
+            transition: transform 0.35s cubic-bezier(.22,1,.36,1), box-shadow 0.35s;
+            border: 1px solid var(--linen);
+            background: var(--offwhite);
+        }
+        .brand-card:hover {
+            transform: translateX(6px);
+            box-shadow: -6px 0 0 var(--rose), 0 12px 40px rgba(26,16,24,0.1);
+        }
+        .dotandkey-card:hover {
+            box-shadow: -6px 0 0 var(--gold), 0 12px 40px rgba(26,16,24,0.1);
+        }
+
+        /* left color strip */
+        .card-strip {
+            width: 4px; flex-shrink: 0;
+            background: var(--rose);
+            transition: width 0.3s;
+        }
+        .brand-card:hover .card-strip { width: 6px; }
+        .dotandkey-card .card-strip { background: var(--gold); }
+
+        .card-body {
+            flex: 1; padding: 26px 28px;
+            display: flex; align-items: center; gap: 20px;
+        }
+
+        .card-icon-wrap {
+            width: 52px; height: 52px; flex-shrink: 0;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .skinn-card .card-icon-wrap {
+            background: var(--blush);
+            border: 1px solid rgba(192,65,90,0.2);
+        }
+        .dotandkey-card .card-icon-wrap {
+            background: #f5ede0;
+            border: 1px solid rgba(184,150,110,0.25);
+        }
+        .card-icon { font-size: 22px; }
+
+        .card-text { flex: 1; }
+        .card-name {
+            font-family: 'Bodoni Moda', serif;
+            font-size: 20px; font-weight: 600;
+            color: var(--ink); margin-bottom: 4px; letter-spacing: 0.3px;
+        }
+        .card-sub {
+            font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase;
+            color: var(--taupe); font-weight: 400; margin-bottom: 10px;
+        }
+        .card-pills {
+            display: flex; gap: 5px; flex-wrap: wrap;
+        }
+        .pill {
+            font-size: 10px; letter-spacing: 0.5px;
+            padding: 3px 9px; border-radius: 2px;
+            background: var(--linen); color: var(--taupe);
+            text-transform: uppercase;
+        }
+
+        .card-arrow {
+            width: 36px; height: 36px; border-radius: 50%; flex-shrink: 0;
+            display: flex; align-items: center; justify-content: center;
+            border: 1.5px solid var(--linen); color: var(--taupe);
+            font-size: 14px; transition: 0.3s;
+        }
+        .brand-card:hover .card-arrow {
+            background: var(--rose); border-color: var(--rose); color: white;
+        }
+        .dotandkey-card:hover .card-arrow {
+            background: var(--gold); border-color: var(--gold); color: white;
+        }
+
+        /* ── STAT ROW ── */
+        .stat-row {
+            display: flex; gap: 36px; margin-top: 8px;
+            animation: slideRight 0.9s ease 0.9s both;
+        }
+        .stat { }
+        .stat-num {
+            font-family: 'Bodoni Moda', serif;
+            font-size: 28px; font-weight: 600; color: var(--ink);
+            line-height: 1;
+        }
+        .stat-num span { color: var(--rose); font-size: 20px; }
+        .stat-label {
+            font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+            color: var(--taupe); margin-top: 3px;
+        }
+        .stat-divider { width: 1px; background: var(--linen); align-self: stretch; }
+
+        /* ── TAGLINE STRIP ── */
+        .tagline-strip {
+            position: relative; z-index: 1;
+            background: var(--ink);
+            padding: 22px 80px;
+            display: flex; align-items: center; justify-content: space-between;
+            gap: 20px; flex-wrap: wrap;
+        }
+        .tagline-strip p {
+            font-size: 12px; letter-spacing: 2.5px; text-transform: uppercase;
+            color: rgba(255,255,255,0.4); font-weight: 300;
+        }
+        .tagline-strip p span { color: var(--rose); }
+        .tagline-line {
+            flex: 1; height: 1px;
+            background: linear-gradient(90deg, rgba(255,255,255,0.08), transparent);
+        }
+
+        /* ── FOOTER ── */
+        footer {
+            position: relative; z-index: 1;
+            background: var(--bg2);
+            text-align: center; padding: 24px 20px;
+            border-top: 1px solid var(--linen);
+            font-size: 11px; color: var(--taupe);
+            letter-spacing: 1.5px; text-transform: uppercase;
+        }
+        footer a { color: var(--taupe); text-decoration: none; }
+        footer a:hover { color: var(--rose); }
+
+        /* ── ANIMATIONS ── */
+        @keyframes slideRight {
+            from { opacity: 0; transform: translateX(-30px); }
+            to   { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes slideLeft {
+            from { opacity: 0; transform: translateX(30px); }
+            to   { opacity: 1; transform: translateX(0); }
+        }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 900px) {
+            .hero {
+                grid-template-columns: 1fr;
+                padding: 110px 40px 60px;
+                gap: 48px;
+            }
+            .hero-bg-letter { font-size: 55vw; opacity: 0.025; }
+            .tagline-strip { padding: 22px 40px; }
+        }
+        @media (max-width: 600px) {
+            .navbar { padding: 16px 24px; }
+            .hero { padding: 90px 24px 50px; gap: 36px; }
+            .stat-row { gap: 20px; }
+            .tagline-strip { padding: 20px 24px; }
+            footer { padding: 20px 16px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- OVERLAY -->
+<div class="overlay" id="overlay" onclick="closeMenu()"></div>
+
+<!-- SIDE MENU -->
+<div class="side-menu" id="sideMenu">
+    <button class="close-btn" onclick="closeMenu()">×</button>
+
+    <div class="side-section-label">Navigate</div>
+    <a href="index.html">Home</a>
+    <a href="index1.html">About</a>
+
+    <div class="side-section-label">Shop</div>
+    <div class="side-item" onclick="toggleSkinn()">
+        <span>SKINN</span>
+        <span class="side-arrow" id="skinnArrow">▾</span>
+    </div>
+    <div class="side-submenu" id="skinnSub">
+        <a href="WOMEN.html">Women</a>
+        <a href="MEN.html">Men</a>
+    </div>
+    <a href="DK.html">Dot &amp; Key</a>
+
+    <div class="side-section-label">More</div>
+    <a href="contact.html">Contact</a>
+
+    <div class="side-menu-footer">© 2026 Gabriella Curates</div>
+</div>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+    <button class="menu-icon" onclick="openMenu()">&#9776;</button>
+    <span class="nav-right">Gabriella Curates</span>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+    <div class="hero-bg-letter">G</div>
+
+    <!-- LEFT -->
+    <div class="hero-left">
+        <div class="hero-label">Beauty Curated</div>
+        <h1 class="hero-title">
+            Own Every<br>
+            <em>Room You<br>Walk Into.</em>
+        </h1>
+        <p class="hero-subtitle">
+            Handpicked fragrances and skincare from the brands that define modern femininity.
+        </p>
+
+        <div class="stat-row">
+            <div class="stat">
+                <div class="stat-num">50<span>+</span></div>
+                <div class="stat-label">Products</div>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat">
+                <div class="stat-num">2</div>
+                <div class="stat-label">Brands</div>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat">
+                <div class="stat-num">0<span>₹</span></div>
+                <div class="stat-label">Extra Cost</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- RIGHT: BRAND CARDS -->
+    <div class="hero-right">
+
+        <a class="brand-card skinn-card" href="WOMEN.html">
+            <div class="card-strip"></div>
+            <div class="card-body">
+                <div class="card-icon-wrap">
+                    <span class="card-icon">🌸</span>
+                </div>
+                <div class="card-text">
+                    <div class="card-name">SKINN</div>
+                    <div class="card-sub">Fragrances by Titan</div>
+                    <div class="card-pills">
+                        <span class="pill">Perfumes</span>
+                        <span class="pill">Deodorants</span>
+                        <span class="pill">Body Mists</span>
+                    </div>
+                </div>
+                <div class="card-arrow">→</div>
+            </div>
+        </a>
+
+        <a class="brand-card dotandkey-card" href="DK.html">
+            <div class="card-strip"></div>
+            <div class="card-body">
+                <div class="card-icon-wrap">
+                    <span class="card-icon">✦</span>
+                </div>
+                <div class="card-text">
+                    <div class="card-name">Dot & Key</div>
+                    <div class="card-sub">Skincare & Beauty</div>
+                    <div class="card-pills">
+                        <span class="pill">Skincare</span>
+                        <span class="pill">Serums</span>
+                        <span class="pill">Sunscreen</span>
+                    </div>
+                </div>
+                <div class="card-arrow">→</div>
+            </div>
+        </a>
+
+    </div>
+</section>
+
+<!-- TAGLINE STRIP -->
+<div class="tagline-strip">
+    <p><span>Affiliate links</span> — you pay nothing extra, we earn a small commission.</p>
+    <div class="tagline-line"></div>
+    <p>© 2026 Gabriella</p>
+</div>
+
+<!-- FOOTER -->
+<footer>
+    <p>Gabriella is an affiliate of SKINN by Titan &amp; Dot &amp; Key &nbsp;·&nbsp; <a href="contact.html">Contact</a> &nbsp;·&nbsp; <a href="index1.html">About</a></p>
+</footer>
+
+<script>
+function openMenu() {
+    document.getElementById('sideMenu').classList.add('open');
+    document.getElementById('overlay').classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+function closeMenu() {
+    document.getElementById('sideMenu').classList.remove('open');
+    document.getElementById('overlay').classList.remove('active');
+    document.body.style.overflow = '';
+}
+function toggleSkinn() {
+    const sub   = document.getElementById('skinnSub');
+    const arrow = document.getElementById('skinnArrow');
+    const isOpen = sub.style.display === 'flex';
+    sub.style.display = isOpen ? 'none' : 'flex';
+    arrow.classList.toggle('open', !isOpen);
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
+</script>
+
+</body>
+</html>
