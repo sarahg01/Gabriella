@@ -31,7 +31,6 @@
             overflow-x: hidden;
         }
 
-        /* ── SIDE ACCENT LINE ── */
         body::after {
             content: '';
             position: fixed;
@@ -42,7 +41,6 @@
             pointer-events: none;
         }
 
-        /* ── NAVBAR ── */
         .navbar {
             position: fixed; top: 0; left: 0; right: 0;
             padding: 20px 48px;
@@ -66,7 +64,6 @@
             color: var(--taupe); font-weight: 500;
         }
 
-        /* ── OVERLAY ── */
         .overlay {
             position: fixed; inset: 0;
             background: rgba(26,16,24,0.5);
@@ -75,7 +72,6 @@
         }
         .overlay.active { opacity: 1; visibility: visible; }
 
-        /* ── SIDE MENU ── */
         .side-menu {
             position: fixed; top: 0; left: -300px; width: 280px; height: 100%;
             background: var(--ink);
@@ -124,7 +120,6 @@
             border-top: 1px solid rgba(255,255,255,0.06);
         }
 
-        /* ── HERO ── */
         .hero {
             position: relative;
             min-height: 100vh;
@@ -137,7 +132,6 @@
             overflow: hidden;
         }
 
-        /* big background letter */
         .hero-bg-letter {
             position: absolute;
             font-family: 'Bodoni Moda', serif;
@@ -152,10 +146,7 @@
             letter-spacing: -10px;
         }
 
-        /* left: text */
-        .hero-left {
-            position: relative; z-index: 2;
-        }
+        .hero-left { position: relative; z-index: 2; }
 
         .hero-label {
             display: inline-flex; align-items: center; gap: 10px;
@@ -189,7 +180,6 @@
             animation: slideRight 0.9s ease 0.7s both;
         }
 
-        /* ── RIGHT: BRAND CARDS ── */
         .hero-right {
             position: relative; z-index: 2;
             display: flex; flex-direction: column; gap: 18px;
@@ -214,7 +204,6 @@
             box-shadow: -6px 0 0 var(--gold), 0 12px 40px rgba(26,16,24,0.1);
         }
 
-        /* left color strip */
         .card-strip {
             width: 4px; flex-shrink: 0;
             background: var(--rose);
@@ -253,9 +242,7 @@
             font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase;
             color: var(--taupe); font-weight: 400; margin-bottom: 10px;
         }
-        .card-pills {
-            display: flex; gap: 5px; flex-wrap: wrap;
-        }
+        .card-pills { display: flex; gap: 5px; flex-wrap: wrap; }
         .pill {
             font-size: 10px; letter-spacing: 0.5px;
             padding: 3px 9px; border-radius: 2px;
@@ -276,12 +263,10 @@
             background: var(--gold); border-color: var(--gold); color: white;
         }
 
-        /* ── STAT ROW ── */
         .stat-row {
             display: flex; gap: 36px; margin-top: 8px;
             animation: slideRight 0.9s ease 0.9s both;
         }
-        .stat { }
         .stat-num {
             font-family: 'Bodoni Moda', serif;
             font-size: 28px; font-weight: 600; color: var(--ink);
@@ -294,7 +279,6 @@
         }
         .stat-divider { width: 1px; background: var(--linen); align-self: stretch; }
 
-        /* ── TAGLINE STRIP ── */
         .tagline-strip {
             position: relative; z-index: 1;
             background: var(--ink);
@@ -312,7 +296,6 @@
             background: linear-gradient(90deg, rgba(255,255,255,0.08), transparent);
         }
 
-        /* ── FOOTER ── */
         footer {
             position: relative; z-index: 1;
             background: var(--bg2);
@@ -324,7 +307,6 @@
         footer a { color: var(--taupe); text-decoration: none; }
         footer a:hover { color: var(--rose); }
 
-        /* ── ANIMATIONS ── */
         @keyframes slideRight {
             from { opacity: 0; transform: translateX(-30px); }
             to   { opacity: 1; transform: translateX(0); }
@@ -334,13 +316,8 @@
             to   { opacity: 1; transform: translateX(0); }
         }
 
-        /* ── RESPONSIVE ── */
         @media (max-width: 900px) {
-            .hero {
-                grid-template-columns: 1fr;
-                padding: 110px 40px 60px;
-                gap: 48px;
-            }
+            .hero { grid-template-columns: 1fr; padding: 110px 40px 60px; gap: 48px; }
             .hero-bg-letter { font-size: 55vw; opacity: 0.025; }
             .tagline-strip { padding: 22px 40px; }
         }
@@ -355,16 +332,15 @@
 </head>
 <body>
 
-<!-- OVERLAY -->
 <div class="overlay" id="overlay" onclick="closeMenu()"></div>
 
-<!-- SIDE MENU -->
 <div class="side-menu" id="sideMenu">
     <button class="close-btn" onclick="closeMenu()">×</button>
-<div class="side-section-label">Navigate</div>
+
+    <div class="side-section-label">Navigate</div>
     <a href="MB.html">Home</a>
     <a href="About.html">About</a>
- 
+
     <div class="side-section-label">Shop</div>
     <div class="side-item" onclick="toggleSkinn()">
         <span>SKINN</span>
@@ -375,25 +351,21 @@
         <a href="MEN.html">Men</a>
     </div>
     <a href="DK.html">Dot &amp; Key</a>
- 
+
     <div class="side-section-label">More</div>
     <a href="contact.html">Contact</a>
- 
 
     <div class="side-menu-footer">© 2026 Gabriella Curates</div>
 </div>
 
-<!-- NAVBAR -->
 <nav class="navbar">
     <button class="menu-icon" onclick="openMenu()">&#9776;</button>
     <span class="nav-right">Gabriella Curates</span>
 </nav>
 
-<!-- HERO -->
 <section class="hero">
     <div class="hero-bg-letter">G</div>
 
-    <!-- LEFT -->
     <div class="hero-left">
         <div class="hero-label">Beauty Curated</div>
         <h1 class="hero-title">
@@ -422,10 +394,8 @@
         </div>
     </div>
 
-    <!-- RIGHT: BRAND CARDS -->
     <div class="hero-right">
-
-        <a class="brand-card skinn-card" href="WOMEN.html">
+        <a class="brand-card skinn-card" href="skinn.html">
             <div class="card-strip"></div>
             <div class="card-body">
                 <div class="card-icon-wrap">
@@ -451,8 +421,8 @@
                     <span class="card-icon">✦</span>
                 </div>
                 <div class="card-text">
-                    <div class="card-name">Dot & Key</div>
-                    <div class="card-sub">Skincare & Beauty</div>
+                    <div class="card-name">Dot &amp; Key</div>
+                    <div class="card-sub">Skincare &amp; Beauty</div>
                     <div class="card-pills">
                         <span class="pill">Skincare</span>
                         <span class="pill">Serums</span>
@@ -462,20 +432,17 @@
                 <div class="card-arrow">→</div>
             </div>
         </a>
-
     </div>
 </section>
 
-<!-- TAGLINE STRIP -->
 <div class="tagline-strip">
     <p><span>Affiliate links</span> — you pay nothing extra, we earn a small commission.</p>
     <div class="tagline-line"></div>
     <p>© 2026 Gabriella</p>
 </div>
 
-<!-- FOOTER -->
 <footer>
-    <p>Gabriella is an affiliate of SKINN by Titan &amp; Dot &amp; Key &nbsp;·&nbsp; <a href="contact.html">Contact</a> &nbsp;·&nbsp; <a href="index1.html">About</a></p>
+    <p>Gabriella is an affiliate of SKINN by Titan &amp; Dot &amp; Key &nbsp;·&nbsp; <a href="contact.html">Contact</a> &nbsp;·&nbsp; <a href="About.html">About</a></p>
 </footer>
 
 <script>
