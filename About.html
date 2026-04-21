@@ -17,7 +17,6 @@ body {
     color: #222;
 }
 
-/* ===== TOPBAR ===== */
 .topbar {
     background: #000;
     height: 80px;
@@ -51,7 +50,6 @@ body {
     display: block;
 }
 
-/* ===== SIDE MENU ===== */
 .side-menu {
     position: fixed;
     top: 0;
@@ -94,7 +92,6 @@ body {
     border: none;
 }
 
-/* ===== OVERLAY ===== */
 .overlay {
     position: fixed;
     top: 0; left: 0;
@@ -107,15 +104,12 @@ body {
 }
 .overlay.active { opacity: 1; visibility: visible; }
 
-/* ===== ABOUT SECTION ===== */
 .about-section {
     padding: 80px 20px 60px;
     max-width: 800px;
     margin: auto;
     text-align: center;
 }
-
-
 
 .about-section h1 {
     font-weight: 600;
@@ -132,9 +126,6 @@ body {
     color: #555;
 }
 
-.about-section strong p { font-weight: 400; }
-
-/* ===== SOCIAL ICONS ===== */
 .social-icons { margin-top: 25px; }
 
 .social-icons a {
@@ -147,7 +138,6 @@ body {
 
 .social-icons a:hover { color: #e91e63; }
 
-/* ===== CONTACT SECTION ===== */
 .contact-section {
     padding: 80px 20px;
     background: #fafafa;
@@ -193,7 +183,6 @@ body {
 
 .contact-form button:hover { background: #e91e63; }
 
-/* ===== PRIVACY ===== */
 .privacy-section {
     padding: 80px 20px;
     max-width: 800px;
@@ -213,7 +202,6 @@ body {
     color: #555;
 }
 
-/* ===== FOOTER ===== */
 footer {
     text-align: center;
     padding: 25px 20px;
@@ -224,7 +212,6 @@ footer {
     line-height: 1.8;
 }
 
-/* ===== TABLET ===== */
 @media (max-width: 768px) {
     .topbar { height: 68px; }
     .topbar .logo img { height: 44px; }
@@ -233,14 +220,12 @@ footer {
     .about-section p { font-size: 16px; }
 }
 
-/* ===== MOBILE ===== */
 @media (max-width: 480px) {
     .topbar { height: 60px; padding: 0 15px; }
     .topbar .logo img { height: 38px; }
     .menu-icon { font-size: 22px; }
     .about-section { padding: 50px 15px 40px; }
     .about-section h1 { font-size: 20px; }
-    
     .contact-section { padding: 50px 15px; }
     .privacy-section { padding: 50px 15px; }
 }
@@ -249,22 +234,19 @@ footer {
 
 <body>
 
-<!-- ===== TOPBAR ===== -->
 <div class="topbar">
-   <div class="topbar-left">
-    <div class="menu-icon" onclick="openMenu()">☰</div>
-</div>
-<div class="logo">
-    <a href="MB.html">
-        <img src="smalllogo.png" alt="Gabriella Logo">
-    </a>
-</div>
+    <div class="topbar-left">
+        <div class="menu-icon" onclick="openMenu()">☰</div>
+    </div>
+    <div class="logo">
+        <a href="MB.html">
+            <img src="smalllogo.png" alt="Gabriella Logo">
+        </a>
+    </div>
 </div>
 
-<!-- OVERLAY -->
- 
 <div class="overlay" id="overlay" onclick="closeMenu()"></div>
- 
+
 <div class="side-menu" id="sideMenu">
     <button class="close-btn" onclick="closeMenu()">×</button>
     <a href="MB.html">Home</a>
@@ -274,24 +256,17 @@ footer {
     <a href="contact.html">Contact</a>
 </div>
 
-<!-- ABOUT -->
 <section class="about-section">
-
     <h1>ABOUT GABRIELLA</h1>
-
     <p>"Find your signature scent with Gabriella — crafted to define your presence."</p>
-
     <p>Every product featured here is carefully selected to align with quality, effectiveness, and modern beauty trends.</p>
-
     <p>As an affiliate platform, we may earn a small commission from purchases made through our links — at no additional cost to you.</p>
-
     <div class="social-icons">
         <a href="https://www.instagram.com/gabriella.curates/" target="_blank" title="Instagram">⌁</a>
         <a href="#contact" title="Contact">✉</a>
     </div>
 </section>
 
-<!-- CONTACT -->
 <section class="contact-section" id="contact">
     <h2>CONTACT</h2>
     <form class="contact-form" action="mailto:gabriella.curates@gmail.com" method="POST" enctype="text/plain">
@@ -302,15 +277,13 @@ footer {
     </form>
 </section>
 
-<!-- PRIVACY -->
 <section class="privacy-section">
     <h2>PRIVACY POLICY</h2>
     <p>We respect your privacy and do not sell personal data. This website may use affiliate tracking cookies to monitor purchases made through referral links. These cookies do not collect personal information.</p>
 </section>
 
-<!-- FOOTER -->
 <footer>
-    Disclaimer: Gabriella is an affiliate of SKINN And Dot&Key.<br>
+    Disclaimer: Gabriella is an affiliate of SKINN And Dot &amp; Key.<br>
     We earn a small commission if you purchase through our links at no extra cost to you.
     <br><br>
     © 2026 Gabriella | Trusted Recommendations
