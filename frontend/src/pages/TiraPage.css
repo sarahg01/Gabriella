@@ -1,0 +1,116 @@
+/* Tira Beauty page styles — adapted from the Dot & Key reference */
+.tira-page * { margin: 0; padding: 0; box-sizing: border-box; }
+.tira-page { font-family: 'Lato', sans-serif; background: #fff; min-height: 100vh; }
+
+/* Navbar */
+.tira-page .navbar { background: #000; padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; position: relative; z-index: 1001; gap: 14px; }
+.tira-page .menu-icon { font-size: 26px; color: white; cursor: pointer; padding: 6px 8px; flex-shrink: 0; line-height: 1; background: none; border: none; }
+.tira-page .menu-icon:hover { color: #C8102E; }
+.tira-page .brand-logo { color: #fff; font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 700; letter-spacing: 2px; flex-shrink: 0; margin-left: 8px; }
+.tira-page .brand-logo span { color: #C8102E; }
+.tira-page .search-wrap { display: flex; align-items: center; background: #1a1a1a; border: 1.5px solid #333; border-radius: 30px; padding: 7px 16px; gap: 8px; flex: 1; max-width: 380px; margin-left: auto; transition: border-color 0.2s; position: relative; }
+.tira-page .search-wrap:focus-within { border-color: #C8102E; }
+.tira-page .search-input { background: none; border: none; outline: none; color: white; font-size: 14px; font-family: 'Lato', sans-serif; width: 100%; }
+.tira-page .search-input::placeholder { color: #888; }
+.tira-page .search-results { display: none; position: absolute; top: calc(100% + 6px); right: 0; width: 320px; background: #fff; border-radius: 10px; box-shadow: 0 8px 30px rgba(0,0,0,0.18); z-index: 2000; overflow: hidden; }
+.tira-page .search-results.open { display: block; }
+.tira-page .search-result-item { display: flex; align-items: center; gap: 12px; padding: 11px 16px; cursor: pointer; border-bottom: 1px solid #f5f5f5; text-decoration: none; color: #111; transition: background 0.15s; font-family: 'Lato', sans-serif; }
+.tira-page .search-result-item:last-child { border-bottom: none; }
+.tira-page .search-result-item:hover { background: #fdecef; }
+.tira-page .search-result-item img { width: 42px; height: 42px; object-fit: contain; background: #f7f7f7; border-radius: 6px; flex-shrink: 0; }
+.tira-page .search-result-name { font-size: 13px; font-weight: 600; line-height: 1.35; }
+.tira-page .search-result-price { font-size: 12px; color: #C8102E; margin-top: 2px; }
+.tira-page .search-no-result { padding: 16px; font-size: 13px; color: #888; text-align: center; font-family: 'Lato', sans-serif; }
+
+/* Overlay + side menu */
+.tira-page .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); opacity: 0; visibility: hidden; transition: 0.3s; z-index: 1000; }
+.tira-page .overlay.active { opacity: 1; visibility: visible; }
+.tira-page .side-menu { position: fixed; top: 0; left: -280px; width: 270px; height: 100%; background: #000; display: flex; flex-direction: column; padding-top: 70px; transition: 0.35s cubic-bezier(.4,0,.2,1); z-index: 1002; overflow-y: auto; }
+.tira-page .side-menu.open { left: 0; }
+.tira-page .side-menu a, .tira-page .side-menu .menu-item { color: white; text-decoration: none; padding: 14px 24px; font-size: 16px; font-family: 'Lato', sans-serif; cursor: pointer; display: flex; justify-content: space-between; align-items: center; min-height: 48px; border-bottom: 1px solid #111; }
+.tira-page .side-menu a:hover, .tira-page .side-menu .menu-item:hover { background: #181818; color: #C8102E; }
+.tira-page .side-menu .close-btn { position: absolute; top: 16px; right: 16px; font-size: 28px; cursor: pointer; color: white; padding: 6px; line-height: 1; background: none; border: none; }
+.tira-page .side-menu .close-btn:hover { color: #C8102E; }
+
+/* Title + product grid */
+.tira-page .page-title { text-align: center; margin: 60px 0 40px; font-size: 34px; color: #C8102E; font-family: 'Playfair Display', serif; font-weight: 600; letter-spacing: 1px; }
+.tira-page .page-subtitle { text-align: center; margin: -28px 0 40px; color: #555; font-size: 14px; letter-spacing: 1.5px; text-transform: uppercase; }
+.tira-page .product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 30px; padding: 0 60px 80px; }
+.tira-page .product-card { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); text-align: center; transition: transform 0.3s, box-shadow 0.3s; position: relative; }
+.tira-page .product-card:hover { transform: translateY(-5px); box-shadow: 0 6px 18px rgba(0,0,0,0.15); }
+.tira-page .product-card img { width: 100%; height: 220px; object-fit: contain; background: #fff; padding: 10px; }
+.tira-page .product-card h3 { margin-top: 15px; font-size: 15px; font-family: 'Playfair Display', serif; font-weight: 600; line-height: 1.5; color: #111; }
+.tira-page .product-card .price-tag { display: block; margin-top: 6px; color: #C8102E; font-family: 'Lato', sans-serif; font-weight: 700; font-size: 15px; }
+.tira-page .buy-btn { display: inline-flex; align-items: center; justify-content: center; margin-top: 15px; padding: 10px 20px; background: #C8102E; color: white; text-decoration: none; border-radius: 6px; font-size: 14px; font-family: 'Lato', sans-serif; font-weight: 700; letter-spacing: 0.5px; min-height: 44px; width: 100%; transition: background-color 0.3s; border: none; cursor: pointer; }
+.tira-page .buy-btn:hover { background: #a00a24; }
+.tira-page .eye-btn { position: absolute; top: 12px; right: 12px; width: 36px; height: 36px; background: rgba(255,255,255,0.95); border: 1.5px solid #ddd; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background-color 0.2s, border-color 0.2s; z-index: 2; }
+.tira-page .eye-btn:hover { background: #C8102E; border-color: #C8102E; }
+.tira-page .eye-btn:hover svg path, .tira-page .eye-btn:hover svg circle { stroke: white; }
+.tira-page .eye-btn svg { width: 17px; height: 17px; }
+
+/* Popup */
+.tira-page .popup-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.65); z-index: 2000; align-items: center; justify-content: center; padding: 20px; }
+.tira-page .popup-overlay.open { display: flex; }
+.tira-page .popup-box { background: white; border-radius: 14px; width: 100%; max-width: 440px; max-height: 90vh; overflow-y: auto; position: relative; animation: popIn 0.22s ease; }
+@keyframes popIn { from { transform: scale(0.93); opacity:0; } to { transform: scale(1); opacity:1; } }
+.tira-page .popup-close { position: absolute; top: 12px; right: 16px; font-size: 26px; cursor: pointer; color: #555; z-index: 10; line-height: 1; background: none; border: none; }
+.tira-page .popup-close:hover { color: #C8102E; }
+.tira-page .slider-wrap { position: relative; background: #f7f7f7; border-radius: 14px 14px 0 0; overflow: hidden; }
+.tira-page .slides { display: flex; transition: transform 0.32s ease; }
+.tira-page .slides img { min-width: 100%; height: 300px; object-fit: contain; padding: 24px; background: #f7f7f7; }
+.tira-page .slider-arrow { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.92); border: none; border-radius: 50%; width: 34px; height: 34px; font-size: 20px; cursor: pointer; display: flex; align-items: center; justify-content: center; color: #333; transition: background-color 0.2s, color 0.2s; z-index: 5; }
+.tira-page .slider-arrow:hover { background: #C8102E; color: white; }
+.tira-page .slider-arrow.prev { left: 10px; }
+.tira-page .slider-arrow.next { right: 10px; }
+.tira-page .slider-dots { display: flex; justify-content: center; gap: 7px; padding: 10px 0 6px; background: #f7f7f7; }
+.tira-page .dot { width: 8px; height: 8px; border-radius: 50%; background: #ccc; cursor: pointer; transition: background-color 0.2s; }
+.tira-page .dot.active { background: #C8102E; }
+.tira-page .new-badge { position: absolute; top: 14px; left: 14px; background: #C8102E; color: white; font-size: 11px; font-weight: bold; padding: 4px 10px; border-radius: 4px; z-index: 5; font-family: 'Lato', sans-serif; letter-spacing: 1px; }
+.tira-page .popup-details { padding: 18px 22px 24px; font-family: 'Lato', sans-serif; }
+.tira-page .popup-details .sku { font-size: 12px; color: #999; margin-bottom: 5px; letter-spacing: 1px; }
+.tira-page .popup-details h2 { font-size: 18px; font-weight: bold; color: #111; margin-bottom: 10px; line-height: 1.45; font-family: 'Playfair Display', serif; }
+.tira-page .popup-stars { font-size: 17px; margin-bottom: 13px; letter-spacing: 1px; }
+.tira-page .star-filled { color: #f5a623; }
+.tira-page .star-empty { color: #ddd; }
+.tira-page .popup-price { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 3px; }
+.tira-page .popup-price .offer { font-size: 22px; font-weight: bold; color: #111; }
+.tira-page .popup-price .mrp { font-size: 14px; color: #aaa; text-decoration: line-through; }
+.tira-page .popup-price .discount { font-size: 12px; background: #fdecef; color: #C8102E; padding: 3px 10px; border-radius: 20px; font-weight: 700; }
+.tira-page .popup-tax { font-size: 12px; color: #999; margin-bottom: 15px; }
+.tira-page .popup-desc { font-size: 14px; color: #444; line-height: 1.65; margin-bottom: 16px; border-top: 1px solid #f0f0f0; padding-top: 14px; }
+.tira-page .size-label { font-size: 13px; font-weight: bold; color: #333; margin-bottom: 8px; }
+.tira-page .size-box { display: inline-block; border: 1.5px solid #333; padding: 8px 22px; border-radius: 6px; font-size: 14px; color: #333; margin-bottom: 18px; }
+.tira-page .popup-buy-btn { display: block; width: 100%; padding: 14px; background: #C8102E; color: white; text-align: center; text-decoration: none; border-radius: 8px; font-size: 15px; font-family: 'Lato', sans-serif; font-weight: bold; letter-spacing: 1px; transition: background-color 0.3s; min-height: 50px; line-height: 1.4; }
+.tira-page .popup-buy-btn:hover { background: #a00a24; }
+
+/* Footer */
+.tira-page footer { text-align: center; padding: 24px 15px 32px; margin-top: 30px; font-size: 14px; line-height: 1.6; font-family: 'Lato', sans-serif; color: #555; border-top: 1px solid #f0f0f0; }
+.tira-page footer strong { color: #C8102E; }
+
+/* Responsive */
+@media (max-width: 768px) {
+  .tira-page .page-title { font-size: 26px; margin: 40px 0 25px; }
+  .tira-page .page-subtitle { font-size: 12px; margin: -20px 0 25px; }
+  .tira-page .product-grid { grid-template-columns: 1fr 1fr; gap: 20px; padding: 0 20px 60px; }
+  .tira-page .product-card img { height: 180px; }
+  .tira-page .product-card h3 { font-size: 13px; }
+  .tira-page .buy-btn { font-size: 13px; padding: 8px 14px; }
+  .tira-page .slides img { height: 240px; }
+  .tira-page .search-wrap { max-width: 220px; }
+  .tira-page .brand-logo { font-size: 20px; }
+}
+@media (max-width: 480px) {
+  .tira-page .navbar { padding: 12px 14px; }
+  .tira-page .search-wrap { max-width: 170px; padding: 6px 12px; }
+  .tira-page .page-title { font-size: 22px; margin: 30px 0 20px; }
+  .tira-page .product-grid { grid-template-columns: 1fr; gap: 15px; padding: 0 15px 50px; }
+  .tira-page .product-card { padding: 15px; }
+  .tira-page .product-card img { height: 200px; }
+  .tira-page .product-card h3 { font-size: 14px; }
+  .tira-page footer { font-size: 12px; }
+  .tira-page .popup-overlay { align-items: flex-end; padding: 0; }
+  .tira-page .popup-box { max-width: 100%; border-radius: 18px 18px 0 0; }
+  .tira-page .slides img { height: 210px; }
+  .tira-page .search-results { width: 260px; right: -10px; }
+  .tira-page .brand-logo { font-size: 18px; letter-spacing: 1px; }
+}
