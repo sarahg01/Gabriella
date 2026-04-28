@@ -1,61 +1,51 @@
-<!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Product Catalog</title>
-    <style>
-        /* Basic styles for the product catalog and filter */
-        body { font-family: Arial, sans-serif; }
-        .filter-bar { margin-bottom: 20px; }
-        .filter-bar select { padding: 10px; }
-        .product { border: 1px solid #ccc; padding: 10px; margin: 10px; display: inline-block; width: 200px; }
-        .product img { max-width: 100%; }
-        .product h3 { font-size: 1.2em; }
-    </style>
+    <title>Luxury Product Catalog</title>
 </head>
 <body>
-    <div class="filter-bar">
-        <label for="category">Filter by Category:</label>
-        <select id="category">
-            <option value="all">All</option>
-            <option value="makeup">Makeup</option>
-            <option value="skincare">Skincare</option>
-            <option value="haircare">Haircare</option>
-            <option value="fragrances">Fragrances</option>
-            <option value="prestige">Prestige Brands</option>
-        </select>
-    </div>
-    <div id="product-list">
-        <!-- Placeholder for products -->
-    </div>
-    <script>
-        const products = [
-            // Example luxury products
-            { name: 'Luxury Lipstick', category: 'makeup', image: 'lipstick.jpg' },
-            { name: 'Luxury Conditioner', category: 'haircare', image: 'conditioner.jpg' },
-            { name: 'Luxury Perfume', category: 'fragrances', image: 'perfume.jpg' },
-            // Add 50+ more products here
-        ];
-
-        function displayProducts(category) {
-            const productList = document.getElementById('product-list');
-            productList.innerHTML = '';
-            const filteredProducts = category === 'all' ? products : products.filter(product => product.category === category);
-            filteredProducts.forEach(product => {
-                const productDiv = document.createElement('div');
-                productDiv.classList.add('product');
-                productDiv.innerHTML = `<img src='${product.image}' alt='${product.name}' /><h3>${product.name}</h3>`;
-                productList.appendChild(productDiv);
-            });
-        }
-
-        document.getElementById('category').addEventListener('change', function() {
-            displayProducts(this.value);
-        });
-
-        // Initial display of products
-        displayProducts('all');
-    </script>
+    <h1>Complete Product Catalog</h1>
+    <h2>Categories:</h2>
+    <ul>
+        <li>Makeup</li>
+        <li>Skincare</li>
+        <li>Haircare</li>
+        <li>Fragrances</li>
+        <li>Prestige Brands</li>
+    </ul>
+    <h2>Product List:</h2>
+    <table>
+        <tr>
+            <th>SKU</th>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Price</th>
+            <th>Discount</th>
+            <th>Description</th>
+            <th>Images</th>
+            <th>Links</th>
+        </tr>
+        <!-- Sample Entries -->
+        <tr>
+            <td>SKU001</td>
+            <td>Luxury Lipstick</td>
+            <td>Makeup</td>
+            <td>$30</td>
+            <td>10%</td>
+            <td>A high-end lipstick with a rich formula.</td>
+            <td><img src='link_to_image1.jpg' alt='Luxury Lipstick'></td>
+            <td><a href='link_to_product1.com'>View Product</a></td>
+        </tr>
+        <tr>
+            <td>SKU002</td>
+            <td>Hydrating Cream</td>
+            <td>Skincare</td>
+            <td>$50</td>
+            <td>15%</td>
+            <td>A deep hydrating cream for all skin types.</td>
+            <td><img src='link_to_image2.jpg' alt='Hydrating Cream'></td>
+            <td><a href='link_to_product2.com'>View Product</a></td>
+        </tr>
+        <!-- Additional 41 products would be listed here -->
+    </table>
 </body>
 </html>
