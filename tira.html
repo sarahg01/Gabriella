@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tira Beauty | GT</title>
+    <link rel="icon" type="image/png" href="favicon.png?v=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Lato', sans-serif; }
+        .navbar { background: #000; padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; position: relative; z-index: 1001; gap: 14px; }
+        .menu-icon { font-size: 26px; color: white; cursor: pointer; padding: 6px 8px; flex-shrink: 0; line-height: 1; background: none; border: none; }
+        .menu-icon:hover { color: #C8102E; }
+        .brand-logo { color: #fff; font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 700; letter-spacing: 2px; flex-shrink: 0; }
+        .brand-logo span { color: #C8102E; }
+        .search-wrap { display: flex; align-items: center; background: #1a1a1a; border: 1.5px solid #333; border-radius: 30px; padding: 7px 16px; gap: 8px; flex: 1; max-width: 380px; margin-left: auto; transition: border-color 0.2s; position: relative; }
+        .search-wrap:focus-within { border-color: #C8102E; }
+        .search-wrap svg { flex-shrink: 0; }
+        .search-input { background: none; border: none; outline: none; color: white; font-size: 14px; font-family: 'Lato', sans-serif; width: 100%; }
+        .search-input::placeholder { color: #888; }
+        .search-results { display: none; position: absolute; top: calc(100% + 6px); right: 0; width: 320px; background: #fff; border-radius: 10px; box-shadow: 0 8px 30px rgba(0,0,0,0.18); z-index: 2000; overflow: hidden; max-height: 400px; overflow-y: auto; }
+        .search-results.open { display: block; }
+        .search-result-item { display: flex; align-items: center; gap: 12px; padding: 11px 16px; cursor: pointer; border-bottom: 1px solid #f5f5f5; text-decoration: none; color: #111; transition: background 0.15s; font-family: 'Lato', sans-serif; }
+        .search-result-item:last-child { border-bottom: none; }
+        .search-result-item:hover { background: #fdecef; }
+        .search-result-item img { width: 42px; height: 42px; object-fit: contain; background: #f7f7f7; border-radius: 6px; flex-shrink: 0; }
+        .search-result-name { font-size: 13px; font-weight: 600; line-height: 1.35; }
+        .search-result-price { font-size: 12px; color: #C8102E; margin-top: 2px; }
+        .search-no-result { padding: 16px; font-size: 13px; color: #888; text-align: center; font-family: 'Lato', sans-serif; }
+        .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); opacity: 0; visibility: hidden; transition: 0.3s; z-index: 1000; }
+        .overlay.active { opacity: 1; visibility: visible; }
+        .side-menu { position: fixed; top: 0; left: -280px; width: 270px; height: 100%; background: #000; display: flex; flex-direction: column; padding-top: 70px; transition: 0.35s cubic-bezier(.4,0,.2,1); z-index: 1002; overflow-y: auto; }
+        .side-menu.open { left: 0; }
+        .side-menu a { color: white; text-decoration: none; padding: 14px 24px; font-size: 16px; font-family: 'Lato', sans-serif; cursor: pointer; display: flex; justify-content: space-between; align-items: center; min-height: 48px; border-bottom: 1px solid #111; }
+        .side-menu a:hover { background: #181818; color: #C8102E; }
+        .side-menu .close-btn { position: absolute; top: 16px; right: 16px; font-size: 28px; cursor: pointer; color: white; padding: 6px; line-height: 1; background: none; border: none; }
+        .side-menu .close-btn:hover { color: #C8102E; }
+        .page-title { text-align: center; margin: 60px 0 10px; font-size: 34px; color: #C8102E; font-family: 'Playfair Display', serif; font-weight: 600; letter-spacing: 1px; }
+        .page-subtitle { text-align: center; margin: 0 0 40px; color: #555; font-size: 14px; letter-spacing: 1.5px; text-transform: uppercase; }
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 30px; padding: 0 60px 80px; }
+        .product-card { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); text-align: center; transition: transform 0.3s, box-shadow 0.3s; position: relative; }
+        .product-card:hover { transform: translateY(-5px); box-shadow: 0 6px 18px rgba(0,0,0,0.15); }
+        .product-card img { width: 100%; height: 220px; object-fit: contain; background: #fff; padding: 10px; }
+        .product-card h3 { margin-top: 15px; font-size: 15px; font-family: 'Playfair Display', serif; font-weight: 600; line-height: 1.5; color: #111; }
+        .product-card .price-tag { display: block; margin-top: 6px; color: #C8102E; font-family: 'Lato', sans-serif; font-weight: 700; font-size: 15px; }
+        .buy-btn { display: inline-flex; align-items: center; justify-content: center; margin-top: 15px; padding: 10px 20px; background: #C8102E; color: white; text-decoration: none; border-radius: 6px; font-size: 14px; font-family: 'Lato', sans-serif; font-weight: 700; letter-spacing: 0.5px; min-height: 44px; width: 100%; transition: background-color 0.3s; }
+        .buy-btn:hover { background: #a00a24; }
+        .eye-btn { position: absolute; top: 12px; right: 12px; width: 36px; height: 36px; background: rgba(255,255,255,0.95); border: 1.5px solid #ddd; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.2s; z-index: 2; }
+        .eye-btn:hover { background: #C8102E; border-color: #C8102E; }
+        .eye-btn:hover svg path, .eye-btn:hover svg circle { stroke: white; }
+        .eye-btn svg { width: 17px; height: 17px; }
+        .popup-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.65); z-index: 2000; align-items: center; justify-content: center; padding: 20px; }
+        .popup-overlay.open { display: flex; }
+        .popup-box { background: white; border-radius: 14px; width: 100%; max-width: 440px; max-height: 90vh; overflow-y: auto; position: relative; animation: popIn 0.22s ease; }
+        @keyframes popIn { from { transform: scale(0.93); opacity:0; } to { transform: scale(1); opacity:1; } }
+        .popup-close { position: absolute; top: 12px; right: 16px; font-size: 26px; cursor: pointer; color: #555; z-index: 10; line-height: 1; background: none; border: none; }
+        .popup-close:hover { color: #C8102E; }
+        .slider-wrap { position: relative; background: #f7f7f7; border-radius: 14px 14px 0 0; overflow: hidden; }
+        .slides { display: flex; transition: transform 0.32s ease; }
+        .slides img { min-width: 100%; height: 300px; object-fit: contain; padding: 24px; background: #f7f7f7; }
+        .slider-arrow { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.92); border: none; border-radius: 50%; width: 34px; height: 34px; font-size: 20px; cursor: pointer; display: flex; align-items: center; justify-content: center; color: #333; transition: 0.2s; z-index: 5; }
+        .slider-arrow:hover { background: #C8102E; color: white; }
+        .slider-arrow.prev { left: 10px; }
+        .slider-arrow.next { right: 10px; }
+        .slider-dots { display: flex; justify-content: center; gap: 7px; padding: 10px 0 6px; background: #f7f7f7; }
+        .dot { width: 8px; height: 8px; border-radius: 50%; background: #ccc; cursor: pointer; transition: 0.2s; }
+        .dot.active { background: #C8102E; }
+        .new-badge { position: absolute; top: 14px; left: 14px; background: #C8102E; color: white; font-size: 11px; font-weight: bold; padding: 4px 10px; border-radius: 4px; z-index: 5; font-family: 'Lato', sans-serif; letter-spacing: 1px; }
+        .popup-details { padding: 18px 22px 24px; font-family: 'Lato', sans-serif; }
+        .popup-details .sku { font-size: 12px; color: #999; margin-bottom: 5px; letter-spacing: 1px; }
+        .popup-details h2 { font-size: 18px; font-weight: bold; color: #111; margin-bottom: 10px; line-height: 1.45; font-family: 'Playfair Display', serif; }
+        .popup-stars { font-size: 17px; margin-bottom: 13px; letter-spacing: 1px; }
+        .star-filled { color: #f5a623; }
+        .star-empty { color: #ddd; }
+        .popup-price { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 3px; }
+        .popup-price .offer { font-size: 22px; font-weight: bold; color: #111; }
+        .popup-price .mrp { font-size: 14px; color: #aaa; text-decoration: line-through; }
+        .popup-price .discount { font-size: 12px; background: #fdecef; color: #C8102E; padding: 3px 10px; border-radius: 20px; font-weight: 700; }
+        .popup-tax { font-size: 12px; color: #999; margin-bottom: 15px; }
+        .popup-desc { font-size: 14px; color: #444; line-height: 1.65; margin-bottom: 16px; border-top: 1px solid #f0f0f0; padding-top: 14px; }
+        .size-label { font-size: 13px; font-weight: bold; color: #333; margin-bottom: 8px; }
+        .size-box { display: inline-block; border: 1.5px solid #333; padding: 8px 22px; border-radius: 6px; font-size: 14px; color: #333; margin-bottom: 18px; }
+        .popup-buy-btn { display: block; width: 100%; padding: 14px; background: #C8102E; color: white; text-align: center; text-decoration: none; border-radius: 8px; font-size: 15px; font-family: 'Lato', sans-serif; font-weight: bold; letter-spacing: 1px; transition: 0.3s; min-height: 50px; line-height: 1.4; }
+        .popup-buy-btn:hover { background: #a00a24; }
+        footer { text-align: center; padding: 24px 15px 32px; margin-top: 30px; font-size: 14px; line-height: 1.6; font-family: 'Lato', sans-serif; color: #555; border-top: 1px solid #f0f0f0; }
+        footer strong { color: #C8102E; }
+        @media (max-width: 768px) { .page-title { font-size: 26px; margin: 40px 0 8px; } .page-subtitle { font-size: 12px; margin-bottom: 25px; } .product-grid { grid-template-columns: 1fr 1fr; gap: 20px; padding: 0 20px 60px; } .product-card img { height: 180px; } .product-card h3 { font-size: 13px; } .buy-btn { font-size: 13px; padding: 8px 14px; } .slides img { height: 240px; } .search-wrap { max-width: 220px; } .brand-logo { font-size: 20px; } }
+        @media (max-width: 480px) { .navbar { padding: 12px 14px; } .search-wrap { max-width: 170px; padding: 6px 12px; } .page-title { font-size: 22px; margin: 30px 0 6px; } .product-grid { grid-template-columns: 1fr; gap: 15px; padding: 0 15px 50px; } .product-card { padding: 15px; } .product-card img { height: 200px; } .product-card h3 { font-size: 14px; } footer { font-size: 12px; } .popup-overlay { align-items: flex-end; padding: 0; } .popup-box { max-width: 100%; border-radius: 18px 18px 0 0; } .slides img { height: 210px; } .search-results { width: 260px; right: -10px; } .brand-logo { font-size: 18px; letter-spacing: 1px; } }
+    </style>
+</head>
+<body>
+<div class="navbar">
+    <button class="menu-icon" onclick="openMenu()" aria-label="Open menu">&#9776;</button>
+    <div class="brand-logo"></div>
+    <div class="search-wrap">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="8" stroke="#888" stroke-width="2"/><path d="M21 21l-4.35-4.35" stroke="#888" stroke-width="2" stroke-linecap="round"/></svg>
+        <input class="search-input" id="searchInput" type="text" placeholder="Search products, brands..." autocomplete="off" oninput="handleSearch(this.value)" onfocus="handleSearch(this.value)">
+        <div class="search-results" id="searchResults"></div>
+    </div>
+</div>
+<div class="overlay" id="overlay" onclick="closeMenu()"></div>
+<div class="side-menu" id="sideMenu">
+    <button class="close-btn" onclick="closeMenu()" aria-label="Close menu">&times;</button>
+    <a href="index.html">Home</a>
+    <a href="About.html">About</a>
+    <a href="skinn.html">SKINN</a>
+    <a href="DK.html">Dot & Key</a>
+    <a href="contact.html">Contact</a>
+</div>
+<h1 class="page-title">Tira Beauty &#10022;</h1>
+<div class="page-subtitle">Shop curated beauty bestsellers</div>
+<div class="product-grid" id="productGrid"></div>
+
+<!-- QUICK VIEW POPUP -->
+<div class="popup-overlay" id="popupOverlay" onclick="handleOverlayClick(event)">
+    <div class="popup-box" id="popupBox">
+        <button class="popup-close" onclick="closePopup()">&times;</button>
+        <div class="slider-wrap">
+            <span class="new-badge" id="popupBadge">New Drop</span>
+            <div class="slides" id="popupSlides"></div>
+            <button class="slider-arrow prev" onclick="slideMove(-1)">&#8249;</button>
+            <button class="slider-arrow next" onclick="slideMove(1)">&#8250;</button>
+            <div class="slider-dots" id="sliderDots"></div>
+        </div>
+        <div class="popup-details">
+            <div class="sku" id="popupSku"></div>
+            <h2 id="popupTitle"></h2>
+            <div class="popup-stars" id="popupStars"></div>
+            <div class="popup-price">
+                <span class="offer" id="popupOffer"></span>
+                <span class="mrp" id="popupMrp"></span>
+                <span class="discount" id="popupDiscount"></span>
+            </div>
+            <div class="popup-tax">(Inclusive of all taxes)</div>
+            <div class="popup-desc" id="popupDesc"></div>
+            <div class="size-label">Size</div>
+            <div class="size-box" id="popupSize"></div>
+            <a class="popup-buy-btn" id="popupBuyBtn" target="_blank" rel="nofollow noopener">BUY ON TIRA</a>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <p>Disclaimer: <strong>Gabriella</strong> is an affiliate of Tira Beauty.<br>
+    We earn a small commission if you purchase through our links at no extra cost to you.</p>
+    <p style="margin-top:8px;">&copy; 2026 Gabriella</p>
+</footer>
+
+<script>
+const products = [
+    {sku:"TR01",stars:5,badge:true,title:"Lakme Forever Matte Liquid Lip 16hr Lipstick - Nude Dream (5.6 ml)",offer:"₹301",mrp:"₹450",discount:"33% OFF",size:"5.6 ml",desc:"Lakme's Forever Matte Liquid Lipstick delivers 16-hour wear with a lightweight, transferproof matte finish. The Nude Dream shade is a versatile everyday nude, perfect for the office or casual days. Enriched with moisturising agents to prevent drying.",images:["https://cdn.tirabeauty.com/v2/billowing-snowflake-434234/tira-p/wrkr/products/pictures/item/free/original/949526/pQ73w1HKAZ2-949526_1.jpg"],link:"https://www.tirabeauty.com/product/lakme-forever-matte-liquid-lip-color---nude-dream-56ml-lxm5lh16ywa"},
+    {sku:"TR02",stars:5,badge:true,title:"Maybelline Instant Age Rewind Eraser Multi-Use Concealer - 120 Light (6ml)",offer:"₹631",mrp:"₹799",discount:"21% OFF",size:"6 ml",desc:"Iconic multi-use concealer with a unique sponge-tip applicator. Erases dark circles, blemishes and fine lines for a smooth, awake finish. Infused with Goji Berry & Haloxyl to visibly reduce signs of fatigue.",images:["https://cdn.tirabeauty.com/v2/billowing-snowflake-434234/tira-p/wrkr/products/pictures/item/free/original/1086957/dPkQ6jSVec-1086957_1.jpg"],link:"https://www.tirabeauty.com/product/maybelline-new-york-instant-age-rewind-concealer---light-6ml-vrllpcl9wx7"},
+    {sku:"TR03",stars:4,badge:false,title:"Garnier Skin Naturals Micellar Cleansing Water (125ml)",offer:"₹224",mrp:"₹249",discount:"10% OFF",size:"125 ml",desc:"Gentle no-rinse micellar water that lifts away makeup, impurities and excess oil in one sweep. Suitable for sensitive skin, soap-free and alcohol-free. A pre-cleanse staple for effortless clean skin.",images:["https://cdn.tirabeauty.com/v2/billowing-snowflake-434234/tira-p/wrkr/products/pictures/item/free/original/947279/DKOO-6bLYj-947279_1.jpg"],link:"https://www.tirabeauty.com/product/garnier-skin-naturals-micellar-cleansing-water-125ml--aeg8wlofcg"},
+    {sku:"TR04",stars:5,badge:true,title:"M.A.C MACximal Matte Lipstick - Mehr (3.5 g)",offer:"₹2,550",mrp:"",discount:"LUXURY",size:"3.5 g",desc:"The iconic MAC matte bullet reformulated for 12-hour wear, weightless comfort and richer pigment. Mehr is a cult dirty-pink nude that flatters every skin tone. Non-drying, fade-resistant, highly buildable.",images:["https://cdn.tirabeauty.com/v2/billowing-snowflake-434234/tira-p/wrkr/products/pictures/item/free/original/1139880/76ipC-9uZV-1139880_1.jpg"],link:"https://www.tirabeauty.com/product/m-a-c-macximal-matte-lipstick-mehr-3g-7596758"},
+    {sku:"TR05",stars:5,badge:false,title:"Bioderma Atoderm Crème Ultra-Nourishing Moisturising Cream (200 ml)",offer:"₹699",mrp:"",discount:"DERM-APPROVED",size:"200 ml",desc:"Cult French pharmacy cream for very dry, sensitive skin. Patented D.A.F. complex + Vaseline & Glycerin replenish the skin barrier and lock in moisture for up to 24 hours. Non-greasy, fragrance-free.",images:["https://cdn.tirabeauty.com/v2/billowing-snowflake-434234/tira-p/wrkr/products/pictures/item/free/original/4SYh4O5Ic3-411660_1.jpg"],link:"https://www.tirabeauty.com/product/bioderma-atoderm-ultra-nourishing-cream-200ml-t8etudc91l"},
+    {sku:"TR06",stars:5,badge:true,title:"COSRX Advanced Snail 96 Mucin Power Essence (100ml)",offer:"₹1,450",mrp:"",discount:"K-BEAUTY",size:"100 ml",desc:"96% Snail Secretion Filtrate powers this lightweight essence to repair, hydrate and brighten the skin. A K-beauty holy-grail that smoothens scars, fades marks and plumps up dullness with consistent use.",images:["https://cdn.tirabeauty.com/v2/billowing-snowflake-434234/tira-p/wrkr/products/pictures/item/free/original/HRjowXxVg-COSRX-Advanced-Snail-96-Mucin-Power-Essence-(100ml).jpeg"],link:"https://www.tirabeauty.com/product/cosrx-advanced-snail-96-mucin-power-essence-100ml-hpvapsmju874"},
+    {sku:"TR07",stars:4,badge:false,title:"Simple Kind To Skin Refreshing Facial Wash (150ml)",offer:"₹378",mrp:"₹420",discount:"10% OFF",size:"150 ml",desc:"A no-frills daily face wash for sensitive skin. Pro-Vitamin B5 & Vitamin E gently cleanse without stripping the skin. Free of colour, dye and artificial perfume.",images:["https://cdn.tirabeauty.com/v2/billowing-snowflake-434234/tira-p/wrkr/products/pictures/item/free/original/1013416/eBkYtJ8bbN-1013416_1.jpg"],link:"https://www.tirabeauty.com/product/simple-kind-to-skin-refreshing-facial-wash-150ml-eglvmh6_qyv3"},
+    {sku:"TR08",stars:5,badge:true,title:"Axis-Y Dark Spot Correcting Glow Serum (50 ml)",offer:"₹1,550",mrp:"",discount:"BESTSELLER",size:"50 ml",desc:"The K-beauty dark-spot hero. 5% Niacinamide, Papaya Extract and Squalane visibly fade hyperpigmentation and even out tone, leaving skin with a luminous, healthy glow.",images:["https://cdn.tirabeauty.com/v2/billowing-snowflake-434234/tira-p/wrkr/products/pictures/item/free/original/EVu-JK-Tx-Axis-Y-Dark-Spot-Correcting-Glow-Serum-(50-ml).jpeg"],link:"https://www.tirabeauty.com/product/axis-y-dark-spot-correcting-glow-serum-50-ml-7612640"},
+    {sku:"TR09",stars:5,badge:true,title:"Estée Lauder Double Wear Stay-in-Place Foundation SPF 10 - 1W2 Sand (30 ml)",offer:"₹4,600",mrp:"",discount:"NEW",size:"30 ml",desc:"The legendary 24-hour wear foundation. Waterproof, humidity and sweat-resistant medium-to-full coverage with a natural matte finish. 1W2 Sand suits light skin with warm undertones.",images:["https://cdn.tirabeauty.com/v2/billowing-snowflake-434234/tira-p/wrkr/products/pictures/item/free/original/kpk5ERBK2G-1187724_1.jpg"],link:"https://www.tirabeauty.com/product/estee-lauder-double-wear-stay-in-place-foundation-spf10-1w2-sand-30-ml-8714234"},
+    {sku:"TR10",stars:5,badge:false,title:"Beauty of Joseon Ground Rice and Honey Glow Mask (150 ml)",offer:"₹1,500",mrp:"",discount:"K-BEAUTY",size:"150 ml",desc:"A gentle wash-off enzyme mask with Rice Extract and Honey. Softens, brightens and polishes the skin for a signature dewy glow. Use 2-3 times a week for radiant, baby-soft skin.",images:["https://cdn.tirabeauty.com/v2/billowing-snowflake-434234/tira-p/wrkr/products/pictures/item/free/original/Nt0PScqS-0-1157495_1.jpg"],link:"https://www.tirabeauty.com/product/beauty-of-joseon-ground-rice-and-honey-glow-mask-150-ml-7608251"},
+    {sku:"TR11",stars:4,badge:false,title:"Philips One Stroke Hair Straightener - Designed for Indian Hair",offer:"₹6,839",mrp:"₹7,599",discount:"10% OFF",size:"1 pc",desc:"Heats up 50% faster with ThermoShield technology that protects hair from heat damage. SilkProtect coated plates glide in a single stroke for salon-like hair that lasts up to 3 days.",images:["https://cdn.tirabeauty.com/v2/billowing-snowflake-434234/tira-p/wrkr/products/pictures/item/free/original/Dh95lAt3E-1197178_1.jpg"],link:"https://www.tirabeauty.com/product/philips-thermoshield-hair-straightener-bhs530-00-9063416"},
+    {sku:"TR12",stars:5,badge:false,title:"Beauty of Joseon Revive Eye Serum: Ginseng + Retinal (30 ml)",offer:"₹1,420",mrp:"",discount:"EYE CARE",size:"30 ml",desc:"Ginseng Extract and Retinal (Vitamin A) visibly reduce dark circles and fine lines around the eye area. A gentle yet powerful retinoid serum suitable for first-time retinoid users.",images:["https://cdn.tirabeauty.com/v2/billowing-snowflake-434234/tira-p/wrkr/products/pictures/item/free/original/jjO3v5UvER-1143223_1.jpg"],link:"https://www.tirabeauty.com/product/beauty-of-joseon-revive-eye-serum-30-ml-7597917"},
+    {sku:"TR13",stars:5,badge:true,title:"Maybelline Super Stay Vinyl Ink Liquid Lipstick - Irresistible (4.2 ml)",offer:"₹730",mrp:"₹849",discount:"14% OFF",size:"4.2 ml",desc:"Ultra-shiny vinyl liquid lipstick with 16-hour wear. Irresistible is a warm deep pink with a high-gloss finish. Lightweight formula that doesn't dry out lips.",images:["https://cdn.tirabeauty.com/v2/billowing-snowflake-434234/tira-p/wrkr/products/pictures/item/free/original/1137398/u7EnVD2Qa-1137398-1.jpg"],link:"https://www.tirabeauty.com/product/maybelline-new-york-superstay-vinyl-ink-liquid-lipstick-irresistible-4-2-ml-7597407"},
+    {sku:"TR14",stars:5,badge:false,title:"Celimax The Vita-A Retinal Shot Tightening Booster (15 ml)",offer:"₹2,199",mrp:"",discount:"ANTI-AGEING",size:"15 ml",desc:"A targeted Retinal (Vitamin A) booster that tightens, firms and refines skin texture. Encapsulated delivery ensures slow, non-irritating release. Best used as a nightly booster.",images:["https://cdn.tirabeauty.com/v2/billowing-snowflake-434234/tira-p/wrkr/products/pictures/item/free/original/2B6OUzd1K-Celimax-The-Vita-A-Retinal-Shot-Tightening-Booster-(15-ml).jpeg"],link:"https://www.tirabeauty.com/product/celimax-the-vita-a-retinal-shot-tightening-booster-15-ml-8732537"},
+    {sku:"TR15",stars:5,badge:false,title:"NARS Natural Radiant Longwear Foundation - Punjab (30 ml)",offer:"₹4,800",mrp:"",discount:"LUXURY",size:"30 ml",desc:"16-hour wear foundation with a natural radiant finish and buildable medium coverage. Punjab is a medium-deep shade with warm undertones. Lightweight, breathable and comfortable all day.",images:["https://cdn.tirabeauty.com/v2/billowing-snowflake-434234/tira-p/wrkr/products/pictures/item/free/original/6ohJ9vHkDw8-1184274_1.jpg"],link:"https://www.tirabeauty.com/product/nars-natural-radiant-longwear-foundation-punjab-30-ml-8714244"},
+    {sku:"TR16",stars:5,badge:true,title:"Givenchy Gentleman Society Eau De Parfum Sport (60 ml)",offer:"₹9,700",mrp:"",discount:"NEW FOR HIM",size:"60 ml",desc:"A fresh, aromatic take on the Gentleman Society signature. Notes of Bergamot, Sage, Rosemary and Ambrofix give an energising yet elegant scent trail. Crafted for the modern active gentleman.",images:["https://cdn.tirabeauty.com/v2/billowing-snowflake-434234/tira-p/wrkr/products/pictures/item/free/original/6YNtaUJnJA-1197137_1.jpg"],link:"https://www.tirabeauty.com/product/givenchy-gentleman-society-eau-de-parfum-sport-60-ml-9348779"},
+    {sku:"TR17",stars:4,badge:false,title:"Kimirica X Tira Illuminating Wishes Festive Gift Set",offer:"₹1,679",mrp:"₹2,099",discount:"20% OFF",size:"8 pcs",desc:"A curated 8-piece festive gift box with an assortment of luxury bath, body and home fragrance indulgences from Kimirica X Tira. Elegantly packaged — perfect for gifting this season.",images:["https://cdn.tirabeauty.com/v2/billowing-snowflake-434234/tira-p/wrkr/products/pictures/item/free/original/1157833/oS5LRCfSn-1157833_1.jpg"],link:"https://www.tirabeauty.com/product/kimirica-x-tira-illuminating-wishes-gift-box-festive-gift-set-8-pcs-7607982"},
+    {sku:"TR18",stars:4,badge:false,title:"Tira Water Tumbler (600 ml)",offer:"₹956",mrp:"₹1,195",discount:"20% OFF",size:"600 ml",desc:"The chic Tira tumbler — double-walled stainless steel that keeps drinks hot or cold for hours. A stylish merch pick for your hydration routine.",images:["https://cdn.tirabeauty.com/v2/billowing-snowflake-434234/tira-p/wrkr/products/pictures/item/free/original/1157960/TyQhtT8pez-1157960_1.jpg"],link:"https://www.tirabeauty.com/product/tira-water-tumbler-600-ml-7617771"},
+    {sku:"TR19",stars:4,badge:false,title:"Akind One For All Multi-Tint - Prime Time (5.5 ml)",offer:"₹556",mrp:"₹695",discount:"20% OFF",size:"5.5 ml",desc:"A single tint for lips, cheeks and eyes in a nourishing barrier-loving formula. Prime Time is a peachy-coral that melts into skin for that lit-from-within flush.",images:["https://cdn.tirabeauty.com/v2/billowing-snowflake-434234/tira-p/wrkr/products/pictures/item/free/original/AO-Y7BXdd-Akind-One-For-All-Multi-Tint-Prime-Time-(5.5-ml).jpeg"],link:"https://www.tirabeauty.com/product/akind-one-for-all-multi-tint-prime-time-5-5-ml-8676149"},
+    {sku:"TR20",stars:4,badge:false,title:"Akind One For All Multi-Tint - Power Nap (5.5 ml)",offer:"₹556",mrp:"₹695",discount:"20% OFF",size:"5.5 ml",desc:"A dreamy mauve-nude multi-tint that works as a lip tint, blush or eyeshadow. Hydrates while it colours — made with Hyaluronic Acid and natural fruit extracts.",images:["https://cdn.tirabeauty.com/v2/billowing-snowflake-434234/tira-p/wrkr/products/pictures/item/free/original/7gvptNhf3-Akind-One-For-All-Multi-Tint-Power-Nap-(5.5-ml).jpeg"],link:"https://www.tirabeauty.com/product/akind-one-for-all-multi-tint-power-nap-5-5-ml-8676139"},
+    {sku:"TR21",stars:4,badge:false,title:"KIKO Milano Pearly Eye Base (10 ml)",offer:"₹792",mrp:"₹990",discount:"20% OFF",size:"10 ml",desc:"Shimmering liquid eye primer that locks eyeshadow in place and amplifies its intensity. Leaves a pearly sheen that works beautifully on its own for subtle glam.",images:["https://cdn.tirabeauty.com/v2/billowing-snowflake-434234/tira-p/wrkr/products/pictures/item/free/original/1138609/lksKar_yA0-1138609_1.jpg"],link:"https://www.tirabeauty.com/product/kiko-milano-pearly-eye-base-10-ml-7595549"},
+    {sku:"TR22",stars:5,badge:true,title:"Tira Blush & Beam DuoStick - Plum Power (9.2 g)",offer:"₹626",mrp:"₹895",discount:"30% OFF",size:"9.2 g",desc:"Tira's in-house 2-in-1 cream blush and highlighter stick. Plum Power is a berry flush paired with a pearl beam for sculpted, glowing cheekbones in seconds.",images:["https://cdn.tirabeauty.com/v2/billowing-snowflake-434234/tira-p/wrkr/products/pictures/item/free/original/Vsbg-GLToV-1159467_1.jpg"],link:"https://www.tirabeauty.com/product/tira-blush-beam-duostick-plum-power-9-5-g-8744692"},
+    {sku:"TR23",stars:4,badge:false,title:"Tira Sipper Merch Bottle (1L)",offer:"₹746",mrp:"₹995",discount:"25% OFF",size:"1000 ml",desc:"The cult Tira sipper — a 1-litre leak-proof water bottle in signature pink. Keeps you hydrated through long days, gym sessions and travel.",images:["https://cdn.tirabeauty.com/v2/billowing-snowflake-434234/tira-p/wrkr/products/pictures/item/free/original/1156837/O11TIHNPR-1156837_1.jpg"],link:"https://www.tirabeauty.com/product/tira-sipper-merch-bottle-1-pc-7617770"},
+    {sku:"TR24",stars:4,badge:false,title:"Akind On Cloud Nine Lightweight Moisturiser Mini (15 g)",offer:"₹488",mrp:"₹575",discount:"15% OFF",size:"15 g",desc:"A barrier-building gel cream with Probiotics and Peptides. Deeply hydrates while reinforcing the skin's own defences — the perfect travel-sized daily moisturiser.",images:["https://cdn.tirabeauty.com/v2/billowing-snowflake-434234/tira-p/wrkr/products/pictures/item/free/original/1jzDE9ZM7W-1149213_1.jpg"],link:"https://www.tirabeauty.com/product/akind-on-cloud-nine-lightweight-moisturiser-mini-15-g-7614234"},
+    {sku:"TR25",stars:5,badge:false,title:"Tira Blush & Beam DuoStick - Pink Perfection (9.2 g)",offer:"₹626",mrp:"₹895",discount:"30% OFF",size:"9.2 g",desc:"Everyday pink flush plus a champagne beam in one creamy stick. Easy to blend with fingers — the fastest way to healthy-glow cheeks.",images:["https://cdn.tirabeauty.com/v2/billowing-snowflake-434234/tira-p/wrkr/products/pictures/item/free/original/wv7AgTotC7-1159463_1.jpg"],link:"https://www.tirabeauty.com/product/tira-blush-beam-duostick-pink-perfection-9-5-g-8744689"},
+    {sku:"TR26",stars:4,badge:false,title:"Akind Bounce Back Soothing Toner Spray (150 ml)",offer:"₹556",mrp:"₹695",discount:"20% OFF",size:"150 ml",desc:"Hydrating toner mist with Japanese Yuzu and Centella. Restores pH, soothes redness and delivers a burst of hydration — use anytime for an instant skin reset.",images:["https://cdn.tirabeauty.com/v2/billowing-snowflake-434234/tira-p/wrkr/products/pictures/item/free/original/fkZCgP-6ti-1132181_1.jpg"],link:"https://www.tirabeauty.com/product/akind-bounce-back-soothing-and-purifying-toner-150-ml-7599420"},
+    {sku:"TR27",stars:4,badge:false,title:"Akind One For All Multi-Tint - Side Hustle (5.5 ml)",offer:"₹556",mrp:"₹695",discount:"20% OFF",size:"5.5 ml",desc:"A rosy-pink multi-tint that works as lip, cheek or eye colour. Skin-loving ingredients keep the colour fresh and non-drying through the day.",images:["https://cdn.tirabeauty.com/v2/billowing-snowflake-434234/tira-p/wrkr/products/pictures/item/free/original/iVoCDmlTY-Akind-One-For-All-Multi-Tint-Side-Hustle-(5.5-ml).jpeg"],link:"https://www.tirabeauty.com/product/akind-one-for-all-multi-tint-side-hustle-5-5-ml-8676140"},
+    {sku:"TR28",stars:5,badge:false,title:"KÉRASTASE Genesis Anti-Hair Fall Daily Scalp Serum (90 ml)",offer:"₹5,100",mrp:"",discount:"HAIR CARE",size:"90 ml",desc:"A leave-in scalp serum with 1.5% Aminexil and Ginger Extract. Reduces hair-fall from breakage, strengthens the hair fibre from root to tip and adds daily resilience.",images:["tb.PNG"],link:"https://www.tirabeauty.com/product/kerastase-genesis-anti-hair-fall-daily-scalp-serum-with-1-5-aminexil-ginger-extract-90-ml-8929219"},
+    {sku:"TR29",stars:5,badge:true,title:"Tom Ford Vanilla Sex Eau de Parfum (30 ml)",offer:"₹18,900",mrp:"",discount:"LUXURY",size:"30 ml",desc:"From the Tom Ford Private Blend. A daring, sensual gourmand built on rich Madagascar Vanilla with a warm amber and woods base. The kind of fragrance that turns heads and lingers on fabric for days.",images:["https://cdn.tirabeauty.com/v2/billowing-snowflake-434234/tira-p/wrkr/products/pictures/item/free/original/1146632/Y-Tcpl-am-1146632_1.jpg"],link:"https://www.tirabeauty.com/product/tom-ford-vanilla-sex-eau-de-parfum-30-ml-7611744"},
+    {sku:"TR30",stars:5,badge:true,title:"Yves Saint Laurent MYSLF Eau De Parfum (100 ml)",offer:"₹13,000",mrp:"",discount:"NEW FOR HIM",size:"100 ml",desc:"A modern masculine scent by YSL. Sharp bergamot and fresh patchouli meet Iris Pallida and Ambrofix for a confident, elegant trail. Long-lasting and sophisticated.",images:["https://cdn.tirabeauty.com/v2/billowing-snowflake-434234/tira-p/wrkr/products/pictures/item/free/original/1147982/5hHOf-1bl-1147982-1.jpg"],link:"https://www.tirabeauty.com/product/yves-saint-laurent-myslf-eau-de-parfum-100-ml-7602431"},
+    {sku:"TR31",stars:4,badge:false,title:"Jean Paul Gaultier Le Male Eau de Parfum Intense (75 ml)",offer:"₹6,230",mrp:"₹7,330",discount:"15% OFF",size:"75 ml",desc:"The cult JPG Le Male reimagined in a richer Intense version. Mint, vanilla and woody notes blend for a powerful yet wearable signature. 4.7★ rating, a true bestseller for men.",images:["https://cdn.tirabeauty.com/v2/billowing-snowflake-434234/tira-p/wrkr/products/pictures/item/free/original/1049721/Z8-dgLb4lq-1049721-1.jpg"],link:"https://www.tirabeauty.com/product/jean-paul-gaultier-le-male-eau-de-parfum-intense-75-ml-7618561"},
+    {sku:"TR32",stars:5,badge:false,title:"Jean Paul Gaultier Le Beau Eau de Toilette (125 ml)",offer:"₹9,270",mrp:"",discount:"BESTSELLER",size:"125 ml",desc:"A warm, aquatic-wood fragrance with Coconut Wood Accord and tonka bean. Sunny, sensual and distinctly Mediterranean — the ultimate summer-date scent for men.",images:["https://cdn.tirabeauty.com/v2/billowing-snowflake-434234/tira-p/wrkr/products/pictures/item/free/original/1049718/6hJWb-6xupa-1049718-1.jpg"],link:"https://www.tirabeauty.com/product/jean-paul-gaultier-le-beau-eau-de-toilette-125-ml-7618557"},
+    {sku:"TR33",stars:4,badge:false,title:"Yves Saint Laurent Libre Eau De Parfum (10 ml)",offer:"₹2,800",mrp:"",discount:"TRAVEL SIZE",size:"10 ml",desc:"Libre is the scent of freedom — a bold floral with Moroccan Orange Blossom, Lavender Essence and Madagascar Vanilla. The 10 ml travel size slips easily into any handbag.",images:["https://cdn.tirabeauty.com/v2/billowing-snowflake-434234/tira-p/wrkr/products/pictures/item/free/original/-hSk_MEob-1127271_1.jpg"],link:"https://www.tirabeauty.com/product/yves-saint-laurent-libre-eau-de-parfum-10ml-7577193"},
+    {sku:"TR34",stars:4,badge:false,title:"Jo Malone London Cologne Discovery Collection (5 pcs)",offer:"₹1,600",mrp:"",discount:"GIFT SET",size:"5 × 9 ml",desc:"Five iconic Jo Malone London colognes in a beautifully boxed discovery set. Sample English Pear & Freesia, Wood Sage & Sea Salt, Lime Basil & Mandarin and more before you commit to a full-size bottle.",images:["https://cdn.tirabeauty.com/v2/billowing-snowflake-434234/tira-p/wrkr/products/pictures/item/free/original/1136756/wvOzAGCqW-690251117642_1.jpg"],link:"https://www.tirabeauty.com/product/jo-malone-london-cologne-discovery-collection-perfume-5-pcs-7599760"},
+    {sku:"TR35",stars:4,badge:false,title:"Jo Malone London Peony & Blush Suede Travel Spray Cologne (10 ml)",offer:"₹2,300",mrp:"",discount:"LUXURY",size:"10 ml",desc:"The signature Peony & Blush Suede in a sleek refillable travel spray. Lush peonies bloom over a velvety suede base — an effortlessly feminine cologne for on-the-go refreshes.",images:["https://cdn.tirabeauty.com/v2/billowing-snowflake-434234/tira-p/wrkr/products/pictures/item/free/original/MPSSSowZ9-1183993_1.jpg"],link:"https://www.tirabeauty.com/product/jo-malone-london-peony-blush-suede-travel-spray-cologne-10-ml-8685823"},
+    {sku:"TR36",stars:4,badge:true,title:"Kayali Freedom Musk Santal & Vanilla EDP Mini Duo (2 pcs)",offer:"₹2,200",mrp:"",discount:"NEW",size:"2 × 10 ml",desc:"Huda Kattan's Kayali in a stunning mini duo. Freedom Musk and Santal Vanilla layer beautifully for a warm, gourmand-woody trail. Gorgeous on their own or layered together.",images:["https://cdn.tirabeauty.com/v2/billowing-snowflake-434234/tira-p/wrkr/products/pictures/item/free/original/elmI7rGmHw-1191514_1.jpg"],link:"https://www.tirabeauty.com/product/kayali-freedom-musk-santal-vanilla-edp-mini-duo-2-pcs-9525589"},
+    {sku:"TR37",stars:4,badge:false,title:"Kayali Marshmallow & Vanilla Candy EDP Mini Duo (2 pcs)",offer:"₹2,200",mrp:"",discount:"GIFTABLE",size:"2 × 10 ml",desc:"An irresistibly sweet duo — Marshmallow S'mores and Vanilla Candy. Perfect for layering into your own signature gourmand scent or gifting a fragrance-loving friend.",images:["https://cdn.tirabeauty.com/v2/billowing-snowflake-434234/tira-p/wrkr/products/pictures/item/free/original/ktAjuYCLt-1191513_1.jpg"],link:"https://www.tirabeauty.com/product/kayali-marshmallow-vanilla-candy-edp-mini-duo-2-pcs-9525590"},
+    {sku:"TR38",stars:5,badge:false,title:"Maison Margiela Replica Trio — Rain Stops, Bubble Bath & Beach Walk",offer:"₹5,000",mrp:"",discount:"NICHE",size:"3 × 10 ml",desc:"A trio of Replica's most evocative scents from Maison Margiela. When the Rain Stops, Bubble Bath and Beach Walk bottled into travel sprays — perfect for curating your scent by mood.",images:["https://cdn.tirabeauty.com/v2/billowing-snowflake-434234/tira-p/wrkr/products/pictures/item/free/original/1146803/yaHndtXLS-1146803_1.jpg"],link:"https://www.tirabeauty.com/product/maison-margiela-when-the-rain-stops-bubble-bath-beach-walk-7611860"},
+    {sku:"TR39",stars:4,badge:false,title:"Guess Seductive Blue Women Fragrance Mist (125 ml)",offer:"₹1,272",mrp:"₹1,590",discount:"20% OFF",size:"125 ml",desc:"A fruity-floral fragrance mist from Guess with notes of passionfruit, jasmine and cedarwood. A playful, affordable everyday body mist with long-lasting power.",images:["https://cdn.tirabeauty.com/v2/billowing-snowflake-434234/tira-p/wrkr/products/pictures/item/free/original/1133626/xtmNPs2ei2-1133626_1.jpg"],link:"https://www.tirabeauty.com/product/guess-seductive-blue-women-fragrance-mist-125ml-7592088"},
+    {sku:"TR40",stars:5,badge:true,title:"CLINIQUE Moisture Surge 100H Auto-Replenishing Hydrator (30 ml)",offer:"₹2,250",mrp:"",discount:"DERM APPROVED",size:"30 ml",desc:"The cult Clinique Moisture Surge gel-cream. Activated Aloe Water and Hyaluronic Acid deliver 100 hours of hydration — plumps, smooths and revives dull skin instantly.",images:["https://cdn.tirabeauty.com/v2/billowing-snowflake-434234/tira-p/wrkr/products/pictures/item/free/original/wpWIOoM5-g-1067204_1.jpg"],link:"https://www.tirabeauty.com/product/clinique-moisture-surge-100h-auto-replenishing-hydrator-30ml-xd-94qhanji"},
+    {sku:"TR41",stars:4,badge:false,title:"Estée Lauder Advanced Night Repair Serum Mini (7 ml)",offer:"₹1,250",mrp:"",discount:"CULT CLASSIC",size:"7 ml",desc:"The legendary ANR serum in a travel-friendly 7 ml. Chronolux Power Signal Technology reduces the appearance of lines, wrinkles and uneven tone while you sleep. Wake up to visibly radiant skin.",images:["https://cdn.tirabeauty.com/v2/billowing-snowflake-434234/tira-p/wrkr/products/pictures/item/free/original/K5u2c6u7g-1187754_1.jpg"],link:"https://www.tirabeauty.com/product/estee-lauder-advanced-night-repair-synchronized-multi-recovery-complex-serum-mini-7-ml-8760929"},
+    {sku:"TR42",stars:4,badge:true,title:"M.A.C Studio Fix Mattifine 12-Hr Shine-Control Primer (30 ml)",offer:"₹3,600",mrp:"",discount:"PRIMER",size:"30 ml",desc:"A 12-hour shine-control primer with Mattifine Technology. Blurs pores, controls oil and locks down makeup for an all-day flawless matte finish. Works beautifully under Studio Fix Fluid.",images:["https://cdn.tirabeauty.com/v2/billowing-snowflake-434234/tira-p/wrkr/products/pictures/item/free/original/1125875/u17oCYX2I-1125875_1.jpg"],link:"https://www.tirabeauty.com/product/m-a-c-studio-fix-mattifine-12-hr-shine-control-primer-white-30ml-7574112"},
+    {sku:"TR43",stars:5,badge:false,title:"M.A.C Prep + Prime Fix+ Setting Spray - Original (30 ml)",offer:"₹1,600",mrp:"",discount:"BESTSELLER",size:"30 ml",desc:"The beloved MAC Fix+ spray. Hydrates, refreshes and sets makeup for a seamless finish. Use as a primer, to intensify eyeshadow or to revive tired skin through the day.",images:["https://cdn.tirabeauty.com/v2/billowing-snowflake-434234/tira-p/wrkr/products/pictures/item/free/original/1141269/LF41WNTTao-1141269-1.jpg"],link:"https://www.tirabeauty.com/product/m-a-c-prep-prime-fix-setting-spray-original-30-ml-7599980"},
+    {sku:"TR44",stars:5,badge:false,title:"Smashbox Halo Healthy Glow Tinted Moisturizer SPF 25 - Light Medium (40 ml)",offer:"₹3,510",mrp:"",discount:"MOST LOVED",size:"40 ml",desc:"A skincare-makeup hybrid — lightweight tinted moisturizer with SPF 25 that blurs imperfections, hydrates and gives a natural healthy glow. 4.5★ with 363 reviews.",images:["https://cdn.tirabeauty.com/v2/billowing-snowflake-434234/tira-p/wrkr/products/pictures/item/free/original/1070730/Nd3FqU1uUC-1070730_1.jpg"],link:"https://www.tirabeauty.com/product/smashbox-halo-healthy-glow-tinted-moisturizer-broad-spectrum-spf-25---light-medium-40ml-fomorcgi4_s"},
+    {sku:"TR45",stars:4,badge:false,title:"Smashbox Halo All-in-One Tinted Moisturizer SPF 25 - Light Neutral (12 ml)",offer:"₹1,750",mrp:"",discount:"TRAVEL SIZE",size:"12 ml",desc:"Travel-size Smashbox Halo. Broad-spectrum SPF 25 tinted moisturizer in a mini — perfect for your gym bag or carry-on. Leaves a luminous, hydrated skin-like finish.",images:["https://cdn.tirabeauty.com/v2/billowing-snowflake-434234/tira-p/wrkr/products/pictures/item/free/original/1070747/NLkfYLZBy-1070747_1.jpg"],link:"https://www.tirabeauty.com/product/smashbox-halo-healthy-glow-all-in-one-tinted-moisturizer-spf-25-travel-size---light-neutral-12ml-mx6ayjyfiw4"},
+    {sku:"TR46",stars:4,badge:true,title:"Dr.Jart+ Cicapair Tiger Grass Color Correcting Treatment SPF 22 (15 ml)",offer:"₹1,170",mrp:"₹1,950",discount:"40% OFF",size:"15 ml",desc:"The famous green-to-beige color corrector. Neutralizes redness while Centella Asiatica soothes inflammation. Finishes with a light tint and SPF 22 protection — a true skincare-makeup hybrid.",images:["https://cdn.tirabeauty.com/v2/billowing-snowflake-434234/tira-p/wrkr/products/pictures/item/free/original/1170490/CmYmbOBrV5-1170490_1.jpg"],link:"https://www.tirabeauty.com/product/dr-jart-cicapair-tiger-grass-color-correcting-treatment-spf-22-pa-15-ml-7617639"},
+    {sku:"TR47",stars:4,badge:false,title:"The Ordinary AHA 30% + BHA 2% Peeling Solution (30 ml)",offer:"₹950",mrp:"",discount:"VIRAL PEEL",size:"30 ml",desc:"The viral 10-minute peel mask with 30% AHAs + 2% BHA. Exfoliates dead skin, refines texture, brightens dullness and unclogs pores. Use once a week. Always follow with SPF the next morning.",images:["https://cdn.tirabeauty.com/v2/billowing-snowflake-434234/tira-p/wrkr/products/pictures/item/free/original/1154578/T-NoHmRgNr-1154578_1.jpg"],link:"https://www.tirabeauty.com/product/the-ordinary-aha-30-bha-2-peeling-solution-30-ml-7608422"},
+    {sku:"TR48",stars:4,badge:false,title:"The Ordinary Glycolic Acid 7% Toning Solution (240 ml)",offer:"₹1,275",mrp:"",discount:"BESTSELLER",size:"240 ml",desc:"An exfoliating toning solution with 7% Glycolic Acid. Smoothens skin texture, improves radiance and evens out skin tone with regular use. 4.3★ and loved by 2,200+ reviewers.",images:["https://cdn.tirabeauty.com/v2/billowing-snowflake-434234/tira-p/wrkr/products/pictures/item/free/original/1154583/e01bY4jgH-1154583_2.jpg"],link:"https://www.tirabeauty.com/product/the-ordinary-glycolic-acid-7-toning-solution-240-ml-7608423"}
+];
+
+const navLinks = [
+    {name:"Home",url:"#"},{name:"Brands",url:"#"},{name:"Tira Red",url:"#"},
+    {name:"Offers",url:"#"},{name:"Top Shelf",url:"#"},{name:"For You",url:"#"},{name:"Contact",url:"#"}
+];
+
+// Render product cards dynamically
+function renderProducts() {
+    const grid = document.getElementById("productGrid");
+    grid.innerHTML = products.map((p, i) => `
+        <div class="product-card">
+            <button class="eye-btn" onclick="openPopup(${i})" aria-label="Quick view">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="#333" stroke-width="2"/></svg>
+            </button>
+            <img src="${p.images[0]}" alt="${p.title}" loading="lazy">
+            <h3>${p.title}<span class="price-tag">${p.offer}</span></h3>
+            <a href="${p.link}" class="buy-btn" target="_blank" rel="nofollow noopener">Buy on Tira</a>
+        </div>
+    `).join("");
+}
+renderProducts();
+
+function handleSearch(query) {
+    const resultsEl = document.getElementById("searchResults");
+    const q = query.trim().toLowerCase();
+    if (!q) { resultsEl.classList.remove("open"); resultsEl.innerHTML = ""; return; }
+    const matchedNav = navLinks.filter(n => n.name.toLowerCase().includes(q));
+    const matchedProducts = products.map((p,i) => ({...p,index:i})).filter(p => p.title.toLowerCase().includes(q)).slice(0,6);
+    if (matchedNav.length === 0 && matchedProducts.length === 0) {
+        resultsEl.innerHTML = '<div class="search-no-result">No results for "' + query + '"</div>';
+        resultsEl.classList.add("open"); return;
+    }
+    let html = "";
+    matchedNav.forEach(n => { html += '<a class="search-result-item" href="' + n.url + '"><div style="width:42px;height:42px;display:flex;align-items:center;justify-content:center;background:#f7f7f7;border-radius:6px;flex-shrink:0;font-size:18px;font-weight:700;color:#C8102E;">↗</div><div><div class="search-result-name">' + n.name + '</div><div class="search-result-price" style="color:#888;">Page</div></div></a>'; });
+    matchedProducts.forEach(p => { html += '<div class="search-result-item" onclick="openPopup(' + p.index + '); closeSearchResults();"><img src="' + p.images[0] + '" alt=""><div><div class="search-result-name">' + p.title + '</div><div class="search-result-price">' + p.offer + '</div></div></div>'; });
+    resultsEl.innerHTML = html;
+    resultsEl.classList.add("open");
+}
+function closeSearchResults() { document.getElementById("searchResults").classList.remove("open"); document.getElementById("searchInput").value = ""; }
+document.addEventListener("click", function(e) { if (!e.target.closest(".search-wrap")) document.getElementById("searchResults").classList.remove("open"); });
+
+let currentSlide = 0, totalSlides = 0;
+function openPopup(index) {
+    const p = products[index];
+    currentSlide = 0; totalSlides = p.images.length;
+    document.getElementById("popupBadge").style.display = p.badge ? "block" : "none";
+    const slidesEl = document.getElementById("popupSlides");
+    slidesEl.innerHTML = p.images.map(src => '<img src="' + src + '" alt="' + p.title + '">').join("");
+    slidesEl.style.transform = "translateX(0)";
+    const dotsEl = document.getElementById("sliderDots");
+    dotsEl.innerHTML = p.images.map((_,i) => '<div class="dot ' + (i===0?'active':'') + '" onclick="goToSlide(' + i + ')"></div>').join("");
+    const showArrows = totalSlides > 1;
+    document.querySelector(".slider-arrow.prev").style.display = showArrows ? "flex" : "none";
+    document.querySelector(".slider-arrow.next").style.display = showArrows ? "flex" : "none";
+    document.getElementById("popupSku").textContent = p.sku;
+    document.getElementById("popupTitle").textContent = p.title;
+    document.getElementById("popupStars").innerHTML = '<span class="star-filled">' + "★".repeat(p.stars) + '</span><span class="star-empty">' + "★".repeat(5-p.stars) + '</span>';
+    document.getElementById("popupOffer").textContent = p.offer;
+    document.getElementById("popupMrp").textContent = (p.mrp && p.mrp !== p.offer) ? "MRP " + p.mrp : "";
+    document.getElementById("popupDiscount").textContent = p.discount || "";
+    document.getElementById("popupDesc").textContent = p.desc;
+    document.getElementById("popupSize").textContent = p.size;
+    document.getElementById("popupBuyBtn").href = p.link;
+    document.getElementById("popupOverlay").classList.add("open");
+    document.body.style.overflow = "hidden";
+}
+function closePopup() { document.getElementById("popupOverlay").classList.remove("open"); document.body.style.overflow = ""; }
+function handleOverlayClick(e) { if (e.target === document.getElementById("popupOverlay")) closePopup(); }
+function slideMove(dir) { currentSlide = (currentSlide+dir+totalSlides)%totalSlides; goToSlide(currentSlide); }
+function goToSlide(n) { currentSlide = n; document.getElementById("popupSlides").style.transform = "translateX(-" + (n*100) + "%)"; document.querySelectorAll(".dot").forEach((d,i) => d.classList.toggle("active", i===n)); }
+let touchStartX = 0;
+document.getElementById("popupSlides").addEventListener("touchstart", e => { touchStartX = e.touches[0].clientX; });
+document.getElementById("popupSlides").addEventListener("touchend", e => { const diff = touchStartX - e.changedTouches[0].clientX; if (Math.abs(diff) > 40) slideMove(diff > 0 ? 1 : -1); });
+document.addEventListener("keydown", e => { if (e.key === "Escape") closePopup(); });
+function openMenu() { document.getElementById("sideMenu").classList.add("open"); document.getElementById("overlay").classList.add("active"); document.body.style.overflow = "hidden"; }
+function closeMenu() { document.getElementById("sideMenu").classList.remove("open"); document.getElementById("overlay").classList.remove("active"); document.body.style.overflow = ""; }
+</script>
+</body>
+</html>
