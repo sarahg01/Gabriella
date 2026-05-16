@@ -34,21 +34,22 @@
         .side-menu a:hover, .side-menu .menu-item:hover { background: #181818; color: #e91e63; }
         .side-menu .close-btn { position: absolute; top: 16px; right: 16px; font-size: 28px; cursor: pointer; color: white; padding: 6px; line-height: 1; background: none; border: none; }
         .side-menu .close-btn:hover { color: #e91e63; }
+        .side-sub-menu { display: none; flex-direction: column; background: #111; }
+        .side-sub-menu a { padding-left: 44px; font-size: 15px; border-bottom: 1px solid #1a1a1a; }
+        #sideArrow { transition: transform 0.3s; display: inline-block; }
+        #sideArrow.rotate { transform: rotate(180deg); }
         .page-title { text-align: center; margin: 60px 0 40px; font-size: 32px; color: #e91e63; font-family: 'Playfair Display', serif; font-weight: 600; }
         .product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 30px; padding: 0 60px 80px; }
         .product-card { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); text-align: center; transition: 0.3s; position: relative; }
         .product-card:hover { transform: translateY(-5px); box-shadow: 0 6px 18px rgba(0,0,0,0.15); }
+        .product-card img { width: 100%; height: 220px; object-fit: contain; background: #fff; padding: 10px; }
+        .product-card h3 { margin-top: 15px; font-size: 15px; font-family: 'Playfair Display', serif; font-weight: 600; line-height: 1.5; }
         .buy-btn { display: inline-flex; align-items: center; justify-content: center; margin-top: 15px; padding: 10px 20px; background: #e91e63; color: white; text-decoration: none; border-radius: 6px; font-size: 14px; font-family: 'Lato', sans-serif; font-weight: 700; letter-spacing: 0.5px; min-height: 44px; width: 100%; transition: 0.3s; }
         .buy-btn:hover { background: #c2185b; }
         .eye-btn { position: absolute; top: 12px; right: 12px; width: 36px; height: 36px; background: rgba(255,255,255,0.95); border: 1.5px solid #ddd; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.2s; z-index: 2; }
         .eye-btn:hover { background: #e91e63; border-color: #e91e63; }
         .eye-btn:hover svg path, .eye-btn:hover svg circle { stroke: white; }
         .eye-btn svg { width: 17px; height: 17px; }
-        /* Empty card placeholder styles */
-        .placeholder-img { width: 100%; height: 220px; background: #f5f5f5; border-radius: 8px; display: flex; align-items: center; justify-content: center; }
-        .placeholder-img span { font-size: 12px; color: #c0c0c0; font-family: 'Lato', sans-serif; letter-spacing: 0.5px; }
-        .placeholder-bar { background: #f0f0f0; border-radius: 4px; margin: 10px auto 0; }
-        /* Popup styles */
         .popup-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.65); z-index: 2000; align-items: center; justify-content: center; padding: 20px; }
         .popup-overlay.open { display: flex; }
         .popup-box { background: white; border-radius: 14px; width: 100%; max-width: 420px; max-height: 90vh; overflow-y: auto; position: relative; animation: popIn 0.22s ease; }
@@ -57,6 +58,7 @@
         .popup-close:hover { color: #e91e63; }
         .slider-wrap { position: relative; background: #f7f7f7; border-radius: 14px 14px 0 0; overflow: hidden; }
         .slides { display: flex; transition: transform 0.32s ease; }
+        .slides img { min-width: 100%; height: 280px; object-fit: contain; padding: 20px; background: #f7f7f7; }
         .slider-arrow { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.92); border: none; border-radius: 50%; width: 34px; height: 34px; font-size: 20px; cursor: pointer; display: flex; align-items: center; justify-content: center; color: #333; transition: 0.2s; z-index: 5; }
         .slider-arrow:hover { background: #e91e63; color: white; }
         .slider-arrow.prev { left: 10px; }
@@ -82,14 +84,15 @@
         .popup-buy-btn { display: block; width: 100%; padding: 14px; background: #e91e63; color: white; text-align: center; text-decoration: none; border-radius: 8px; font-size: 15px; font-family: 'Lato', sans-serif; font-weight: bold; letter-spacing: 1px; transition: 0.3s; min-height: 50px; line-height: 1.4; }
         .popup-buy-btn:hover { background: #c2185b; }
         footer { text-align: center; padding: 20px 15px; margin-top: 30px; font-size: 14px; line-height: 1.6; font-family: 'Lato', sans-serif; color: #555; }
-        @media (max-width: 768px) { .page-title { font-size: 24px; margin: 40px 0 25px; } .product-grid { grid-template-columns: 1fr 1fr; gap: 20px; padding: 0 20px 60px; } .placeholder-img { height: 180px; } .buy-btn { font-size: 13px; padding: 8px 14px; } .search-wrap { max-width: 220px; } }
-        @media (max-width: 480px) { .navbar { padding: 12px 14px; } .search-wrap { max-width: 180px; padding: 6px 12px; } .page-title { font-size: 20px; margin: 30px 0 20px; } .product-grid { grid-template-columns: 1fr; gap: 15px; padding: 0 15px 50px; } .product-card { padding: 15px; } .placeholder-img { height: 200px; } footer { font-size: 12px; } .popup-overlay { align-items: flex-end; padding: 0; } .popup-box { max-width: 100%; border-radius: 18px 18px 0 0; } .search-results { width: 260px; right: -10px; } }
+        @media (max-width: 768px) { .page-title { font-size: 24px; margin: 40px 0 25px; } .product-grid { grid-template-columns: 1fr 1fr; gap: 20px; padding: 0 20px 60px; } .product-card img { height: 180px; } .product-card h3 { font-size: 13px; } .buy-btn { font-size: 13px; padding: 8px 14px; } .slides img { height: 240px; } .search-wrap { max-width: 220px; } }
+        @media (max-width: 480px) { .navbar { padding: 12px 14px; } .search-wrap { max-width: 180px; padding: 6px 12px; } .page-title { font-size: 20px; margin: 30px 0 20px; } .product-grid { grid-template-columns: 1fr; gap: 15px; padding: 0 15px 50px; } .product-card { padding: 15px; } .product-card img { height: 200px; } .product-card h3 { font-size: 14px; } footer { font-size: 12px; } .popup-overlay { align-items: flex-end; padding: 0; } .popup-box { max-width: 100%; border-radius: 18px 18px 0 0; } .slides img { height: 210px; } .search-results { width: 260px; right: -10px; } }
     </style>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3657288243299462" crossorigin="anonymous"></script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3657288243299462"
+     crossorigin="anonymous"></script>
 </head>
-<script src="https://pl29332903.profitablecpmratenetwork.com/76/db/ac/76dbace730e06d8081721a8b1147a931.js"></script>
-<body>
+    <script src="https://pl29332903.profitablecpmratenetwork.com/76/db/ac/76dbace730e06d8081721a8b1147a931.js"></script>
 
+<body>
 <div class="navbar">
     <button class="menu-icon" onclick="openMenu()" aria-label="Open menu">&#9776;</button>
     <div class="search-wrap" style="position:relative;">
@@ -101,26 +104,519 @@
 <div class="overlay" id="overlay" onclick="closeMenu()"></div>
 <div class="side-menu" id="sideMenu">
     <button class="close-btn" onclick="closeMenu()" aria-label="Close menu">&times;</button>
-    <a href="index.html">Home</a>
-    <a href="About.html">About</a>
-    <a href="skinn.html">SKINN</a>
-    <a href="tira.html">Tira Beauty</a>
-    <a href="DK.html">Dot&Key</a>
+    <a href="index.html">Home</a> 
+       <a href="skinn.html">SKINN</a>
+       <a href="DK.html">Dot&Key</a>
+     <a href="tira.html">Tira Beauty</a>
+     <a href="About.html">About</a>
     <a href="contact.html">Contact</a>
 </div>
+<h1 class="page-title"> BEST AJIO FINDS</h1>
+<div class="product-grid">
+    
+    <div class="product-card">
+        <button class="eye-btn" onclick="openPopup(0)" aria-label="Quick view"><svg viewBox="0 0 24 24" fill="none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="#333" stroke-width="2"/></svg></button>
+        <img src="a1.PNG" alt=" Shein Shoulder Tie-Up Scallop Contrast Trim A-Line Dress   ">
+        <h3>   Shein Shoulder Tie-Up Scallop Contrast Trim A-Line Dress <br>&#8377;  519 </h3>
+        <a href=" https://ajiio.co/kFXZem " class="buy-btn">Buy on AJIO</a>
+    </div>
+<div class="product-card">
+        <button class="eye-btn" onclick="openPopup(0)" aria-label="Quick view"><svg viewBox="0 0 24 24" fill="none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="#333" stroke-width="2"/></svg></button>
+        <img src="a2.PNG" alt=" Shein Sleeveless Side Lace-Up Detail Fit & Flare Dress  ">
+        <h3> Shein Sleeveless Side Lace-Up Detail Fit & Flare Dress   <br>&#8377;  899 </h3>
+        <a href=" https://ajiio.co/3A0kj8 " class="buy-btn">Buy on AJIO</a>
+    </div>
+<div class="product-card">
+        <button class="eye-btn" onclick="openPopup(0)" aria-label="Quick view"><svg viewBox="0 0 24 24" fill="none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="#333" stroke-width="2"/></svg></button>
+        <img src="a3.PNG" alt=" STYLI Women Polyester Dress  ">
+        <h3>  STYLI Women Polyester Dress  <br>&#8377;  2,349 </h3>
+        <a href=" https://ajiio.co/taErcw " class="buy-btn">Buy on AJIO</a>
+    </div>
+<div class="product-card">
+        <button class="eye-btn" onclick="openPopup(0)" aria-label="Quick view"><svg viewBox="0 0 24 24" fill="none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="#333" stroke-width="2"/></svg></button>
+        <img src="a4.PNG" alt=" SHEIN
+Shein Square Neck Sleeveless Panelled Fit & Flare Dress  ">
+        <h3>  SHEIN
+Shein Square Neck Sleeveless Panelled Fit & Flare Dress  <br>&#8377;  539 </h3>
+        <a href=" https://ajiio.co/Zhaz4h? " class="buy-btn">Buy on AJIO</a>
+    </div>
+<div class="product-card">
+        <button class="eye-btn" onclick="openPopup(0)" aria-label="Quick view"><svg viewBox="0 0 24 24" fill="none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="#333" stroke-width="2"/></svg></button>
+        <img src="a5.PNG" alt="  SHEIN
+Shein Spread Collar Bishop Sleeve Fit and Flare Mini Dress ">
+        <h3>  SHEIN
+Shein Spread Collar Bishop Sleeve Fit and Flare Mini Dress  <br>&#8377;  799 </h3>
+        <a href=" https://ajiio.co/c6fWu9 " class="buy-btn">Buy on AJIO</a>
+    </div>
+<div class="product-card">
+        <button class="eye-btn" onclick="openPopup(0)" aria-label="Quick view"><svg viewBox="0 0 24 24" fill="none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="#333" stroke-width="2"/></svg></button>
+        <img src="a6.PNG" alt=" LEIA
+Women Square-Neck Dress  ">
+        <h3> LEIA
+Women Square-Neck Dress   <br>&#8377;  359 </h3>
+        <a href=" https://ajiio.co/Ip3ib5? " class="buy-btn">Buy on AJIO</a>
+    </div>
+<div class="product-card">
+        <button class="eye-btn" onclick="openPopup(0)" aria-label="Quick view"><svg viewBox="0 0 24 24" fill="none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="#333" stroke-width="2"/></svg></button>
+        <img src="a7.PNG" alt=" SHEIN
+Shein Halter Neck Leaf Print Back Tie-Up Maxi A-Line Dress  ">
+        <h3>  SHEIN
+Shein Halter Neck Leaf Print Back Tie-Up Maxi A-Line Dress  <br>&#8377;  454 </h3>
+        <a href=" https://ajiio.co/8DUfWQ " class="buy-btn">Buy on AJIO</a>
+    </div>
+<div class="product-card">
+        <button class="eye-btn" onclick="openPopup(0)" aria-label="Quick view"><svg viewBox="0 0 24 24" fill="none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="#333" stroke-width="2"/></svg></button>
+        <img src="a8.PNG" alt="  ORCHID BLUES
+Women Square-Neck Fit & Flare Dress ">
+        <h3>  ORCHID BLUES
+Women Square-Neck Fit & Flare Dress  <br>&#8377;  1,155 </h3>
+        <a href=" https://ajiio.co/ynbn9b? " class="buy-btn">Buy on AJIO</a>
+    </div>
+<div class="product-card">
+        <button class="eye-btn" onclick="openPopup(0)" aria-label="Quick view"><svg viewBox="0 0 24 24" fill="none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="#333" stroke-width="2"/></svg></button>
+        <img src="a9.PNG" alt=" STYLI
+Floral Print A-Line Dress  ">
+        <h3>  STYLI
+Floral Print A-Line Dress  <br>&#8377;  887 </h3>
+        <a href=" https://ajiio.co/ydVcuJ? " class="buy-btn">Buy on AJIO</a>
+    </div>
+<div class="product-card">
+        <button class="eye-btn" onclick="openPopup(0)" aria-label="Quick view"><svg viewBox="0 0 24 24" fill="none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="#333" stroke-width="2"/></svg></button>
+        <img src="a10.PNG" alt=" SHEIN
+Shein Spaghetti Strap Front Tie-Up Midi Fit & Flare Dress  ">
+        <h3>  SHEIN
+Shein Spaghetti Strap Front Tie-Up Midi Fit & Flare Dress  <br>&#8377;  849 </h3>
+        <a href=" https://ajiio.co/MA9Wa0? " class="buy-btn">Buy on AJIO</a>
+    </div>
+<div class="product-card">
+        <button class="eye-btn" onclick="openPopup(0)" aria-label="Quick view"><svg viewBox="0 0 24 24" fill="none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="#333" stroke-width="2"/></svg></button>
+        <img src="a11.PNG" alt=" SHEIN
+Shein Spaghetti Strap Ruched Maxi Sheath Dress  ">
+        <h3>  SHEIN
+Shein Spaghetti Strap Ruched Maxi Sheath Dress  <br>&#8377;  519 </h3>
+        <a href=" https://ajiio.co/b86vac " class="buy-btn">Buy on AJIO</a>
+    </div>
+<div class="product-card">
+        <button class="eye-btn" onclick="openPopup(0)" aria-label="Quick view"><svg viewBox="0 0 24 24" fill="none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="#333" stroke-width="2"/></svg></button>
+        <img src="a12.PNG" alt=" SHEIN
+Shein Spaghetti Strap Front Tie-Up Midi Fit & Flare Dress  ">
+        <h3>   SHEIN
+Shein Spaghetti Strap Front Tie-Up Midi Fit & Flare Dress <br>&#8377;  552 </h3>
+        <a href=" https://ajiio.co/iZaCj8 " class="buy-btn">Buy on AJIO</a>
+    </div>
+<div class="product-card">
+        <button class="eye-btn" onclick="openPopup(0)" aria-label="Quick view"><svg viewBox="0 0 24 24" fill="none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="#333" stroke-width="2"/></svg></button>
+        <img src="a13.PNG" alt=" SHEIN
+Shein Square Neck Back Tie Up Floral Print Fit & Flare Dress  ">
+        <h3>  SHEIN
+Shein Square Neck Back Tie Up Floral Print Fit & Flare Dress  <br>&#8377;  499 </h3>
+        <a href=" https://ajiio.co/MfFiY4 " class="buy-btn">Buy on AJIO</a>
+    </div>
+<div class="product-card">
+        <button class="eye-btn" onclick="openPopup(0)" aria-label="Quick view"><svg viewBox="0 0 24 24" fill="none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="#333" stroke-width="2"/></svg></button>
+        <img src="a14.PNG" alt=" INDIE PICKS
+Floral Print Dress  ">
+        <h3>  INDIE PICKS
+Floral Print Dress  <br>&#8377;  579 </h3>
+        <a href=" https://ajiio.co/W9HEGs? " class="buy-btn">Buy on AJIO</a>
+    </div>
+<div class="product-card">
+        <button class="eye-btn" onclick="openPopup(0)" aria-label="Quick view"><svg viewBox="0 0 24 24" fill="none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="#333" stroke-width="2"/></svg></button>
+        <img src="a15.PNG" alt="  AAHWAN X AG
+Women Polka-Dot Print Fit & Flare Dress ">
+        <h3>  AAHWAN X AG
+Women Polka-Dot Print Fit & Flare Dress  <br>&#8377;  580 </h3>
+        <a href=" https://ajiio.co/J57owJ? " class="buy-btn">Buy on AJIO</a>
+    </div>
+<div class="product-card">
+        <button class="eye-btn" onclick="openPopup(0)" aria-label="Quick view"><svg viewBox="0 0 24 24" fill="none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="#333" stroke-width="2"/></svg></button>
+        <img src="a16.PNG" alt=" SHEIN
+Shein Kimono Sleeve Paisley Print Mini Fit & Flare Dress  ">
+        <h3>  SHEIN
+Shein Kimono Sleeve Paisley Print Mini Fit & Flare Dress  <br>&#8377;  799 </h3>
+        <a href=" https://ajiio.co/s5Tjjc " class="buy-btn">Buy on AJIO</a>
+    </div>
+<div class="product-card">
+        <button class="eye-btn" onclick="openPopup(0)" aria-label="Quick view"><svg viewBox="0 0 24 24" fill="none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="#333" stroke-width="2"/></svg></button>
+        <img src="a17.PNG" alt=" INDIE PICKS
+Floral Print Open Back Loose Mini Dress  ">
+        <h3>  INDIE PICKS
+Floral Print Open Back Loose Mini Dress  <br>&#8377;  574 </h3>
+        <a href=" https://ajiio.co/NueDca? " class="buy-btn">Buy on AJIO</a>
+    </div>
+<div class="product-card">
+        <button class="eye-btn" onclick="openPopup(0)" aria-label="Quick view"><svg viewBox="0 0 24 24" fill="none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="#333" stroke-width="2"/></svg></button>
+        <img src="a18.PNG" alt=" SHEIN
+Shein Sleeveless Textured Back Zip Mini A-line Dress  ">
+        <h3>  SHEIN
+Shein Sleeveless Textured Back Zip Mini A-line Dress  <br>&#8377;  384 </h3>
+        <a href=" https://ajiio.co/lztoed? " class="buy-btn">Buy on AJIO</a>
+    </div>
+<div class="product-card">
+        <button class="eye-btn" onclick="openPopup(0)" aria-label="Quick view"><svg viewBox="0 0 24 24" fill="none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="#333" stroke-width="2"/></svg></button>
+        <img src="a19.PNG" alt="LULU & SKY
+Women One-Shoulder Kaftan Dress">
+        <h3>   LULU & SKY
+Women One-Shoulder Kaftan Dress <br>&#8377;  2,639 </h3>
+        <a href=" https://ajiio.co/LtQXmm? " class="buy-btn">Buy on AJIO</a>
+    </div>
+<div class="product-card">
+        <button class="eye-btn" onclick="openPopup(0)" aria-label="Quick view"><svg viewBox="0 0 24 24" fill="none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="#333" stroke-width="2"/></svg></button>
+        <img src="a20.PNG" alt=" SHEIN
+Shein Strapless Layered Hem Textured Mini A-Line Dress  ">
+        <h3>  SHEIN
+Shein Strapless Layered Hem Textured Mini A-Line Dress  <br>&#8377;  489 </h3>
+        <a href=" https://ajiio.co/xpRokf? " class="buy-btn">Buy on AJIO</a>
+    </div>
+<div class="product-card">
+        <button class="eye-btn" onclick="openPopup(0)" aria-label="Quick view"><svg viewBox="0 0 24 24" fill="none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="#333" stroke-width="2"/></svg></button>
+        <img src="a21.PNG" alt="  SHEIN
+Shein Ruffle Sleeve Empire Waist Mini Denim Shift Dress ">
+        <h3>  SHEIN
+Shein Ruffle Sleeve Empire Waist Mini Denim Shift Dress  <br>&#8377;  524 </h3>
+        <a href=" https://ajiio.co/5hy70x? " class="buy-btn">Buy on AJIO</a>
+    </div>
+<div class="product-card">
+        <button class="eye-btn" onclick="openPopup(0)" aria-label="Quick view"><svg viewBox="0 0 24 24" fill="none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="#333" stroke-width="2"/></svg></button>
+        <img src="a22.PNG" alt=" DIVAWALK
+Women Sheath Dress  ">
+        <h3>  DIVAWALK
+Women Sheath Dress  <br>&#8377;  1.080 </h3>
+        <a href=" https://ajiio.co/VcQm8q? " class="buy-btn">Buy on AJIO</a>
+    </div>
+<div class="product-card">
+        <button class="eye-btn" onclick="openPopup(0)" aria-label="Quick view"><svg viewBox="0 0 24 24" fill="none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="#333" stroke-width="2"/></svg></button>
+        <img src="a23.PNG" alt=" SHEIN
+Shein Short Sleeve Mock Wrap Detail Ribbed Mini A-Line Dress  ">
+        <h3> SHEIN
+Shein Short Sleeve Mock Wrap Detail Ribbed Mini A-Line Dress   <br>&#8377;  270 </h3>
+        <a href=" https://ajiio.co/9tkiEP? " class="buy-btn">Buy on AJIO</a>
+    </div>
+<div class="product-card">
+        <button class="eye-btn" onclick="openPopup(0)" aria-label="Quick view"><svg viewBox="0 0 24 24" fill="none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="#333" stroke-width="2"/></svg></button>
+        <img src="a24.PNG" alt="  SHEIN
+Shein Strapless Ruched Floral Print Midi Sheath Dress ">
+        <h3> SHEIN
+Shein Strapless Ruched Floral Print Midi Sheath Dress   <br>&#8377;  594 </h3>
+        <a href=" https://ajiio.co/yktErM? " class="buy-btn">Buy on AJIO</a>
+    </div>
+<div class="product-card">
+        <button class="eye-btn" onclick="openPopup(0)" aria-label="Quick view"><svg viewBox="0 0 24 24" fill="none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="#333" stroke-width="2"/></svg></button>
+        <img src="a25.PNG" alt="  SHEIN
+Shein Strapless Ruched Floral Print Midi Sheath Dress ">
+        <h3> SHEIN
+Shein Strapless Ruched Floral Print Midi Sheath Dress   <br>&#8377;  594 </h3>
+        <a href=" https://ajiio.co/V39eZG " class="buy-btn">Buy on AJIO</a>
+    </div>
+<div class="product-card">
+        <button class="eye-btn" onclick="openPopup(0)" aria-label="Quick view"><svg viewBox="0 0 24 24" fill="none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="#333" stroke-width="2"/></svg></button>
+        <img src="a26.PNG" alt="  SHEIN
+Shein Spaghetti Strap Paisley Print Smocked Waist Fit & Flare Dress ">
+        <h3>  SHEIN
+Shein Spaghetti Strap Paisley Print Smocked Waist Fit & Flare Dress  <br>&#8377;  549 </h3>
+        <a href="https://ajiio.co/xw34Eu  " class="buy-btn">Buy on AJIO</a>
+    </div>
+<div class="product-card">
+        <button class="eye-btn" onclick="openPopup(0)" aria-label="Quick view"><svg viewBox="0 0 24 24" fill="none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="#333" stroke-width="2"/></svg></button>
+        <img src="a27.PNG" alt=" SHEIN
+Shein Shoulder Tie-Up Strap Bohemian Print Fit & Flare Dress  ">
+        <h3>  SHEIN
+Shein Shoulder Tie-Up Strap Bohemian Print Fit & Flare Dress  <br>&#8377;  389 </h3>
+        <a href=" https://ajiio.co/RPuOLG? " class="buy-btn">Buy on AJIO</a>
+    </div>
+<div class="product-card">
+        <button class="eye-btn" onclick="openPopup(0)" aria-label="Quick view"><svg viewBox="0 0 24 24" fill="none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="#333" stroke-width="2"/></svg></button>
+        <img src="a28.PNG" alt=" LEIA
+Women Floral Bodycon Dress  ">
+        <h3> LEIA
+Women Floral Bodycon Dress   <br>&#8377;  800 </h3>
+        <a href=" https://ajiio.co/TLcbb6? " class="buy-btn">Buy on AJIO</a>
+    </div>
+<div class="product-card">
+        <button class="eye-btn" onclick="openPopup(0)" aria-label="Quick view"><svg viewBox="0 0 24 24" fill="none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="#333" stroke-width="2"/></svg></button>
+        <img src="a29.PNG" alt=" HOUSE OF MIRA
+Women Tropical Bodycon Dress with Front-Slit  ">
+        <h3> HOUSE OF MIRA
+Women Tropical Bodycon Dress with Front-Slit   <br>&#8377;  1999 </h3>
+        <a href=" https://ajiio.co/JtRGWK? " class="buy-btn">Buy on AJIO</a>
+    </div>
+<div class="product-card">
+        <button class="eye-btn" onclick="openPopup(0)" aria-label="Quick view"><svg viewBox="0 0 24 24" fill="none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="#333" stroke-width="2"/></svg></button>
+        <img src="a30.PNG" alt="  HOUSE OF MIRA
+Women Leaf Print Bodycon Dress ">
+        <h3>  HOUSE OF MIRA
+Women Leaf Print Bodycon Dress  <br>&#8377;  1999 </h3>
+        <a href="https://ajiio.co/RcFxri  " class="buy-btn">Buy on AJIO</a>
+    </div>
+<div class="product-card">
+        <button class="eye-btn" onclick="openPopup(0)" aria-label="Quick view"><svg viewBox="0 0 24 24" fill="none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="#333" stroke-width="2"/></svg></button>
+        <img src="a31.PNG" alt=" OUTZIDR GLOBAL
+Women Polka-Dot Print Fit & Flare Dress  ">
+        <h3>   OUTZIDR GLOBAL
+Women Polka-Dot Print Fit & Flare Dress <br>&#8377;  872 </h3>
+        <a href=" https://ajiio.co/ZQPhQ2? " class="buy-btn">Buy on AJIO</a>
+    </div>
+<div class="product-card">
+        <button class="eye-btn" onclick="openPopup(0)" aria-label="Quick view"><svg viewBox="0 0 24 24" fill="none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="#333" stroke-width="2"/></svg></button>
+        <img src="a32.PNG" alt=" FABNEX
+Women Floral Print Tiered Dress  ">
+        <h3>  FABNEX
+Women Floral Print Tiered Dress  <br>&#8377;  831 </h3>
+        <a href="https://ajiio.co/ppFhP2?  " class="buy-btn">Buy on AJIO</a>
+    </div>
+<div class="product-card">
+        <button class="eye-btn" onclick="openPopup(0)" aria-label="Quick view"><svg viewBox="0 0 24 24" fill="none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="#333" stroke-width="2"/></svg></button>
+        <img src="a33.PNG" alt="SHEIN
+Shein One Shoulder Back Tie Up Floral Print Mermaid Dress   ">
+        <h3>  SHEIN
+Shein One Shoulder Back Tie Up Floral Print Mermaid Dress  <br>&#8377;  629 </h3>
+        <a href=" https://ajiio.co/MM22Jj " class="buy-btn">Buy on AJIO</a>
+    </div>
+<div class="product-card">
+        <button class="eye-btn" onclick="openPopup(0)" aria-label="Quick view"><svg viewBox="0 0 24 24" fill="none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="#333" stroke-width="2"/></svg></button>
+        <img src="a34.PNG" alt=" SHEIN
+Shein Spaghetti Strap Floral Print Slit Hem A-Line Dress  ">
+        <h3>  SHEIN
+Shein Spaghetti Strap Floral Print Slit Hem A-Line Dress  <br>&#8377;  357 </h3>
+        <a href=" https://ajiio.co/lvZo6P? " class="buy-btn">Buy on AJIO</a>
+    </div>
+<div class="product-card">
+        <button class="eye-btn" onclick="openPopup(0)" aria-label="Quick view"><svg viewBox="0 0 24 24" fill="none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="#333" stroke-width="2"/></svg></button>
+        <img src="a35.PNG" alt=" SHEIN
+Shein One Shoulder Ruched Tie & Dye Slitted Sheath Dress  ">
+        <h3>   SHEIN
+Shein One Shoulder Ruched Tie & Dye Slitted Sheath Dress <br>&#8377;  487 </h3>
+        <a href=" https://ajiio.co/u8K2Ez " class="buy-btn">Buy on AJIO</a>
+    </div>
+<div class="product-card">
+        <button class="eye-btn" onclick="openPopup(0)" aria-label="Quick view"><svg viewBox="0 0 24 24" fill="none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="#333" stroke-width="2"/></svg></button>
+        <img src="a36.PNG" alt="  SHEIN
+Shein Ruched Off Shoulder Lace Trim Mini Bodycon Dress ">
+        <h3>   SHEIN
+Shein Ruched Off Shoulder Lace Trim Mini Bodycon Dress <br>&#8377;  519 </h3>
+        <a href=" https://ajiio.co/JxWbjw? " class="buy-btn">Buy on AJIO</a>
+    </div>
+<div class="product-card">
+        <button class="eye-btn" onclick="openPopup(0)" aria-label="Quick view"><svg viewBox="0 0 24 24" fill="none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="#333" stroke-width="2"/></svg></button>
+        <img src="a37.PNG" alt="OUTZIDR GLOBAL
+Women Patterned Fit & Flare Dress with Puff Sleeves   ">
+        <h3>  OUTZIDR GLOBAL
+Women Patterned Fit & Flare Dress with Puff Sleeves  <br>&#8377;  1,784 </h3>
+        <a href=" https://ajiio.co/Zl0n2V? " class="buy-btn">Buy on AJIO</a>
+    </div>
+<div class="product-card">
+        <button class="eye-btn" onclick="openPopup(0)" aria-label="Quick view"><svg viewBox="0 0 24 24" fill="none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="#333" stroke-width="2"/></svg></button>
+        <img src="a38.PNG" alt="  LULU & SKY
+Women Mini A-Line Dress ">
+        <h3>  LULU & SKY
+Women Mini A-Line Dress  <br>&#8377;  2,122 </h3>
+        <a href=" https://ajiio.co/wk6eB7? " class="buy-btn">Buy on AJIO</a>
+    </div>
+<div class="product-card">
+        <button class="eye-btn" onclick="openPopup(0)" aria-label="Quick view"><svg viewBox="0 0 24 24" fill="none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="#333" stroke-width="2"/></svg></button>
+        <img src="a39.PNG" alt=" HONKY TONKY
+Women Maxi Floral Fit and Flare Dress  ">
+        <h3> HONKY TONKY
+Women Maxi Floral Fit and Flare Dress   <br>&#8377;  500 </h3>
+        <a href=" https://ajiio.co/r0BWni? " class="buy-btn">Buy on AJIO</a>
+    </div>
+<div class="product-card">
+        <button class="eye-btn" onclick="openPopup(0)" aria-label="Quick view"><svg viewBox="0 0 24 24" fill="none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="#333" stroke-width="2"/></svg></button>
+        <img src="a40.PNG" alt=" INDIE PICKS
+Black Print Mini Dress  ">
+        <h3>  INDIE PICKS
+Black Print Mini Dress  <br>&#8377;  579 </h3>
+        <a href=" https://ajiio.co/EXPWax? " class="buy-btn">Buy on AJIO</a>
+    </div>
+<div class="product-card">
+        <button class="eye-btn" onclick="openPopup(0)" aria-label="Quick view"><svg viewBox="0 0 24 24" fill="none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="#333" stroke-width="2"/></svg></button>
+        <img src="a41.PNG" alt="  BUDA JEANS CO
+Women Floral Bodycon Dress ">
+        <h3>  BUDA JEANS CO
+Women Floral Bodycon Dress  <br>&#8377;  528 </h3>
+        <a href=" https://ajiio.co/yjgaOT? " class="buy-btn">Buy on AJIO</a>
+    </div>
+<div class="product-card">
+        <button class="eye-btn" onclick="openPopup(0)" aria-label="Quick view"><svg viewBox="0 0 24 24" fill="none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="#333" stroke-width="2"/></svg></button>
+        <img src="a42.PNG" alt=" SHEIN
+Shein Bell Sleeve Animal Print Ruched Bodycon Mini Dress  ">
+        <h3>  SHEIN
+Shein Bell Sleeve Animal Print Ruched Bodycon Mini Dress  <br>&#8377;  629 </h3>
+        <a href=" https://ajiio.co/ZztjmZ " class="buy-btn">Buy on AJIO</a>
+    </div>
+<div class="product-card">
+        <button class="eye-btn" onclick="openPopup(0)" aria-label="Quick view"><svg viewBox="0 0 24 24" fill="none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="#333" stroke-width="2"/></svg></button>
+        <img src="a43.PNG" alt=" OLD NAVY
+Women Fit & Flare Maxi Dress  ">
+        <h3>  OLD NAVY
+Women Fit & Flare Maxi Dress  <br>&#8377;  1,000 </h3>
+        <a href=" https://ajiio.co/PZCLkL? " class="buy-btn">Buy on AJIO</a>
+    </div>
+<div class="product-card">
+        <button class="eye-btn" onclick="openPopup(0)" aria-label="Quick view"><svg viewBox="0 0 24 24" fill="none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="#333" stroke-width="2"/></svg></button>
+        <img src="a44.PNG" alt=" SHEIN
+Shein Spaghetti Strap Embroidery Mini Skater Dress With Zip  ">
+        <h3> SHEIN
+Shein Spaghetti Strap Embroidery Mini Skater Dress With Zip   <br>&#8377;  799 </h3>
+        <a href="https://ajiio.co/pDvag1?  " class="buy-btn">Buy on AJIO</a>
+    </div>
+<div class="product-card">
+        <button class="eye-btn" onclick="openPopup(0)" aria-label="Quick view"><svg viewBox="0 0 24 24" fill="none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="#333" stroke-width="2"/></svg></button>
+        <img src="a45.PNG" alt="  SHEIN
+Shein Spaghetti Strap Embroidery Mini Skater Dress With Zip ">
+        <h3> SHEIN
+Shein Spaghetti Strap Embroidery Mini Skater Dress With Zip   <br>&#8377;  799 </h3>
+        <a href=" https://ajiio.co/860zQr " class="buy-btn">Buy on AJIO</a>
+    </div>
+<div class="product-card">
+        <button class="eye-btn" onclick="openPopup(0)" aria-label="Quick view"><svg viewBox="0 0 24 24" fill="none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="#333" stroke-width="2"/></svg></button>
+        <img src="a46.PNG" alt=" SHEIN
+Shein Spaghetti Strap Graphic Print A-line Midi Dress  ">
+        <h3>  SHEIN
+Shein Spaghetti Strap Graphic Print A-line Midi Dress  <br>&#8377;  422 </h3>
+        <a href=" https://ajiio.co/7FPLU2 " class="buy-btn">Buy on AJIO</a>
+    </div>
+<div class="product-card">
+        <button class="eye-btn" onclick="openPopup(0)" aria-label="Quick view"><svg viewBox="0 0 24 24" fill="none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="#333" stroke-width="2"/></svg></button>
+        <img src="a47.PNG" alt=" FYRE ROSE
+Women Square-Neck Sheath Maxi Dress  ">
+        <h3> FYRE ROSE
+Women Square-Neck Sheath Maxi Dress   <br>&#8377;  527 </h3>
+        <a href=" https://ajiio.co/kPJBBI? " class="buy-btn">Buy on AJIO</a>
+    </div>
+<div class="product-card">
+        <button class="eye-btn" onclick="openPopup(0)" aria-label="Quick view"><svg viewBox="0 0 24 24" fill="none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="#333" stroke-width="2"/></svg></button>
+        <img src="a48.PNG" alt=" HIVORA
+Women Printed Fit & Flare Dress  ">
+        <h3>  HIVORA
+Women Printed Fit & Flare Dress  <br>&#8377;  730 </h3>
+        <a href="https://ajiio.co/DDOVnD?  " class="buy-btn">Buy on AJIO</a>
+    </div>
+<div class="product-card">
+        <button class="eye-btn" onclick="openPopup(0)" aria-label="Quick view"><svg viewBox="0 0 24 24" fill="none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="#333" stroke-width="2"/></svg></button>
+        <img src="a49.PNG" alt="SHEIN
+Shein Sleeveless Square Neck Panelled Mini A-line Dress   ">
+        <h3>   SHEIN
+Shein Sleeveless Square Neck Panelled Mini A-line Dress <br>&#8377;  489 </h3>
+        <a href=" https://ajiio.co/6XDjza? " class="buy-btn">Buy on AJIO</a>
+    </div>
+<div class="product-card">
+        <button class="eye-btn" onclick="openPopup(0)" aria-label="Quick view"><svg viewBox="0 0 24 24" fill="none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="#333" stroke-width="2"/></svg></button>
+        <img src="a50.PNG" alt=" FYRE ROSE
+Women Maxi Bodycon Dress  ">
+        <h3>  FYRE ROSE
+Women Maxi Bodycon Dress  <br>&#8377;  561 </h3>
+        <a href=" https://ajiio.co/O7wD3l " class="buy-btn">Buy on AJIO</a>
+    </div>
+<div class="product-card">
+        <button class="eye-btn" onclick="openPopup(0)" aria-label="Quick view"><svg viewBox="0 0 24 24" fill="none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="#333" stroke-width="2"/></svg></button>
+        <img src="a51.PNG" alt="  SHEIN
+Shein Off Shoulder Ruched Overlay Detail Bodycon Dress ">
+        <h3>   SHEIN
+Shein Off Shoulder Ruched Overlay Detail Bodycon Dress <br>&#8377;  799 </h3>
+        <a href=" https://ajiio.co/6Sk20h? " class="buy-btn">Buy on AJIO</a>
+    </div>
+<div class="product-card">
+        <button class="eye-btn" onclick="openPopup(0)" aria-label="Quick view"><svg viewBox="0 0 24 24" fill="none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="#333" stroke-width="2"/></svg></button>
+        <img src="a52.PNG" alt="  SHEIN
+Shein Asymmetrical Neck Floral Print Fit & Flare Dress ">
+        <h3>  SHEIN
+Shein Asymmetrical Neck Floral Print Fit & Flare Dress  <br>&#8377;  425 </h3>
+        <a href=" https://ajiio.co/EvsQHa? " class="buy-btn">Buy on AJIO</a>
+    </div>
+<div class="product-card">
+        <button class="eye-btn" onclick="openPopup(0)" aria-label="Quick view"><svg viewBox="0 0 24 24" fill="none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="#333" stroke-width="2"/></svg></button>
+        <img src="a53.PNG" alt=" MAX
+Women Polka Dots Ruffles Dress  ">
+        <h3>  MAX
+Women Polka Dots Ruffles Dress  <br>&#8377;  1,199 </h3>
+        <a href=" https://ajiio.co/HbP6OK? " class="buy-btn">Buy on AJIO</a>
+    </div>
+<div class="product-card">
+        <button class="eye-btn" onclick="openPopup(0)" aria-label="Quick view"><svg viewBox="0 0 24 24" fill="none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="#333" stroke-width="2"/></svg></button>
+        <img src="a54.PNG" alt=" FERY LONDON
+Women Floral Print Fit & Flare Dress  ">
+        <h3> FERY LONDON
+Women Floral Print Fit & Flare Dress   <br>&#8377;  840 </h3>
+        <a href=" https://ajiio.co/UaVeXB? " class="buy-btn">Buy on AJIO</a>
+    </div>
+<div class="product-card">
+        <button class="eye-btn" onclick="openPopup(0)" aria-label="Quick view"><svg viewBox="0 0 24 24" fill="none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="#333" stroke-width="2"/></svg></button>
+        <img src="a55.PNG" alt="  STAREOUTFIT
+Women Ruffles Tiered Dress ">
+        <h3>  STAREOUTFIT
+Women Ruffles Tiered Dress  <br>&#8377;  1,499 </h3>
+        <a href="https://ajiio.co/VQcPlx?  " class="buy-btn">Buy on AJIO</a>
+    </div>
+<div class="product-card">
+        <button class="eye-btn" onclick="openPopup(0)" aria-label="Quick view"><svg viewBox="0 0 24 24" fill="none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="#333" stroke-width="2"/></svg></button>
+        <img src="a56.PNG" alt=" LULU & SKY
+Women Shirt Dress with Full Sleeves  ">
+        <h3> LULU & SKY
+Women Shirt Dress with Full Sleeves   <br>&#8377;  2,779 </h3>
+        <a href=" https://ajiio.co/ZN2Dax? " class="buy-btn">Buy on AJIO</a>
+    </div>
+<div class="product-card">
+        <button class="eye-btn" onclick="openPopup(0)" aria-label="Quick view"><svg viewBox="0 0 24 24" fill="none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="#333" stroke-width="2"/></svg></button>
+        <img src="a57.PNG" alt=" SHEIN
+Shein Backless Halter Neck Animal Print Mini Skater Dress  ">
+        <h3>  SHEIN
+Shein Backless Halter Neck Animal Print Mini Skater Dress  <br>&#8377;  584 </h3>
+        <a href=" https://ajiio.co/RbBUHk? " class="buy-btn">Buy on AJIO</a>
+    </div>
+<div class="product-card">
+        <button class="eye-btn" onclick="openPopup(0)" aria-label="Quick view"><svg viewBox="0 0 24 24" fill="none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="#333" stroke-width="2"/></svg></button>
+        <img src="a58.PNG" alt=" SHEIN
+Shein Short Sleeve Ribbed Panelled Mini Skater Dress  ">
+        <h3>  SHEIN
+Shein Short Sleeve Ribbed Panelled Mini Skater Dress  <br>&#8377;  749 </h3>
+        <a href=" https://ajiio.co/EzbkGP " class="buy-btn">Buy on AJIO</a>
+    </div>
+<div class="product-card">
+        <button class="eye-btn" onclick="openPopup(0)" aria-label="Quick view"><svg viewBox="0 0 24 24" fill="none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="#333" stroke-width="2"/></svg></button>
+        <img src="a59.PNG" alt="  SHEIN
+Shein One Shoulder Waist Cut-Out Drape Detail Bodycon Dress ">
+        <h3>  SHEIN
+Shein One Shoulder Waist Cut-Out Drape Detail Bodycon Dress  <br>&#8377;  405 </h3>
+        <a href=" https://ajiio.co/ihtOuH? " class="buy-btn">Buy on AJIO</a>
+    </div>
+<div class="product-card">
+        <button class="eye-btn" onclick="openPopup(0)" aria-label="Quick view"><svg viewBox="0 0 24 24" fill="none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="#333" stroke-width="2"/></svg></button>
+        <img src="a60.PNG" alt=" SHEIN
+Shein Tie Up Halter Neck Sequined Mini Bodycon Dress  ">
+        <h3>   SHEIN
+Shein Tie Up Halter Neck Sequined Mini Bodycon Dress <br>&#8377;  629 </h3>
+        <a href=" https://ajiio.co/oJwm2s? " class="buy-btn">Buy on AJIO</a>
+    </div>
+<div class="product-card">
+        <button class="eye-btn" onclick="openPopup(0)" aria-label="Quick view"><svg viewBox="0 0 24 24" fill="none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="#333" stroke-width="2"/></svg></button>
+        <img src="a61.PNG" alt=" LULU & SKY
+Women Midi Length Shirt Dress  ">
+        <h3>  LULU & SKY
+Women Midi Length Shirt Dress  <br>&#8377;  2,904 </h3>
+        <a href="https://ajiio.co/HHoAgD?  " class="buy-btn">Buy on AJIO</a>
+    </div>
+<div class="product-card">
+        <button class="eye-btn" onclick="openPopup(0)" aria-label="Quick view"><svg viewBox="0 0 24 24" fill="none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="#333" stroke-width="2"/></svg></button>
+        <img src="a62.PNG" alt="  WANQUILA
+Women Bodycon Dress with Side Slit ">
+        <h3>  WANQUILA
+Women Bodycon Dress with Side Slit  <br>&#8377;  249 </h3>
+        <a href=" https://ajiio.co/0YbVDC? " class="buy-btn">Buy on AJIO</a>
+    </div>
 
-<h1 class="page-title">Dot &amp; Key ✨</h1>
-<div class="product-grid" id="productGrid"></div>
+    
+</div>
 
 <!-- QUICK VIEW POPUP -->
 <div class="popup-overlay" id="popupOverlay" onclick="handleOverlayClick(event)">
     <div class="popup-box" id="popupBox">
         <button class="popup-close" onclick="closePopup()">&times;</button>
         <div class="slider-wrap">
-            <span class="new-badge" id="popupBadge" style="display:none;">New Drop</span>
+            <span class="new-badge" id="popupBadge">New Drop</span>
             <div class="slides" id="popupSlides"></div>
-            <button class="slider-arrow prev" onclick="slideMove(-1)" style="display:none;">&#8249;</button>
-            <button class="slider-arrow next" onclick="slideMove(1)" style="display:none;">&#8250;</button>
+            <button class="slider-arrow prev" onclick="slideMove(-1)">&#8249;</button>
+            <button class="slider-arrow next" onclick="slideMove(1)">&#8250;</button>
             <div class="slider-dots" id="sliderDots"></div>
         </div>
         <div class="popup-details">
@@ -148,96 +644,136 @@
 </footer>
 
 <script>
-// ── Products: all 63 cards empty except card 59 (index 58) which has an affiliate link placeholder ──
-const products = Array.from({length: 63}, (_, i) => ({
-    sku:     "DK" + String(i + 1).padStart(2, "0"),
-    stars:   5,
-    badge:   false,
-    title:   "Product Name",
-    offer:   "₹000",
-    mrp:     "",
-    discount:"",
-    size:    "–",
-    desc:    "Product description coming soon.",
-    link:    i === 58 ? "YOUR_AFFILIATE_LINK_HERE" : "#"   // card 59 = index 58
-}));
-
-// ── Render cards ──
-(function renderCards() {
-    const grid = document.getElementById("productGrid");
-    products.forEach((p, i) => {
-        const card = document.createElement("div");
-        card.className = "product-card";
-        card.innerHTML = `
-            <button class="eye-btn" onclick="openPopup(${i})" aria-label="Quick view">
-                <svg viewBox="0 0 24 24" fill="none">
-                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    <circle cx="12" cy="12" r="3" stroke="#333" stroke-width="2"/>
-                </svg>
-            </button>
-            <div class="placeholder-img"><span>Product Image</span></div>
-            <div class="placeholder-bar" style="height:16px;width:80%;"></div>
-            <div class="placeholder-bar" style="height:13px;width:55%;margin-top:8px;"></div>
-            <a href="${p.link}" class="buy-btn" ${p.link !== "#" ? 'target="_blank" rel="nofollow noopener"' : ""}>Buy on Dot &amp; Key</a>`;
-        grid.appendChild(card);
-    });
-})();
-
-// ── Search ──
-const navLinks = [
-    {name:"Home",url:"index.html"},
-    {name:"About",url:"About.html"},
-    {name:"SKINN",url:"skinn.html"},
-    {name:"Contact",url:"contact.html"}
+const products = [
+    {sku:"DK01",stars:5,badge:true,title:"Vitamin C + E Sunscreen, IN-VIVO Tested SPF 50+ PA++++",offer:"₹595",mrp:"₹595",discount:"BESTSELLER",size:"50g / 80g",desc:"Brighten and protect with this dual-action Vitamin C + E sunscreen. IN-VIVO tested SPF 50+ PA++++ shields against UVA & UVB rays while Vitamin C fades dullness and dark spots. Lightweight, zero white cast, and non-sticky. Vegan & cruelty-free.",images:["dk1.PNG"],link:"https://bilty.co/UjxQHA"},
+    {sku:"DK02",stars:5,badge:true,title:"Watermelon Cooling Sunscreen, IN-VIVO Tested SPF 50+ PA++++",offer:"₹595",mrp:"₹595",discount:"BESTSELLER",size:"50g / 80g",desc:"Powered by Hyaluronic Acid and Watermelon Extract for deep hydration. IN-VIVO tested SPF 50+ PA++++ protects against UVA & UVB rays. Non-greasy, plumps skin, and gives a fresh dewy finish. Vegan & cruelty-free.",images:["dk2.PNG"],link:"https://bilty.co/J2gEAU"},
+    {sku:"DK03",stars:4,badge:true,title:"Dragon Fruit Bounce Sunscreen, In-Vivo Tested SPF 50+ PA++++",offer:"₹445",mrp:"₹445",discount:"JUST IN",size:"50g",desc:"New-age UV filters (Uvinul A+, Tinosorb S & M) meet antioxidant-rich Dragon Fruit. Bounce-Lock™ Complex with Ectoin & Niacinamide supports skin elasticity. Fast-absorbing, no grey cast, great under makeup.",images:["dk3.PNG"],link:"https://bilty.co/HCbS2U"},
+    {sku:"DK04",stars:5,badge:true,title:"Strawberry Dew Tinted Sunscreen, In-Vivo Tested SPF 50+ PA++++",offer:"₹549",mrp:"₹549",discount:"BESTSELLER",size:"30g",desc:"SPF + light coverage in one step. Gives a natural no-makeup look while defending against UVA, UVB, and visible light. Iron oxides help prevent hyperpigmentation. Water-resistant up to 60–80 mins.",images:["dk4.PNG"],link:"https://bilty.co/XhSpBx"},
+    {sku:"DK05",stars:5,badge:false,title:"Barrier Repair Sunscreen, In-Vivo Tested SPF 50+ PA++++",offer:"₹595",mrp:"₹595",discount:"TOP PICK",size:"50g / 80g",desc:"Repair and protect simultaneously. Hyaluronic Acid & Ceramides lock in moisture and reinforce the skin barrier while delivering broad-spectrum SPF 50+ PA++++ protection. Clinically shown to boost hydration. Fragrance-free.",images:["dk5.PNG"],link:"https://bilty.co/FwfDhI"},
+    {sku:"DK06",stars:4,badge:true,title:"Vitamin C + E 100% Mineral Sunscreen, IN-VIVO Tested SPF 50+ PA++++",offer:"₹649",mrp:"₹649",discount:"JUST IN",size:"50g",desc:"India's first ultra-light 100% Mineral Sunscreen fluid — Zinc Oxide + Titanium Dioxide provide physical UV protection with zero white cast. Pregnancy-safe, non-comedogenic, infused with Vitamin C + E for brightening.",images:["dk6.PNG"],link:"https://bilty.co/D6vAzM"},
+    {sku:"DK07",stars:5,badge:false,title:"Cica + Niacinamide Sunscreen, In-Vivo Tested SPF 50+ PA++++",offer:"₹595",mrp:"₹595",discount:"TRENDING",size:"50g / 80g",desc:"Designed for oily and acne-prone skin. Cica soothes inflammation and redness while Niacinamide controls oil and fades dark spots. Matte finish, fragrance-free, non-comedogenic. IN-VIVO tested SPF 50+ PA++++.",images:["dk7.PNG"],link:"https://bilty.co/Ou5YqH"},
+    {sku:"DK08",stars:5,badge:false,title:"Strawberry Sunscreen Stick, In-Vivo Tested SPF 50+ PA++++",offer:"₹595",mrp:"₹595",discount:"BESTSELLER",size:"20g",desc:"The no-mess SPF stick for on-the-go touch-ups. Strawberry Extract delivers antioxidants while SPF 50+ PA++++ guards against UVA & UVB rays. Great for face, neck, and ears.",images:["dk8.PNG"],link:"https://bilty.co/ompRGn"},
+    {sku:"DK09",stars:4,badge:true,title:"Swim + Sports Sunscreen, In-Vivo Tested SPF 50+ PA++++",offer:"₹495",mrp:"₹495",discount:"JUST IN",size:"50g",desc:"Built for active days. Sweat-resistant and water-resistant sunscreen that stays put through swimming and workouts. IN-VIVO tested SPF 50+ PA++++ for broad-spectrum protection. Non-greasy and fast-absorbing.",images:["dk9.PNG"],link:"https://bilty.co/EwAqjG"},
+    {sku:"DK10",stars:5,badge:false,title:"Mango Detan Sunscreen, In-Vivo Tested SPF 50+ PA++++",offer:"₹445",mrp:"₹445",discount:"FOR ALL SKIN",size:"50g / 80g",desc:"Mango Extract rich in Vitamins A & C reduces tanning and evens out skin tone while providing SPF 50+ PA++++ protection. Lightweight, no greasy after-feel. Perfect for everyday use.",images:["dk10.PNG"],link:"https://bilty.co/buD9FH"},
+    {sku:"DK11",stars:4,badge:false,title:"Watermelon Cooling Sunscreen Body Spray, In-Vivo Tested SPF 50+ PA+++",offer:"₹595",mrp:"₹595",discount:"BESTSELLER",size:"110ml",desc:"Full-body sun protection in a refreshing spray. Watermelon Extract cools and hydrates while SPF 50+ PA+++ shields against UV damage. Easy application for arms, legs, and hard-to-reach areas.",images:["dk11.PNG"],link:"https://bilty.co/eQhieK"},
+    {sku:"DK12",stars:4,badge:true,title:"Strawberry Sunscreen Face Mist, In-Vivo Tested SPF 50+ PA+++",offer:"₹599",mrp:"₹599",discount:"JUST IN",size:"80ml",desc:"Reapply SPF without disturbing your makeup. Fine mist delivers SPF 50+ PA+++ protection with a refreshing spritz of Strawberry Extract. Great for midday touch-ups — hydrates on-the-go.",images:["dk12.PNG"],link:"https://bilty.co/3ezQB8"},
+    {sku:"DK13",stars:5,badge:false,title:"Vitamin C + E Moisturizer for Glowing Skin",offer:"₹495",mrp:"₹495",discount:"BESTSELLER",size:"60ml",desc:"Lightweight, brightening moisturizer powered by stable Vitamin C + E. Fades dark spots, controls oil, and delivers a healthy glow without heaviness. Non-sticky formula absorbs quickly. Dermatologically tested.",images:["dk13.PNG"],link:"https://bilty.co/CjXPFb"},
+    {sku:"DK14",stars:5,badge:false,title:"Barrier Repair Moisturizer (Hyaluronic + Ceramides)",offer:"₹599",mrp:"₹599",discount:"BESTSELLER",size:"100g / 175g",desc:"Clinically proven to repair the skin barrier. Ceramides seal in moisture and soothe redness, while Hyaluronic Acid delivers deep, lasting hydration. Fragrance-free, dye-free — ideal for dry and sensitive skin.",images:["dk14.PNG"],link:"https://bilty.co/Dp7nhS"},
+    {sku:"DK15",stars:5,badge:false,title:"72HR Hydrating Gel Moisturizer + Probiotics",offer:"₹495",mrp:"₹495",discount:"BESTSELLER",size:"60ml",desc:"Clinically proven to deliver 72-hour continuous hydration. Ultra-light water-gel with Hyaluronic Acid, Probiotics, and 5 Ceramides balances the skin microbiome for smooth, healthy-looking skin.",images:["dk15.PNG"],link:"https://bilty.co/6s0QZd"},
+    {sku:"DK16",stars:5,badge:false,title:"Cica (Centella) + Niacinamide Oil Free Moisturizer",offer:"₹495",mrp:"₹495",discount:"TOP PICK",size:"50g / 60g",desc:"Heal acne and control oil with this fragrance-free, non-comedogenic moisturizer. Cica soothes inflammation; Niacinamide fades dark spots and acne scars. Ceramides & Oatmeal strengthen the barrier.",images:["dk16.PNG"],link:"https://bilty.co/UFWgWP"},
+    {sku:"DK17",stars:5,badge:false,title:"Retinol Night Repair Cream with Ceramides",offer:"₹599",mrp:"₹599",discount:"BESTSELLER",size:"60ml",desc:"Retinol promotes cell turnover to reduce fine lines and wrinkles while Ceramides reinforce the barrier for deep overnight hydration. Start 2–3 nights per week and build up gradually.",images:["dk17.PNG"],link:"https://bilty.co/cWdjTq"},
+    {sku:"DK18",stars:5,badge:true,title:"Barrier Repair Intense Moisturizer With Ceramides",offer:"₹399",mrp:"₹399",discount:"JUST IN",size:"100g",desc:"Deeply nourishing moisturizer for very dry skin. Rich ceramide-based formula repairs the skin barrier, seals in moisture, and soothes persistent redness and irritation. Fragrance-free and dye-free.",images:["dk18.PNG"],link:"https://bilty.co/JQ02NS"},
+    {sku:"DK19",stars:5,badge:false,title:"Strawberry + Niacinamide Moisturizer",offer:"₹399",mrp:"₹399",discount:"BESTSELLER",size:"80g",desc:"Strawberry Extract provides antioxidant-rich nourishment while Niacinamide fades dark spots and visibly minimises pores. Intense, non-sticky hydration gives you a smooth, photo-ready base.",images:["dk19.PNG"],link:"https://bilty.co/WPI7Mq"},
+    {sku:"DK20",stars:4,badge:false,title:"Cica Calming Night Gel (Niacinamide + Green Tea)",offer:"₹495",mrp:"₹495",discount:"ACNE CARE",size:"60g",desc:"Overnight acne repair gel. Cica + Green Tea calm redness and inflammation while Niacinamide fades acne marks and dark spots. Oil-free, fragrance-free, non-comedogenic — ideal for oily and acne-prone skin.",images:["dk20.PNG"],link:"https://bilty.co/4xFQjL"},
+    {sku:"DK21",stars:5,badge:false,title:"Watermelon Cooling Icy Gel Moisturizer With Hyaluronic",offer:"₹495",mrp:"₹495",discount:"TOP PICK",size:"60ml",desc:"Instantly cools skin by 4°C. Melt-in icy gel with Liquid Ice, Hyaluronic Acid, Niacinamide, and Watermelon Extract reduces oil, puffiness, and dullness. Best for normal, oily, and combination skin.",images:["dk21.PNG"],link:"https://bilty.co/SLXl0u"},
+    {sku:"DK22",stars:4,badge:false,title:"Pomegranate + Multi-Peptide Anti Ageing Moisturizer SPF 30",offer:"₹495",mrp:"₹595",discount:"SAVE ₹100",size:"60ml",desc:"Anti-ageing moisturizer with built-in SPF 30. Pomegranate Seed Oil boosts radiance; Multi-Peptides improve collagen, elasticity, and firmness. Reduces fine lines with 48-hour hydration.",images:["dk22.PNG"],link:"https://bilty.co/nr7i3N"},
+    {sku:"DK23",stars:4,badge:false,title:"Strobe Cream (Moisturizer + Highlighter)",offer:"₹345",mrp:"₹345",discount:"MAKEUP + SKIN",size:"30g",desc:"2-in-1 moisturizer-highlighter that blends effortlessly for a dewy, luminous HD finish. Available in 3 tinted shades. Finely milled shimmer particles deliver an even, non-glittery glow. Suitable for all skin tones.",images:["dk23.PNG"],link:"https://bilty.co/v3mnYz"},
+    {sku:"DK24",stars:5,badge:true,title:"Barrier Repair Oil-Free Moisturizer with Ceramides",offer:"₹399",mrp:"₹399",discount:"JUST IN",size:"50g",desc:"Lightweight oil-free moisturizer that repairs the barrier without clogging pores. Ceramides strengthen skin resilience; Niacinamide calms and clears. Fragrance-free, non-comedogenic.",images:["dk24.PNG"],link:"https://bilty.co/bUphVy"},
+    {sku:"DK25",stars:5,badge:false,title:"10% Vitamin C + E Face Serum with 5% Niacinamide",offer:"₹695",mrp:"₹695",discount:"BESTSELLER",size:"20ml / 30ml",desc:"Power-packed brightening serum combining 10% Vitamin C + E with 5% Niacinamide. Fades dark spots, reduces dullness, boosts glow, and protects against free radicals. Lightweight, non-sticky, quick-absorbing.",images:["dk25.PNG"],link:"https://bilty.co/Iuiwh5"},
+    {sku:"DK26",stars:5,badge:false,title:"Strawberry Bright 10% Niacinamide Face Serum",offer:"₹599",mrp:"₹599",discount:"BESTSELLER",size:"20ml / 30ml",desc:"A lush pink serum (color from natural Vitamin B12) with 10% Niacinamide. Brightens skin, fades dark spots and pigmentation, improves texture, reduces dryness. Non-greasy, quick-absorbing.",images:["dk26.PNG"],link:"https://bilty.co/Jzdtow"},
+    {sku:"DK27",stars:5,badge:false,title:"Cica + 10% Niacinamide Face Serum for Oily Skin",offer:"₹599",mrp:"₹599",discount:"TOP PICK",size:"20ml / 30ml",desc:"Formulated for oily, acne-prone, and sensitive skin. 10% Niacinamide controls oil, minimizes pores, and fades acne scars; Cica soothes redness and inflammation. Fragrance-free, non-comedogenic.",images:["dk27.PNG"],link:"https://bilty.co/SfiXHC"},
+    {sku:"DK28",stars:5,badge:false,title:"Hyaluronic & Ceramides Hydrating Face Serum",offer:"₹665",mrp:"₹665",discount:"TOP PICK",size:"30ml",desc:"Intensely hydrating serum with Hyaluronic Acid and Ceramides. Instantly plumps skin, strengthens the moisture barrier, and reduces dryness and fine lines. Lightweight gel texture absorbs instantly.",images:["dk28.PNG"],link:"https://bilty.co/cMh1Pl"},
+    {sku:"DK29",stars:4,badge:false,title:"Cica + 2% Salicylic Acid Serum for Acne",offer:"₹550",mrp:"₹550",discount:"ACNE CARE",size:"20ml / 30ml",desc:"Targeted acne-fighting serum with 2% Salicylic Acid to unclog pores and reduce oil, plus Cica to calm inflammation and redness. Fades acne marks and controls breakouts. Oil-free, fragrance-free.",images:["dk29.PNG"],link:"https://bilty.co/8zlUyP"},
+    {sku:"DK30",stars:4,badge:false,title:"Watermelon & 10% Glycolic Serum",offer:"₹599",mrp:"₹599",discount:"TRENDING",size:"20ml / 30ml",desc:"Gentle AHA exfoliating serum with 10% Glycolic Acid and Watermelon Extract. Smoothens skin texture, refines pores, controls excess oil, and brightens complexion. Use in the evening; follow with SPF.",images:["dk30.PNG"],link:"https://bilty.co/5i7bT0"},
+    {sku:"DK31",stars:5,badge:true,title:"12% Barrier Boost Serum (Hyaluronic + Ceramides)",offer:"₹599",mrp:"₹599",discount:"BESTSELLER",size:"30ml",desc:"Breakthrough barrier-repair serum with 12% active complex of Hyaluronic Acid, Ceramides, and Niacinamide. Repairs damaged skin, reduces redness and acne, delivers deep hydration. Fast-absorbing.",images:["dk31.PNG"],link:"https://bilty.co/zoJ5AZ"},
+    {sku:"DK32",stars:4,badge:false,title:"Pomegranate Youth 0.2% Retinol Complex Face Serum",offer:"₹599",mrp:"₹599",discount:"FOR ALL SKIN",size:"30ml",desc:"Beginner-friendly 0.2% Retinol serum with Pomegranate Extract and Multi-Peptides. Promotes cell turnover, reduces fine lines, and boosts collagen. Start 2–3 nights per week and build up gradually.",images:["dk32.PNG"],link:"https://bilty.co/CgSBEy"},
+    {sku:"DK33",stars:5,badge:false,title:"Vitamin C + E Gel Face Wash for Glowing Skin",offer:"₹375",mrp:"₹375",discount:"BESTSELLER",size:"100ml / 175ml",desc:"Sulphate-free gel cleanser with Triple Vitamin C + Niacinamide + Vitamin E. Reduces dullness, fades dark spots, deeply cleanses without over-drying. Suitable for all skin types.",images:["dk33.PNG"],link:"https://bilty.co/tOliJJ"},
+    {sku:"DK34",stars:5,badge:false,title:"Watermelon Gel Face Wash",offer:"₹295",mrp:"₹295",discount:"FOR ALL SKIN",size:"100ml",desc:"Refreshing gel cleanser with Watermelon Extract and Vitamin C. Deeply cleanses with a cooling sensation, boosts luminosity, removes excess oil and dirt without over-drying. Sulphate-free formula.",images:["dk34.PNG"],link:"https://bilty.co/wTXfcs"},
+    {sku:"DK35",stars:5,badge:false,title:"Barrier Repair Gentle Hydrating Face Wash",offer:"₹375",mrp:"₹375",discount:"TOP PICK",size:"100ml / 175ml",desc:"Ultra-mild, fragrance-free, soap-free cleanser for dry and sensitive skin. Infused with 5 Ceramides, Hyaluronic Acid, Japanese Rice Water, and Probiotics. Repairs and strengthens the skin barrier.",images:["dk35.PNG"],link:"https://bilty.co/23ihT3"},
+    {sku:"DK36",stars:4,badge:false,title:"Strawberry Bright Niacinamide Gel Face Wash",offer:"₹249",mrp:"₹249",discount:"BRIGHTENING",size:"100ml",desc:"Brightening gel cleanser with Niacinamide and Strawberry Extract. Gently cleanses while reducing dullness and uneven skin tone. Sulphate-free, non-drying formula for visibly radiant skin.",images:["dk36.PNG"],link:"https://bilty.co/EkGycm"},
+    {sku:"DK37",stars:5,badge:false,title:"Cica + Salicylic Acid Face Wash for Oily Skin",offer:"₹375",mrp:"₹375",discount:"BESTSELLER",size:"100ml / 175ml",desc:"Sulphate-free anti-acne gel cleanser. Salicylic Acid unclogs pores and controls excess oil; Cica soothes redness and inflammation. Fragrance-free, non-comedogenic — for oily and acne-prone skin.",images:["dk37.PNG"],link:"https://bilty.co/eJU1D5"},
+    {sku:"DK38",stars:4,badge:false,title:"Deep Pore Clean Foaming Face Wash",offer:"₹249",mrp:"₹249",discount:"PORE CARE",size:"100ml",desc:"Lightweight foaming cleanser that deep-cleans pores and removes embedded dirt, excess oil, and impurities. Seaweed Extract controls sebum; Lotus Flower fades dark spots. Sulphate-free, for all skin types.",images:["dk38.PNG"],link:"https://bilty.co/FkioqN"},
+    {sku:"DK39",stars:5,badge:false,title:"Strawberry Dew Cleansing Balm for Dewy Skin",offer:"₹499",mrp:"₹499",discount:"ALL SKIN",size:"50g",desc:"Luxurious cleansing balm that melts away makeup, sunscreen, and impurities. Strawberry Enzymes gently exfoliate and unclog pores; high fatty-acid content leaves skin soft, smooth, and dewy.",images:["dk39.PNG"],link:"https://bilty.co/we3Z2u"},
+    {sku:"DK40",stars:4,badge:false,title:"Vitamin C Foaming Face Wash",offer:"₹295",mrp:"₹295",discount:"BRIGHTENING",size:"80ml",desc:"Rich foaming cleanser with Triple Vitamin C (Kakadu Plum, Blood Orange, Ethyl Ascorbic Acid) + Papaya Enzyme. Reduces dullness, fades dark spots, and gently exfoliates for smoother, brighter skin.",images:["dk40.PNG"],link:"https://bilty.co/uQqMsb"},
+    {sku:"DK41",stars:4,badge:false,title:"Mango Detan Gel Face Wash",offer:"₹249",mrp:"₹249",discount:"DETAN",size:"100ml",desc:"Sulphate-free gel cleanser with Mango Extract, Glycolic Acid, Lactic Acid, and Niacinamide. Fades stubborn tan and dark spots, gently exfoliates, and deeply cleanses without over-drying.",images:["dk41.PNG"],link:"https://bilty.co/yMjilM"},
+    {sku:"DK42",stars:5,badge:true,title:"Meltie Lip Balm, In-Vivo Tested SPF 50+ PA+++",offer:"₹249",mrp:"₹249",discount:"JUST IN",size:"3.5g",desc:"New-gen melt-on-lips balm with IN-VIVO tested SPF 50+ PA+++ protection. Long-lasting hydration, repairs the lip barrier, and protects from UV damage. Lightweight, non-sticky. Available in multiple shades.",images:["dk42.PNG"],link:"https://bilty.co/9niDEg"},
+    {sku:"DK43",stars:5,badge:false,title:"Lip Plumping Mask with Vitamin C + E",offer:"₹259",mrp:"₹259",discount:"LIP CARE",size:"12g",desc:"Overnight lip mask that plumps, hydrates, and repairs dry, pigmented lips. Vitamin C + E brighten and even lip tone while the nourishing formula restores softness. Available in 3 tinted shades.",images:["dk43.PNG"],link:"#"},
+    {sku:"DK44",stars:5,badge:false,title:"Barrier Repair Hydrating Lip Balm, In-Vivo Tested SPF 50+ PA+++",offer:"₹249",mrp:"₹249",discount:"TOP PICK",size:"4g",desc:"SPF lip balm with IN-VIVO tested SPF 50+ PA+++ and Ceramides that repair the lip barrier and lock in long-lasting moisture. Lightweight stick — no greasy feel. Available in multiple shades.",images:["dk44.PNG"],link:"https://bilty.co/h8N49w"},
+    {sku:"DK45",stars:5,badge:false,title:"Ceramide + Peptide Lip Balm, In-Vivo Tested SPF 50+ PA+++",offer:"₹249",mrp:"₹249",discount:"LIP CARE",size:"4g",desc:"Ceramides + Peptides repair lip barrier damage, boost collagen, and deliver plump, soft, hydrated lips. IN-VIVO tested SPF 50+ PA+++ shields against UV rays. Non-greasy, long-lasting formula.",images:["dk45.PNG"],link:"https://bilty.co/dbKeaT"},
+    {sku:"DK46",stars:5,badge:false,title:"Vitamin C + E Gloss Boss Lip Balm, In-Vivo Tested SPF 50+ PA+++",offer:"₹249",mrp:"₹249",discount:"LIP CARE",size:"4g",desc:"Glossy, tinted SPF lip balm with Vitamin C + E to brighten and even lip tone while SPF 50+ PA+++ guards against UV damage. Gives lips a healthy, plumped look with a sheer gloss finish.",images:["dk46.PNG"],link:"https://bilty.co/d26Wdw"},
+    {sku:"DK47",stars:4,badge:true,title:"Watermelon Cool Icy Plunge Clay Mask",offer:"₹499",mrp:"₹499",discount:"JUST IN",size:"70g",desc:"Icy-cool clay mask that instantly refreshes while deep-cleansing. Watermelon Extract hydrates while clay draws out impurities and excess oil. Controls shine, minimizes pores. For oily skin.",images:["dk47.PNG"],link:"https://bilty.co/cAHmvu"},
+    {sku:"DK48",stars:5,badge:false,title:"Cica & Salicylic French Green Clay Face Mask",offer:"₹550",mrp:"₹550",discount:"BESTSELLER",size:"85g",desc:"Purifying clay mask with French Green Clay and Salicylic Acid to deep-cleanse pores and fight acne. Cica soothes inflammation and redness. Use 2–3 times a week. Best for oily and acne-prone skin.",images:["dk48.PNG"],link:"https://bilty.co/tN1zCQ"},
+    {sku:"DK49",stars:4,badge:false,title:"Vitamin C Pink Clay Mask",offer:"₹550",mrp:"₹550",discount:"BRIGHTENING",size:"75g",desc:"Brightening French Pink Clay mask with Vitamin C (Kakadu Plum, Acerola Cherry) and Niacinamide. Unclogs pores, detoxifies skin, fades dark spots, and promotes an even, radiant tone.",images:["dk49.PNG"],link:"https://bilty.co/DDdhTG"},
+    {sku:"DK50",stars:4,badge:false,title:"Mango Detan Clay Mask",offer:"₹499",mrp:"₹499",discount:"DETAN",size:"75g",desc:"Detanning clay mask with Mango Extract and AHAs (Glycolic + Lactic Acid). Deeply cleanses, gently exfoliates tanned skin cells, and promotes a brighter, even-toned complexion. Use 2–3 times a week.",images:["dk50.PNG"],link:"https://bilty.co/Cn6fm2"},
+    {sku:"DK51",stars:5,badge:true,title:"Blueberry Hydrate Barrier Repair Milk Face Toner",offer:"₹449",mrp:"₹449",discount:"JUST IN",size:"150ml",desc:"Milky barrier-repair toner with Blueberry Extract, Ceramides, Hyaluronic Acid, Niacinamide, and Japanese Rice Water. Deeply hydrates, repairs skin barrier, soothes irritation. Alcohol-free.",images:["dk51.PNG"],link:"https://bilty.co/6TXijr"},
+    {sku:"DK52",stars:4,badge:false,title:"Blueberry Hydrate Barrier Repair Rice Water Toner",offer:"₹395",mrp:"₹395",discount:"BARRIER CARE",size:"150ml",desc:"Lightweight hydrating toner with Japanese Rice Water, Blueberry Extract, Ceramides, and Probiotics. Instantly hydrates, balances skin's microbiome, gently exfoliates, refines pores. Fragrance-free.",images:["dk52.PNG"],link:"https://bilty.co/g9MjcO"},
+    {sku:"DK53",stars:4,badge:false,title:"Watermelon + Glycolic Acid Pore Tightening Toner",offer:"₹395",mrp:"₹395",discount:"PORE CARE",size:"150ml",desc:"Alcohol-free exfoliating toner with Glycolic + Lactic Acids and Watermelon Extract. Smoothens skin texture, tightens pores, controls excess oil, and brightens complexion. Use in the evening; apply SPF next morning.",images:["dk53.PNG"],link:"https://bilty.co/4X66vV"},
+    {sku:"DK54",stars:4,badge:false,title:"Cica + Niacinamide Toner with Green Tea",offer:"₹395",mrp:"₹395",discount:"ACNE CARE",size:"150ml",desc:"Oil-controlling, acne-fighting toner with Cica, Niacinamide, Green Tea, and Tea Tree Oil. Reduces breakouts, minimizes pores, fades acne scars, and soothes redness. Alcohol-free, for oily skin.",images:["dk54.PNG"],link:"https://bilty.co/S4ZKhm"},
+    {sku:"DK55",stars:5,badge:false,title:"Watermelon Hydrogel Under-eye Patches",offer:"₹799",mrp:"₹799",discount:"EYE CARE",size:"60 patches",desc:"Cooling hydrogel patches with Watermelon Extract, Hyaluronic Acid, Niacinamide, and Caffeine. Instantly depuff, reduce dark circles, and deeply hydrate the under-eye area in just 15 minutes.",images:["dk55.PNG"],link:"https://bilty.co/m7xiC4"},
+    {sku:"DK56",stars:5,badge:false,title:"Pomegranate + Retinol Eye Cream for Dark Circles",offer:"₹495",mrp:"₹495",discount:"EYE CARE",size:"15ml",desc:"Eye cream with Pomegranate Seed Oil, Retinol, and Multi-Peptides. Reduces dark circles, fades fine lines, boosts collagen, and improves firmness around the eyes. Apply morning and night.",images:["dk56.PNG"],link:"https://bilty.co/2ZGmue"},
+    {sku:"DK57",stars:4,badge:false,title:"Moringa & Argan Oil Hair Fall Control Shampoo",offer:"₹395",mrp:"₹395",discount:"HAIRCARE",size:"200ml / 350ml",desc:"Sulphate-free shampoo with Moringa Seed Oil, Argan Oil, Pea Peptide Protein, and Hydrolyzed Keratin. Strengthens hair follicles, reduces breakage, adds shine and volume to dull, limp hair.",images:["dk57.PNG"],link:"https://bilty.co/RJuIxO"},
+    {sku:"DK58",stars:5,badge:false,title:"Hair Mask with Moringa + Argan Oil",offer:"₹645",mrp:"₹645",discount:"HAIRCARE",size:"200ml",desc:"Deep conditioning hair mask with Moringa Oil, Argan Oil, Pea Peptide, Hydrolyzed Keratin, and Shea Butter. Intensely nourishes root to tip, reduces frizz, boosts shine and volume. Use weekly.",images:["dk58.PNG"],link:"https://bilty.co/j8iKiK"},
+    {sku:"DK59",stars:4,badge:false,title:"Moringa & Argan Frizz Control Hair Conditioner",offer:"₹349",mrp:"₹349",discount:"HAIRCARE",size:"120ml",desc:"Silicone-free conditioner with Moringa Oil, Argan Oil, Pea Peptide, and Hydrolyzed Keratin. Tames frizz, adds shine and bounce, and deeply nourishes dry, damaged hair. Apply on mid-lengths to ends.",images:["dk59.PNG"],link:"https://bilty.co/UyRd2u"},
+    {sku:"DK60",stars:5,badge:false,title:"Barrier Repair Hydrating Shower Gel for Dry Skin",offer:"₹349",mrp:"₹349",discount:"BODY CARE",size:"250ml",desc:"Gentle, sulphate-free shower gel with Ceramides, Hyaluronic Acid, and Probiotics. Deeply cleanses while repairing and hydrating the skin barrier. Soap-free, fragrance-free — leaves skin soft post-shower.",images:["dk60.PNG"],link:"https://bilty.co/dmp7da"},
+    {sku:"DK61",stars:4,badge:false,title:"Vitamin C + E Body Lotion for Glowing Skin",offer:"₹395",mrp:"₹395",discount:"BODY CARE",size:"250ml",desc:"Lightweight body lotion with Triple Vitamin C and Vitamin E. Brightens skin tone, fades dark spots and uneven patches, and provides lasting hydration. Non-greasy formula absorbs quickly.",images:["dk61.PNG"],link:"https://bilty.co/RBy0gq"},
+    {sku:"DK62",stars:5,badge:false,title:"Barrier Repair Hyaluronic Acid Body Lotion",offer:"₹395",mrp:"₹395",discount:"BODY CARE",size:"250ml",desc:"Deeply hydrating body lotion with Hyaluronic Acid, Ceramides, and Probiotics. Repairs skin barrier, locks in moisture, and soothes dry, sensitive skin. Lightweight, fragrance-free — ideal for daily use.",images:["dk62.PNG"],link:"https://bilty.co/HL0wgx"},
+    {sku:"DK63",stars:5,badge:false,title:"Shop Dot & Key Combos",offer:"From ₹699",mrp:"",discount:"SAVE MORE",size:"Various",desc:"Explore Dot & Key's curated combo sets across sunscreens, serums, moisturizers, and face washes. Combos offer up to 25% off and often include free gifts. Great for gifting or building a complete skincare routine.",images:["dk63.PNG"],link:"https://bilty.co/MrghxH"},
 ];
+
+const navLinks = [
+    {name:"Home",url:"index.html"},{name:"About",url:"index1.html"},
+    {name:"Shop – Women",url:"WOMEN.html"},{name:"Shop – Men",url:"MEN.html"},
+    {name:"Dot & Key",url:"dotandkey.html"},{name:"Contact",url:"contact.html"}
+];
+
 function handleSearch(query) {
     const resultsEl = document.getElementById("searchResults");
     const q = query.trim().toLowerCase();
     if (!q) { resultsEl.classList.remove("open"); resultsEl.innerHTML = ""; return; }
-    const matched = navLinks.filter(n => n.name.toLowerCase().includes(q));
-    if (!matched.length) {
+    const matchedNav = navLinks.filter(n => n.name.toLowerCase().includes(q));
+    const matchedProducts = products.map((p,i) => ({...p,index:i})).filter(p => p.title.toLowerCase().includes(q)).slice(0,5);
+    if (matchedNav.length === 0 && matchedProducts.length === 0) {
         resultsEl.innerHTML = '<div class="search-no-result">No results for "' + query + '"</div>';
-    } else {
-        resultsEl.innerHTML = matched.map(n =>
-            `<a class="search-result-item" href="${n.url}">
-                <div style="width:42px;height:42px;display:flex;align-items:center;justify-content:center;background:#f7f7f7;border-radius:6px;font-size:20px;">🔗</div>
-                <div><div class="search-result-name">${n.name}</div><div class="search-result-price" style="color:#888;">Page</div></div>
-            </a>`).join("");
+        resultsEl.classList.add("open"); return;
     }
+    let html = "";
+    matchedNav.forEach(n => { html += '<a class="search-result-item" href="' + n.url + '"><div style="width:42px;height:42px;display:flex;align-items:center;justify-content:center;background:#f7f7f7;border-radius:6px;flex-shrink:0;font-size:20px;">🔗</div><div><div class="search-result-name">' + n.name + '</div><div class="search-result-price" style="color:#888;">Page</div></div></a>'; });
+    matchedProducts.forEach(p => { html += '<div class="search-result-item" onclick="openPopup(' + p.index + '); closeSearchResults();"><img src="' + p.images[0] + '" alt="' + p.title + '"><div><div class="search-result-name">' + p.title + '</div><div class="search-result-price">' + p.offer + '</div></div></div>'; });
+    resultsEl.innerHTML = html;
     resultsEl.classList.add("open");
 }
-document.addEventListener("click", e => { if (!e.target.closest(".search-wrap")) document.getElementById("searchResults").classList.remove("open"); });
+function closeSearchResults() { document.getElementById("searchResults").classList.remove("open"); document.getElementById("searchInput").value = ""; }
+document.addEventListener("click", function(e) { if (!e.target.closest(".search-wrap")) document.getElementById("searchResults").classList.remove("open"); });
 
-// ── Popup ──
 let currentSlide = 0, totalSlides = 0;
 function openPopup(index) {
     const p = products[index];
+    currentSlide = 0; totalSlides = p.images.length;
+    document.getElementById("popupBadge").style.display = p.badge ? "block" : "none";
+    const slidesEl = document.getElementById("popupSlides");
+    slidesEl.innerHTML = p.images.map(src => '<img src="' + src + '" alt="' + p.title + '">').join("");
+    slidesEl.style.transform = "translateX(0)";
+    const dotsEl = document.getElementById("sliderDots");
+    dotsEl.innerHTML = p.images.map((_,i) => '<div class="dot ' + (i===0?'active':'') + '" onclick="goToSlide(' + i + ')"></div>').join("");
+    const showArrows = totalSlides > 1;
+    document.querySelector(".slider-arrow.prev").style.display = showArrows ? "flex" : "none";
+    document.querySelector(".slider-arrow.next").style.display = showArrows ? "flex" : "none";
     document.getElementById("popupSku").textContent = p.sku;
     document.getElementById("popupTitle").textContent = p.title;
-    document.getElementById("popupStars").innerHTML =
-        '<span class="star-filled">' + "★".repeat(p.stars) + '</span>' +
-        '<span class="star-empty">' + "★".repeat(5 - p.stars) + '</span>';
+    const starsEl = document.getElementById("popupStars");
+    starsEl.innerHTML = '<span class="star-filled">' + "★".repeat(p.stars) + '</span><span class="star-empty">' + "★".repeat(5-p.stars) + '</span>';
     document.getElementById("popupOffer").textContent = p.offer;
-    document.getElementById("popupMrp").textContent = "";
+    document.getElementById("popupMrp").textContent = (p.mrp && p.mrp !== p.offer) ? "MRP " + p.mrp : "";
     document.getElementById("popupDiscount").textContent = p.discount;
     document.getElementById("popupDesc").textContent = p.desc;
     document.getElementById("popupSize").textContent = p.size;
     document.getElementById("popupBuyBtn").href = p.link;
-    // Placeholder slide
-    document.getElementById("popupSlides").innerHTML =
-        `<div style="min-width:100%;height:280px;background:#f5f5f5;display:flex;align-items:center;justify-content:center;color:#c0c0c0;font-size:13px;font-family:'Lato',sans-serif;letter-spacing:.5px;">Product Image</div>`;
     document.getElementById("popupOverlay").classList.add("open");
     document.body.style.overflow = "hidden";
 }
 function closePopup() { document.getElementById("popupOverlay").classList.remove("open"); document.body.style.overflow = ""; }
 function handleOverlayClick(e) { if (e.target === document.getElementById("popupOverlay")) closePopup(); }
-function slideMove() {}  // no-op — single placeholder image
+function slideMove(dir) { currentSlide = (currentSlide+dir+totalSlides)%totalSlides; goToSlide(currentSlide); }
+function goToSlide(n) { currentSlide = n; document.getElementById("popupSlides").style.transform = "translateX(-" + (n*100) + "%)"; document.querySelectorAll(".dot").forEach((d,i) => d.classList.toggle("active", i===n)); }
+let touchStartX = 0;
+document.getElementById("popupSlides").addEventListener("touchstart", e => { touchStartX = e.touches[0].clientX; });
+document.getElementById("popupSlides").addEventListener("touchend", e => { const diff = touchStartX - e.changedTouches[0].clientX; if (Math.abs(diff) > 40) slideMove(diff > 0 ? 1 : -1); });
 document.addEventListener("keydown", e => { if (e.key === "Escape") closePopup(); });
-
-// ── Side menu ──
 function openMenu() { document.getElementById("sideMenu").classList.add("open"); document.getElementById("overlay").classList.add("active"); document.body.style.overflow = "hidden"; }
 function closeMenu() { document.getElementById("sideMenu").classList.remove("open"); document.getElementById("overlay").classList.remove("active"); document.body.style.overflow = ""; }
+function toggleSideShop() { const sub = document.getElementById("sideShopMenu"); const arrow = document.getElementById("sideArrow"); const isOpen = sub.style.display === "flex"; sub.style.display = isOpen ? "none" : "flex"; arrow.classList.toggle("rotate", !isOpen); }
 </script>
-<script src="https://pl29344583.profitablecpmratenetwork.com/19/ae/7c/19ae7cadaada5cbb94fbcac59fde34ad.js"></script>
+    <script src="https://pl29344583.profitablecpmratenetwork.com/19/ae/7c/19ae7cadaada5cbb94fbcac59fde34ad.js"></script>
+
 </body>
 </html>
