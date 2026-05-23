@@ -1,840 +1,762 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <script src="https://quge5.com/88/tag.min.js" data-zone="240143" async data-cfasync="false"></script>
-    <meta charset="UTF-8">
-    <title> Gabriella Curates</title>
-    <link rel="icon" type="image/png" href="favicon.png?v=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="p:domain_verify" content="5f7e2480c8720c1a5d1f563c6b31075c"/>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gabriella Curates — Beauty & Style</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#faf8f5;--ink:#1a1410;--blush:#e8c4b8;--rose:#c97b63;--gold:#c4963e;
+  --sage:#7a9e7e;--cream:#f5ede3;--surface:#fff;--muted:#8a7d74;
+  --dark:#1a1410;--nav-h:70px;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:'DM Sans',sans-serif;overflow-x:hidden}
 
-    <style>
-        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;height:var(--nav-h);z-index:900;
+  background:rgba(250,248,245,0.92);backdrop-filter:blur(12px);
+  border-bottom:1px solid rgba(196,150,62,0.15);
+  display:flex;align-items:center;justify-content:space-between;padding:0 5%;
+  transition:box-shadow 0.3s;
+}
+nav.scrolled{box-shadow:0 2px 20px rgba(26,20,16,0.08)}
+.nav-logo{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:600;color:var(--ink);letter-spacing:0.04em;text-decoration:none}
+.nav-logo span{color:var(--rose);font-style:italic}
+.nav-links{display:flex;gap:2rem;align-items:center}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:0.82rem;letter-spacing:0.12em;text-transform:uppercase;font-weight:500;transition:color 0.2s}
+.nav-links a:hover{color:var(--rose)}
+.nav-cta{background:var(--ink);color:#fff !important;padding:0.5rem 1.25rem;border-radius:2px;font-size:0.78rem !important}
+.nav-cta:hover{background:var(--rose) !important;color:#fff !important}
+.menu-toggle{display:none;background:none;border:none;cursor:pointer;color:var(--ink);font-size:1.4rem;padding:4px}
+.mobile-menu{display:none;position:fixed;inset:0;background:var(--ink);z-index:950;flex-direction:column;align-items:center;justify-content:center;gap:2rem}
+.mobile-menu.open{display:flex}
+.mobile-menu a{color:#fff;font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-style:italic;text-decoration:none;letter-spacing:0.05em;transition:color 0.2s}
+.mobile-menu a:hover{color:var(--blush)}
+.mm-close{position:absolute;top:1.5rem;right:1.5rem;background:none;border:none;color:#fff;font-size:1.8rem;cursor:pointer}
 
-        :root {
-            --ink:   #0f0d0e;
-            --bg:    #faf8f6;
-            --bg2:   #f3eeea;
-            --rose:  #b83a52;
-            --gold:  #a07848;
-            --tira:  #c8102e;
-            --ajio:  #f05a28;
-            --taupe: #8a7870;
-            --linen: #e4dbd4;
-            --blush: #f2d8de;
-            --cream: #fdf9f7;
-        }
+/* ── HERO ── */
+.hero{
+  min-height:100vh;display:flex;align-items:center;
+  padding:calc(var(--nav-h) + 4rem) 5% 4rem;
+  position:relative;overflow:hidden;
+}
+.hero-bg{
+  position:absolute;inset:0;
+  background:linear-gradient(135deg,#faf8f5 0%,#f5ede3 40%,#e8d5c8 100%);
+  z-index:0;
+}
+.hero-blob{
+  position:absolute;right:-10%;top:5%;width:55%;max-width:700px;aspect-ratio:1;
+  border-radius:60% 40% 70% 30%/50% 60% 40% 50%;
+  background:radial-gradient(ellipse at 40% 40%,rgba(201,123,99,0.18),rgba(196,150,62,0.1),transparent 70%);
+  animation:morphBlob 12s ease-in-out infinite;
+  z-index:0;
+}
+@keyframes morphBlob{
+  0%,100%{border-radius:60% 40% 70% 30%/50% 60% 40% 50%}
+  33%{border-radius:40% 60% 30% 70%/60% 40% 60% 40%}
+  66%{border-radius:70% 30% 50% 50%/40% 70% 30% 60%}
+}
+.hero-content{position:relative;z-index:1;max-width:580px}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:0.5rem;font-size:0.72rem;letter-spacing:0.28em;text-transform:uppercase;color:var(--rose);margin-bottom:1.5rem}
+.hero-eyebrow::before,.hero-eyebrow::after{content:'';width:28px;height:1px;background:var(--rose)}
+h1.hero-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(3rem,7vw,5.5rem);
+  font-weight:300;line-height:1.05;
+  color:var(--ink);margin-bottom:1.5rem;
+  animation:fadeUp 0.9s 0.2s both;
+}
+h1.hero-title em{font-style:italic;color:var(--rose)}
+.hero-sub{font-size:1.05rem;color:var(--muted);line-height:1.7;max-width:420px;margin-bottom:2.5rem;animation:fadeUp 0.9s 0.4s both}
+.hero-btns{display:flex;gap:1rem;flex-wrap:wrap;animation:fadeUp 0.9s 0.6s both}
+.btn-primary{display:inline-flex;align-items:center;gap:0.5rem;background:var(--ink);color:#fff;padding:0.9rem 2rem;text-decoration:none;font-size:0.85rem;letter-spacing:0.1em;text-transform:uppercase;font-weight:500;transition:all 0.25s}
+.btn-primary:hover{background:var(--rose);transform:translateY(-2px)}
+.btn-ghost{display:inline-flex;align-items:center;gap:0.5rem;border:1px solid var(--ink);color:var(--ink);padding:0.9rem 2rem;text-decoration:none;font-size:0.85rem;letter-spacing:0.1em;text-transform:uppercase;font-weight:500;transition:all 0.25s}
+.btn-ghost:hover{border-color:var(--rose);color:var(--rose)}
+.hero-scroll{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);z-index:1;display:flex;flex-direction:column;align-items:center;gap:0.5rem;color:var(--muted);font-size:0.68rem;letter-spacing:0.2em;text-transform:uppercase}
+.scroll-line{width:1px;height:40px;background:linear-gradient(to bottom,var(--rose),transparent);animation:scrollPulse 2s ease-in-out infinite}
+@keyframes scrollPulse{0%,100%{opacity:0.4;transform:scaleY(1)}50%{opacity:1;transform:scaleY(1.2)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
 
-        html { scroll-behavior: smooth; }
+/* ── SECTION HEADER ── */
+.section-header{text-align:center;margin-bottom:3.5rem}
+.section-eye{font-size:0.7rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--rose);margin-bottom:0.75rem}
+.section-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,4vw,2.8rem);font-weight:400;line-height:1.2;color:var(--ink)}
+.section-title em{font-style:italic;color:var(--rose)}
+.section-line{width:48px;height:1px;background:var(--gold);margin:1rem auto 0}
 
-        body {
-            font-family: 'Outfit', sans-serif;
-            background: var(--bg);
-            color: var(--ink);
-            min-height: 100vh;
-            overflow-x: hidden;
-            cursor: none;
-        }
+/* ── CATEGORIES STRIP ── */
+.categories{padding:5rem 5%;background:var(--ink)}
+.cat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1px;background:rgba(255,255,255,0.08)}
+.cat-item{
+  background:var(--ink);padding:2.5rem 1.5rem;text-align:center;
+  text-decoration:none;transition:background 0.3s;position:relative;overflow:hidden;
+}
+.cat-item::before{content:'';position:absolute;inset:0;background:var(--rose);opacity:0;transition:opacity 0.3s}
+.cat-item:hover::before{opacity:0.12}
+.cat-item:hover .cat-icon{transform:scale(1.15)}
+.cat-icon{font-size:2rem;margin-bottom:0.75rem;display:block;transition:transform 0.3s}
+.cat-name{font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:#fff;font-style:italic;display:block;margin-bottom:0.25rem}
+.cat-count{font-size:0.68rem;letter-spacing:0.18em;text-transform:uppercase;color:rgba(255,255,255,0.4)}
 
-        /* Grain texture */
-        body::after {
-            content: '';
-            position: fixed; inset: 0;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-            pointer-events: none; z-index: 9998; opacity: 0.45;
-        }
+/* ── QUIZ SECTION ── */
+.quizzes{padding:6rem 5%;background:var(--bg)}
+.quiz-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:2rem;margin-top:3.5rem}
+.quiz-card{
+  position:relative;border-radius:0;overflow:hidden;
+  background:var(--surface);border:1px solid rgba(196,150,62,0.2);
+  text-decoration:none;transition:all 0.35s;
+  display:flex;flex-direction:column;
+}
+.quiz-card:hover{transform:translateY(-6px);box-shadow:0 20px 50px rgba(26,20,16,0.1);border-color:var(--rose)}
+.quiz-card-visual{
+  height:200px;display:flex;align-items:center;justify-content:center;font-size:4rem;
+  position:relative;overflow:hidden;
+}
+.quiz-card-visual::after{content:'';position:absolute;inset:0;opacity:0.15}
+.qv-1{background:linear-gradient(135deg,#2d1b14,#5c3427)}
+.qv-2{background:linear-gradient(135deg,#0e2820,#1a5c3c)}
+.qv-3{background:linear-gradient(135deg,#1a0e2e,#3d1f5c)}
+.qv-4{background:linear-gradient(135deg,#1a1505,#4a3a0a)}
+.quiz-card-body{padding:1.75rem;flex:1;display:flex;flex-direction:column}
+.quiz-tag{display:inline-block;font-size:0.65rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--rose);margin-bottom:0.75rem;font-weight:600}
+.quiz-card-title{font-family:'Cormorant Garamond',serif;font-size:1.45rem;font-weight:400;line-height:1.3;color:var(--ink);margin-bottom:0.75rem}
+.quiz-card-desc{font-size:0.88rem;color:var(--muted);line-height:1.6;flex:1;margin-bottom:1.25rem}
+.quiz-cta{display:inline-flex;align-items:center;gap:0.5rem;font-size:0.78rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--rose);font-weight:600;transition:gap 0.2s}
+.quiz-card:hover .quiz-cta{gap:0.75rem}
 
-        /* Left accent bar */
-        body::before {
-            content: '';
-            position: fixed; left: 0; top: 0; bottom: 0; width: 2px;
-            background: linear-gradient(to bottom, transparent, var(--rose) 30%, var(--tira) 55%, var(--gold) 80%, transparent);
-            z-index: 500; pointer-events: none;
-            transform: scaleY(0); transform-origin: top;
-            animation: barDraw 1.4s cubic-bezier(.16,1,.3,1) 0.2s forwards;
-        }
-        @keyframes barDraw { to { transform: scaleY(1); } }
+/* ── FEATURED PRODUCTS ── */
+.featured{padding:6rem 5%}
+.featured-bg{background:var(--cream)}
+.prod-tabs{display:flex;justify-content:center;gap:0;margin-bottom:3rem;flex-wrap:wrap}
+.prod-tab{background:none;border:1px solid rgba(196,150,62,0.3);color:var(--muted);padding:0.6rem 1.5rem;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:0.78rem;letter-spacing:0.14em;text-transform:uppercase;transition:all 0.2s;margin:-0.5px}
+.prod-tab.active{background:var(--ink);border-color:var(--ink);color:#fff}
+.prod-tab:hover:not(.active){border-color:var(--rose);color:var(--rose)}
+.prod-panel{display:none;animation:fadeIn 0.4s ease}
+.prod-panel.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.prod-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1.5rem}
+.prod-card{background:var(--surface);padding:1.5rem;position:relative;transition:all 0.3s;border:1px solid transparent;cursor:pointer}
+.prod-card:hover{border-color:rgba(196,150,62,0.3);transform:translateY(-4px);box-shadow:0 12px 35px rgba(26,20,16,0.08)}
+.prod-img-wrap{height:180px;display:flex;align-items:center;justify-content:center;background:var(--cream);margin-bottom:1rem;overflow:hidden}
+.prod-img-wrap .prod-emoji{font-size:3.5rem}
+.prod-brand{font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:0.35rem;font-weight:600}
+.prod-name{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:400;line-height:1.3;color:var(--ink);margin-bottom:0.5rem}
+.prod-price{font-size:0.95rem;font-weight:600;color:var(--rose);margin-bottom:1rem}
+.prod-buy{display:block;width:100%;text-align:center;padding:0.7rem;background:var(--ink);color:#fff;text-decoration:none;font-size:0.75rem;letter-spacing:0.14em;text-transform:uppercase;transition:background 0.2s}
+.prod-buy:hover{background:var(--rose)}
+.see-more-wrap{text-align:center;margin-top:2.5rem}
+.btn-see-more{display:inline-flex;align-items:center;gap:0.5rem;border:1px solid var(--ink);color:var(--ink);padding:0.85rem 2.5rem;text-decoration:none;font-size:0.8rem;letter-spacing:0.16em;text-transform:uppercase;font-weight:500;transition:all 0.25s}
+.btn-see-more:hover{background:var(--ink);color:#fff}
 
-        /* Custom cursor */
-        #cursor-dot {
-            position: fixed; width: 8px; height: 8px; border-radius: 50%;
-            background: var(--rose); pointer-events: none; z-index: 9999;
-            transform: translate(-50%,-50%); mix-blend-mode: multiply;
-            transition: width 0.25s, height 0.25s;
-        }
-        #cursor-ring {
-            position: fixed; width: 36px; height: 36px; border-radius: 50%;
-            border: 1px solid rgba(184,58,82,0.4); pointer-events: none; z-index: 9998;
-            transform: translate(-50%,-50%);
-            transition: width 0.3s, height 0.3s, border-color 0.3s;
-        }
-        #cursor-glow {
-            position: fixed; width: 400px; height: 400px; border-radius: 50%;
-            background: radial-gradient(circle, rgba(184,58,82,0.07) 0%, transparent 65%);
-            pointer-events: none; z-index: 1; transform: translate(-50%,-50%);
-        }
-        body:has(a:hover) #cursor-dot  { width: 14px; height: 14px; }
-        body:has(a:hover) #cursor-ring { width: 54px; height: 54px; border-color: rgba(184,58,82,0.2); }
+/* ── BRAND LOGOS ── */
+.brands{padding:4rem 5%;border-top:1px solid rgba(196,150,62,0.15);border-bottom:1px solid rgba(196,150,62,0.15)}
+.brand-track{display:flex;align-items:center;justify-content:center;gap:3rem;flex-wrap:wrap}
+.brand-pill{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-style:italic;color:var(--muted);letter-spacing:0.05em;transition:color 0.2s;white-space:nowrap}
+.brand-pill:hover{color:var(--rose)}
+.brand-sep{color:var(--gold);opacity:0.5}
 
-        /* Particle canvas */
-        #particles { position: fixed; inset: 0; pointer-events: none; z-index: 2; }
+/* ── EDITORIAL BANNER ── */
+.editorial{padding:6rem 5%;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
+.ed-visual{
+  height:480px;border-radius:0;
+  background:linear-gradient(160deg,#f5ede3,#e8d5c8);
+  display:flex;align-items:center;justify-content:center;
+  font-size:8rem;position:relative;overflow:hidden;
+}
+.ed-visual::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(201,123,99,0.15),transparent)}
+.ed-label{position:absolute;bottom:1.5rem;left:1.5rem;background:var(--ink);color:#fff;padding:0.4rem 0.9rem;font-size:0.68rem;letter-spacing:0.2em;text-transform:uppercase}
+.ed-body .section-eye{text-align:left}
+.ed-body .section-title{text-align:left}
+.ed-body .section-line{margin-left:0}
+.ed-body p{font-size:1rem;color:var(--muted);line-height:1.8;margin:1.5rem 0 2rem}
+.ed-stats{display:flex;gap:2.5rem;margin-bottom:2rem}
+.ed-stat-n{font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:300;color:var(--rose);line-height:1}
+.ed-stat-l{font-size:0.72rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--muted);margin-top:0.25rem}
 
-        /* Navbar */
-        .navbar {
-            position: fixed; top: 0; left: 0; right: 0;
-            padding: 20px 52px;
-            display: flex; align-items: center; justify-content: space-between;
-            z-index: 100;
-            background: rgba(250,248,246,0.96);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid var(--linen);
-            clip-path: inset(0 0 100% 0);
-            animation: navReveal 1s cubic-bezier(.16,1,.3,1) 0.1s forwards;
-            transition: transform 0.4s ease, box-shadow 0.3s;
-        }
-        .navbar.hidden   { transform: translateY(-100%); }
-        .navbar.scrolled { box-shadow: 0 2px 24px rgba(15,13,14,0.07); }
-        @keyframes navReveal { to { clip-path: inset(0 0 0% 0); } }
+/* ── NEWSLETTER ── */
+.newsletter{padding:5rem 5%;background:var(--cream);text-align:center}
+.nl-inner{max-width:520px;margin:0 auto}
+.nl-inner .section-title{font-size:clamp(1.8rem,4vw,2.4rem)}
+.nl-inner p{font-size:0.95rem;color:var(--muted);margin:1rem 0 2rem;line-height:1.6}
+.nl-form{display:flex;gap:0;max-width:400px;margin:0 auto}
+.nl-input{flex:1;padding:0.9rem 1.25rem;border:1px solid rgba(26,20,16,0.2);background:#fff;font-family:'DM Sans',sans-serif;font-size:0.9rem;outline:none;transition:border-color 0.2s}
+.nl-input:focus{border-color:var(--rose)}
+.nl-submit{background:var(--rose);color:#fff;border:none;padding:0.9rem 1.5rem;font-family:'DM Sans',sans-serif;font-size:0.82rem;letter-spacing:0.14em;text-transform:uppercase;cursor:pointer;transition:background 0.2s;white-space:nowrap}
+.nl-submit:hover{background:var(--ink)}
+.nl-note{font-size:0.72rem;color:var(--muted);margin-top:0.75rem}
 
-        .nav-logo {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 17px; font-weight: 300;
-            letter-spacing: 5px; text-transform: uppercase; color: var(--ink);
-        }
-        .nav-links { display: flex; gap: 36px; align-items: center; }
-        .nav-links a {
-            font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
-            color: var(--taupe); text-decoration: none; font-weight: 400;
-            position: relative; transition: color 0.25s;
-        }
-        .nav-links a::after {
-            content: ''; position: absolute; bottom: -4px; left: 0;
-            width: 0; height: 1px; background: var(--rose);
-            transition: width 0.35s cubic-bezier(.16,1,.3,1);
-        }
-        .nav-links a:hover { color: var(--rose); }
-        .nav-links a:hover::after { width: 100%; }
-        .menu-icon {
-            display: none; font-size: 18px; color: var(--ink);
-            background: none; border: none; cursor: none; opacity: 0.7;
-        }
+/* ── FOOTER ── */
+footer{background:var(--ink);color:rgba(255,255,255,0.5);padding:4rem 5% 2rem}
+.footer-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;margin-bottom:3rem}
+.footer-brand-name{font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:600;color:#fff;font-style:italic;margin-bottom:1rem}
+.footer-brand-name span{color:var(--rose)}
+.footer-desc{font-size:0.85rem;line-height:1.7;max-width:240px}
+.footer-col h4{font-size:0.7rem;letter-spacing:0.22em;text-transform:uppercase;color:#fff;margin-bottom:1.25rem;font-weight:600}
+.footer-col a{display:block;color:rgba(255,255,255,0.45);text-decoration:none;font-size:0.88rem;margin-bottom:0.7rem;transition:color 0.2s}
+.footer-col a:hover{color:var(--blush)}
+.footer-bottom{border-top:1px solid rgba(255,255,255,0.08);padding-top:2rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+.footer-copy{font-size:0.78rem}
+.footer-disc{font-size:0.72rem;color:rgba(255,255,255,0.3);max-width:500px;line-height:1.5}
 
-        /* Side menu */
-        .overlay {
-            position: fixed; inset: 0; background: rgba(15,13,14,0.5);
-            opacity: 0; visibility: hidden; transition: 0.3s; z-index: 200;
-        }
-        .overlay.active { opacity: 1; visibility: visible; }
-        .side-menu {
-            position: fixed; top: 0; left: -300px; width: 280px; height: 100%;
-            background: var(--ink); display: flex; flex-direction: column;
-            padding-top: 80px; transition: left 0.38s cubic-bezier(.4,0,.2,1);
-            z-index: 300; overflow-y: auto;
-        }
-        .side-menu.open { left: 0; }
-        .side-menu .close-btn {
-            position: absolute; top: 20px; right: 20px; font-size: 24px;
-            color: rgba(255,255,255,0.35); background: none; border: none; cursor: none; transition: color 0.2s;
-        }
-        .side-menu .close-btn:hover { color: var(--rose); }
-        .side-section-label {
-            font-size: 9px; letter-spacing: 4px; text-transform: uppercase;
-            color: rgba(255,255,255,0.2); padding: 22px 30px 8px;
-        }
-        .side-menu a, .side-menu .side-item {
-            display: flex; align-items: center; justify-content: space-between;
-            padding: 14px 30px; text-decoration: none; color: rgba(255,255,255,0.6);
-            font-size: 13px; letter-spacing: 1px; text-transform: uppercase;
-            border-bottom: 1px solid rgba(255,255,255,0.04);
-            cursor: none; transition: all 0.2s; min-height: 50px;
-        }
-        .side-menu a:hover, .side-menu .side-item:hover {
-            color: white; padding-left: 36px; border-left: 2px solid var(--rose);
-        }
-        .side-arrow { transition: transform 0.3s; font-size: 10px; opacity: 0.35; }
-        .side-arrow.open { transform: rotate(180deg); }
-        .side-submenu { display: none; flex-direction: column; }
-        .side-submenu a { padding-left: 50px; font-size: 12px; color: rgba(255,255,255,0.35); }
-        .side-submenu a:hover { color: var(--gold); padding-left: 56px; border-left: none; }
-        .side-menu-footer {
-            margin-top: auto; padding: 28px 30px; font-size: 10px;
-            color: rgba(255,255,255,0.15); letter-spacing: 2px; text-transform: uppercase;
-            border-top: 1px solid rgba(255,255,255,0.06);
-        }
-
-        /* Hero */
-        .hero {
-            display: grid; grid-template-columns: 1fr 1fr;
-            align-items: center; min-height: 100vh;
-            padding: 120px 80px 80px; gap: 60px;
-            position: relative; overflow: hidden;
-        }
-
-        .hero-bg-mesh {
-            position: absolute; inset: 0;
-            background:
-                radial-gradient(ellipse 55% 50% at 80% 20%, rgba(184,58,82,0.045) 0%, transparent 70%),
-                radial-gradient(ellipse 40% 40% at 10% 80%, rgba(160,120,72,0.04) 0%, transparent 70%),
-                radial-gradient(ellipse 30% 35% at 55% 90%, rgba(200,16,46,0.03) 0%, transparent 60%);
-            pointer-events: none; z-index: 0;
-            animation: meshPulse 12s ease-in-out infinite;
-        }
-        @keyframes meshPulse {
-            0%,100% { opacity:1; transform:scale(1); }
-            50%      { opacity:0.7; transform:scale(1.04); }
-        }
-
-        .bg-line { position: absolute; background: var(--linen); pointer-events: none; }
-        .bl-v { width: 1px; top: 0; bottom: 0; transform: scaleY(0); transform-origin: top; }
-        .bl-h { height: 1px; left: 0; right: 0; transform: scaleX(0); transform-origin: left; }
-        .bl1 { left: 50%; opacity: 0.6; animation: lineV 1.8s cubic-bezier(.16,1,.3,1) 0.6s forwards; }
-        .bl2 { left: 25%; opacity: 0.35; animation: lineV 1.4s cubic-bezier(.16,1,.3,1) 1s forwards; }
-        .bl3 { top: 50%; opacity: 0.3; animation: lineH 1.6s cubic-bezier(.16,1,.3,1) 0.8s forwards; }
-        @keyframes lineV { to { transform: scaleY(1); } }
-        @keyframes lineH { to { transform: scaleX(1); } }
-
-        .hero-orb { position: absolute; border-radius: 50%; pointer-events: none; }
-        .orb1 {
-            width: 520px; height: 520px;
-            background: radial-gradient(circle, rgba(184,58,82,0.07) 0%, transparent 70%);
-            top: -120px; right: -100px; opacity: 0;
-            animation: orbIn 2s ease 0.5s forwards, orbDrift1 11s ease-in-out 2.5s infinite;
-        }
-        .orb2 {
-            width: 320px; height: 320px;
-            background: radial-gradient(circle, rgba(160,120,72,0.08) 0%, transparent 70%);
-            bottom: 30px; left: 10px; opacity: 0;
-            animation: orbIn 2s ease 0.8s forwards, orbDrift2 14s ease-in-out 2.5s infinite;
-        }
-        .orb3 {
-            width: 220px; height: 220px;
-            background: radial-gradient(circle, rgba(200,16,46,0.05) 0%, transparent 70%);
-            top: 55%; right: 4%; opacity: 0;
-            animation: orbIn 2s ease 1.1s forwards, orbDrift3 17s ease-in-out 3s infinite;
-        }
-        @keyframes orbIn { to { opacity: 1; } }
-        @keyframes orbDrift1 {
-            0%,100% { transform: translate(0,0) scale(1); }
-            33%      { transform: translate(18px,-24px) scale(1.04); }
-            66%      { transform: translate(-10px,14px) scale(0.97); }
-        }
-        @keyframes orbDrift2 {
-            0%,100% { transform: translate(0,0); }
-            40%      { transform: translate(-14px,-18px); }
-            70%      { transform: translate(10px,10px); }
-        }
-        @keyframes orbDrift3 {
-            0%,100% { transform: translate(0,0) scale(1); }
-            50%      { transform: translate(8px,-16px) scale(1.06); }
-        }
-
-        .hero-left { position: relative; z-index: 2; }
-
-        .eyebrow {
-            display: inline-flex; align-items: center; gap: 10px;
-            font-size: 9px; letter-spacing: 5px; text-transform: uppercase;
-            color: var(--rose); font-weight: 500; margin-bottom: 28px;
-            opacity: 0; transform: translateY(12px);
-            animation: fadeUp 0.8s ease 0.65s forwards;
-        }
-        .eyebrow::before {
-            content: ''; height: 1px; background: var(--rose);
-            width: 0; animation: lineGrow 0.7s ease 1.3s forwards;
-        }
-        @keyframes lineGrow { to { width: 22px; } }
-
-        .title-wrap { overflow: hidden; margin-bottom: 24px; }
-        .title-line {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: clamp(42px, 4.8vw, 72px);
-            font-weight: 300; line-height: 1.05; color: var(--ink);
-            display: block; transform: translateY(110%);
-            position: relative;
-        }
-        .title-line.italic { font-style: italic; color: var(--rose); }
-        .title-line.italic::after {
-            content: attr(data-text);
-            position: absolute; inset: 0;
-            background: linear-gradient(100deg, transparent 20%, rgba(255,255,255,0.55) 50%, transparent 80%);
-            background-size: 220% 100%;
-            -webkit-background-clip: text; background-clip: text;
-            color: transparent; pointer-events: none;
-            animation: shimmer 4s ease-in-out 2.2s infinite;
-        }
-        @keyframes shimmer {
-            0%   { background-position: -100% 0; }
-            60%  { background-position: 200% 0; }
-            100% { background-position: 200% 0; }
-        }
-
-        .tl1 { animation: titleUp 1s cubic-bezier(.16,1,.3,1) 0.7s forwards; }
-        .tl2 { animation: titleUp 1s cubic-bezier(.16,1,.3,1) 0.85s forwards; }
-        .tl3 { animation: titleUp 1s cubic-bezier(.16,1,.3,1) 1s forwards; }
-        @keyframes titleUp { to { transform: translateY(0); } }
-
-        .hero-sub {
-            font-size: 14px; font-weight: 300; color: var(--taupe);
-            line-height: 1.85; max-width: 300px; margin-bottom: 44px;
-            opacity: 0; transform: translateY(12px);
-            animation: fadeUp 0.9s ease 1.2s forwards;
-        }
-
-        .stat-row {
-            display: flex; gap: 0; align-items: stretch;
-            opacity: 0; transform: translateY(10px);
-            animation: fadeUp 0.8s ease 1.4s forwards;
-        }
-        .stat {
-            padding-right: 28px; margin-right: 28px;
-            border-right: 1px solid var(--linen);
-            position: relative; overflow: hidden;
-        }
-        .stat:last-child { border-right: none; padding-right: 0; margin-right: 0; }
-        .stat::after {
-            content: ''; position: absolute; bottom: 0; left: 0;
-            width: 0; height: 1px; background: var(--rose);
-        }
-        .stat:nth-child(1)::after { animation: statLine 0.6s ease 1.9s forwards; }
-        .stat:nth-child(2)::after { animation: statLine 0.6s ease 2.1s forwards; }
-        .stat:nth-child(3)::after { animation: statLine 0.6s ease 2.3s forwards; }
-        @keyframes statLine { to { width: 100%; } }
-
-        .stat-num {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 32px; font-weight: 400; color: var(--ink); line-height: 1;
-        }
-        .stat-num em { color: var(--rose); font-style: normal; font-size: 22px; }
-        .stat-lbl {
-            font-size: 9px; letter-spacing: 2.5px; text-transform: uppercase;
-            color: var(--taupe); margin-top: 3px;
-        }
-
-        /* Hero right */
-        .hero-right {
-            position: relative; z-index: 2;
-            display: flex; flex-direction: column; gap: 14px;
-        }
-
-        .cards-label {
-            font-size: 9px; letter-spacing: 4px; text-transform: uppercase;
-            color: var(--taupe); margin-bottom: 4px;
-            opacity: 0; animation: fadeUp 0.7s ease 0.7s forwards;
-            display: flex; align-items: center; gap: 10px;
-        }
-        .cards-label::after {
-            content: ''; flex: 1; height: 1px; background: var(--linen);
-            transform: scaleX(0); transform-origin: left;
-            animation: lineH 1s ease 1.1s forwards;
-        }
-
-        /* Brand cards */
-        .brand-card {
-            display: flex; align-items: stretch;
-            border: 1px solid var(--linen); background: var(--cream);
-            text-decoration: none; color: inherit;
-            border-radius: 3px; overflow: hidden; position: relative;
-            opacity: 0; transform: translateX(32px);
-            transform-style: preserve-3d;
-            transition: box-shadow 0.5s ease, border-color 0.3s;
-            will-change: transform;
-        }
-
-        /* Sweep shimmer */
-        .brand-card::before {
-            content: ''; position: absolute; inset: 0;
-            background: linear-gradient(108deg, transparent 35%, rgba(255,255,255,0.6) 50%, transparent 65%);
-            transform: translateX(-130%); transition: transform 0.7s ease;
-            pointer-events: none; z-index: 3;
-        }
-        .brand-card:hover::before { transform: translateX(130%); }
-
-        .bc1 { animation: slideFromRight 0.9s cubic-bezier(.16,1,.3,1) 0.8s forwards; }
-        .bc2 { animation: slideFromRight 0.9s cubic-bezier(.16,1,.3,1) 1.0s forwards; }
-        .bc3 { animation: slideFromRight 0.9s cubic-bezier(.16,1,.3,1) 1.2s forwards; }
-        .bc4 { animation: slideFromRight 0.9s cubic-bezier(.16,1,.3,1) 1.4s forwards; }
-        @keyframes slideFromRight { to { opacity: 1; transform: translateX(0); } }
-
-        .skinn-card:hover { box-shadow: -5px 0 0 var(--rose), 0 20px 56px rgba(15,13,14,0.12); border-color: rgba(184,58,82,0.2); }
-        .dk-card:hover    { box-shadow: -5px 0 0 var(--gold), 0 20px 56px rgba(15,13,14,0.12); border-color: rgba(160,120,72,0.2); }
-        .tira-card:hover  { box-shadow: -5px 0 0 var(--tira), 0 20px 56px rgba(15,13,14,0.12); border-color: rgba(200,16,46,0.2); }
-        .ajio-card:hover  { box-shadow: -5px 0 0 var(--ajio), 0 20px 56px rgba(15,13,14,0.12); border-color: rgba(240,90,40,0.2); }
-
-        .card-strip { width: 3px; flex-shrink: 0; transition: width 0.3s; position: relative; z-index: 2; }
-        .skinn-card .card-strip { background: var(--rose); }
-        .dk-card    .card-strip { background: var(--gold); }
-        .tira-card  .card-strip { background: var(--tira); }
-        .ajio-card  .card-strip { background: var(--ajio); }
-        .brand-card:hover .card-strip { width: 5px; }
-
-        .card-body { flex: 1; padding: 20px 22px; display: flex; align-items: center; gap: 16px; position: relative; z-index: 2; }
-
-        .card-icon-wrap {
-            width: 48px; height: 48px; border-radius: 50%; flex-shrink: 0;
-            display: flex; align-items: center; justify-content: center; font-size: 20px;
-            transition: transform 0.55s cubic-bezier(.34,1.56,.64,1), box-shadow 0.4s;
-        }
-        .brand-card:hover .card-icon-wrap { transform: scale(1.15) rotate(-10deg); }
-        .skinn-card .card-icon-wrap { background: var(--blush); border: 1px solid rgba(184,58,82,0.15); }
-        .dk-card    .card-icon-wrap { background: #f4ece0; border: 1px solid rgba(160,120,72,0.18); }
-        .tira-card  .card-icon-wrap { background: #fbe5e9; border: 1px solid rgba(200,16,46,0.18); }
-        .ajio-card  .card-icon-wrap { background: #fdeee8; border: 1px solid rgba(240,90,40,0.18); }
-        .skinn-card:hover .card-icon-wrap { box-shadow: 0 4px 18px rgba(184,58,82,0.22); }
-        .dk-card:hover    .card-icon-wrap { box-shadow: 0 4px 18px rgba(160,120,72,0.22); }
-        .tira-card:hover  .card-icon-wrap { box-shadow: 0 4px 18px rgba(200,16,46,0.22); }
-        .ajio-card:hover  .card-icon-wrap { box-shadow: 0 4px 18px rgba(240,90,40,0.22); }
-
-        .card-badge {
-            position: absolute; top: 10px; right: 48px;
-            font-size: 8px; letter-spacing: 2px; text-transform: uppercase;
-            padding: 3px 8px; border-radius: 2px; font-weight: 500; z-index: 4;
-            animation: badgePop 0.5s cubic-bezier(.34,1.56,.64,1) 1.5s both,
-                       badgeFloat 3s ease-in-out 2.1s infinite;
-        }
-        .tira-card .card-badge { background: var(--tira); color: #fff; }
-        .ajio-card .card-badge { background: var(--ajio); color: #fff; }
-        @keyframes badgePop  { from { opacity:0; transform: scale(0.4); } to { opacity:1; transform: scale(1); } }
-        @keyframes badgeFloat { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-3px); } }
-
-        .card-text { flex: 1; }
-        .card-name {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 21px; font-weight: 400; color: var(--ink); margin-bottom: 3px;
-            transition: letter-spacing 0.35s ease;
-        }
-        .brand-card:hover .card-name { letter-spacing: 0.5px; }
-        .card-sub { font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--taupe); margin-bottom: 9px; }
-        .card-pills { display: flex; gap: 4px; flex-wrap: wrap; }
-        .pill {
-            font-size: 9px; letter-spacing: 0.5px; padding: 2px 8px;
-            background: var(--linen); color: var(--taupe); border-radius: 2px; text-transform: uppercase;
-            transition: background 0.3s, color 0.3s, transform 0.3s;
-        }
-        .pill:nth-child(2) { transition-delay: 0.04s; }
-        .pill:nth-child(3) { transition-delay: 0.08s; }
-        .skinn-card:hover .pill { background: var(--blush); color: var(--rose); transform: translateY(-1px); }
-        .dk-card:hover    .pill { background: #f4ece0; color: var(--gold); transform: translateY(-1px); }
-        .tira-card:hover  .pill { background: #fbe5e9; color: var(--tira); transform: translateY(-1px); }
-        .ajio-card:hover  .pill { background: #fdeee8; color: var(--ajio); transform: translateY(-1px); }
-
-        .card-arrow {
-            width: 34px; height: 34px; border-radius: 50%; flex-shrink: 0;
-            display: flex; align-items: center; justify-content: center;
-            border: 1px solid var(--linen); color: var(--taupe); font-size: 13px;
-            transition: background 0.3s, border-color 0.3s, color 0.3s,
-                        transform 0.4s cubic-bezier(.34,1.56,.64,1);
-        }
-        .skinn-card:hover .card-arrow { background: var(--rose); border-color: var(--rose); color: #fff; transform: translateX(4px) scale(1.1); }
-        .dk-card:hover    .card-arrow { background: var(--gold); border-color: var(--gold); color: #fff; transform: translateX(4px) scale(1.1); }
-        .tira-card:hover  .card-arrow { background: var(--tira); border-color: var(--tira); color: #fff; transform: translateX(4px) scale(1.1); }
-        .ajio-card:hover  .card-arrow { background: var(--ajio); border-color: var(--ajio); color: #fff; transform: translateX(4px) scale(1.1); }
-
-        /* Ticker */
-        .ticker {
-            background: var(--ink); padding: 14px 0; overflow: hidden;
-            clip-path: inset(0 100% 0 0);
-            animation: tickerReveal 1s cubic-bezier(.16,1,.3,1) 1.8s forwards;
-            position: relative; z-index: 10;
-        }
-        @keyframes tickerReveal { to { clip-path: inset(0 0% 0 0); } }
-        .ticker-inner {
-            display: flex; gap: 52px; white-space: nowrap;
-            animation: tickScroll 32s linear infinite;
-        }
-        @keyframes tickScroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-        .tick-item {
-            font-size: 9px; letter-spacing: 3px; text-transform: uppercase;
-            color: rgba(255,255,255,0.28);
-            display: inline-flex; align-items: center; gap: 12px; flex-shrink: 0;
-            transition: color 0.3s;
-        }
-        .tick-item:hover { color: rgba(255,255,255,0.65); }
-        .tick-dot { width: 3px; height: 3px; border-radius: 50%; flex-shrink: 0; }
-        .tick-dot.rose { background: var(--rose); }
-        .tick-dot.gold { background: var(--gold); }
-        .tick-dot.tira { background: var(--tira); }
-        .tick-dot.ajio { background: var(--ajio); }
-
-        /* Scroll hint */
-        .scroll-hint {
-            position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%);
-            display: flex; flex-direction: column; align-items: center; gap: 6px;
-            z-index: 3; opacity: 0;
-            animation: hintIn 1s ease 2.4s forwards, hintFade 0.8s ease 5.5s forwards;
-        }
-        .scroll-hint span { font-size: 8px; letter-spacing: 4px; text-transform: uppercase; color: var(--taupe); }
-        .scroll-chevron {
-            width: 14px; height: 14px;
-            border-right: 1.5px solid var(--taupe); border-bottom: 1.5px solid var(--taupe);
-            transform: rotate(45deg); animation: chevBounce 1.8s ease-in-out infinite;
-        }
-        @keyframes chevBounce {
-            0%,100% { transform: rotate(45deg) translate(0,0); opacity: 0.5; }
-            50%      { transform: rotate(45deg) translate(3px,3px); opacity: 1; }
-        }
-
-        /* Footer */
-        footer {
-            background: var(--bg2); text-align: center; padding: 22px 20px;
-            border-top: 1px solid var(--linen); font-size: 10px; color: var(--taupe);
-            letter-spacing: 1.5px; text-transform: uppercase;
-            opacity: 0; transform: translateY(8px);
-            animation: fadeUp 0.7s ease 2.2s forwards;
-            position: relative; z-index: 10;
-        }
-        footer a { color: var(--taupe); text-decoration: none; transition: color 0.2s; }
-        footer a:hover { color: var(--rose); }
-
-        @keyframes fadeUp   { to { opacity: 1; transform: translateY(0); } }
-        @keyframes hintIn   { to { opacity: 0.45; } }
-        @keyframes hintFade { to { opacity: 0; pointer-events: none; } }
-
-        @media (max-width: 900px) {
-            .hero { grid-template-columns: 1fr; padding: 110px 40px 80px; gap: 48px; }
-            .nav-links { display: none; }
-            .menu-icon { display: block; }
-            .bl1, .bl2 { display: none; }
-            #cursor-dot, #cursor-ring, #cursor-glow { display: none; }
-            body { cursor: auto; }
-        }
-        @media (max-width: 600px) {
-            .navbar { padding: 16px 24px; }
-            .hero   { padding: 90px 24px 70px; gap: 36px; }
-            footer  { padding: 18px 16px; }
-        }
-    </style>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3657288243299462" crossorigin="anonymous"></script>
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  .nav-links{display:none}
+  .menu-toggle{display:block}
+  .editorial{grid-template-columns:1fr;gap:2.5rem}
+  .ed-visual{height:300px}
+  .footer-top{grid-template-columns:1fr 1fr}
+}
+@media(max-width:600px){
+  .hero{padding:calc(var(--nav-h) + 2rem) 5% 3rem}
+  .dq-opts{grid-template-columns:1fr}
+  .prod-tabs{gap:0;justify-content:flex-start;overflow-x:auto;padding-bottom:0.5rem}
+  .prod-tab{white-space:nowrap}
+  .nl-form{flex-direction:column}
+  .footer-top{grid-template-columns:1fr}
+  .footer-bottom{flex-direction:column;text-align:center}
+  .ed-stats{gap:1.5rem}
+  .hero-btns{flex-direction:column;align-items:flex-start}
+  .btn-primary,.btn-ghost{width:100%;justify-content:center}
+}
+</style>
 </head>
-<script src="https://pl29332903.profitablecpmratenetwork.com/76/db/ac/76dbace730e06d8081721a8b1147a931.js"></script>
-
 <body>
 
-<canvas id="particles"></canvas>
-<div id="cursor-glow"></div>
-<div id="cursor-dot"></div>
-<div id="cursor-ring"></div>
-
-<div class="overlay" id="overlay" onclick="closeMenu()"></div>
-<div class="side-menu" id="sideMenu">
-    <button class="close-btn" onclick="closeMenu()">×</button>
-    <div class="side-section-label">Navigate</div>
-    <a href="index.html">Home</a>
-    <a href="About.html">About</a>
-    <div class="side-section-label">Shop</div>
-    <div class="side-item" onclick="toggleSkinn()">
-        <span>SKINN</span>
-        <span class="side-arrow" id="skinnArrow">▾</span>
-    </div>
-    <div class="side-submenu" id="skinnSub">
-        <a href="skinn.html">SKINN</a>
-    </div>
-    <a href="DK.html">Dot &amp; Key</a>
-    <a href="tira.html">Tira Beauty</a>
-    <a href="ajio.html">Ajio Best Finds</a>
-    <div class="side-section-label">More</div>
-    <a href="contact.html">Contact</a>
-    <div class="side-menu-footer">© 2026 Gabriella Curates</div>
-</div>
-
-<nav class="navbar" id="navbar">
-    <button class="menu-icon" onclick="openMenu()">&#9776;</button>
-    <span class="nav-logo">Gabriella Curates</span>
-    <div class="nav-links">
-        <a href="skinn.html">Shop</a>
-        <a href="About.html">About</a>
-        <a href="contact.html">Contact</a>
-    </div>
+<!-- NAV -->
+<nav id="mainNav">
+  <a href="#" class="nav-logo">Gabriella <span>Curates</span></a>
+  <div class="nav-links">
+    <a href="#quizzes">Quizzes</a>
+    <a href="#products">Shop</a>
+    <a href="skinn.html">Fragrances</a>
+    <a href="DK.html">Skincare</a>
+    <a href="#" class="nav-cta">Explore All</a>
+  </div>
+  <button class="menu-toggle" onclick="toggleMobile()" aria-label="Menu">☰</button>
 </nav>
 
-<section class="hero">
-    <div class="hero-bg-mesh"></div>
-    <div class="bg-line bl-v bl1"></div>
-    <div class="bg-line bl-v bl2"></div>
-    <div class="bg-line bl-h bl3"></div>
-    <div class="hero-orb orb1"></div>
-    <div class="hero-orb orb2"></div>
-    <div class="hero-orb orb3"></div>
-
-    <div class="hero-left">
-        <div class="eyebrow">Beauty Curated</div>
-        <div class="title-wrap">
-            <span class="title-line tl1">Own Every</span>
-            <span class="title-line tl2 italic" data-text="Room You">Room You</span>
-            <span class="title-line tl3 italic" data-text="Walk Into.">Walk Into.</span>
-        </div>
-        <p class="hero-sub">Handpicked fragrances and skincare from the brands that define modern femininity.</p>
-        <div class="stat-row">
-            <div class="stat">
-                <div class="stat-num" id="sn1">0<em>+</em></div>
-                <div class="stat-lbl">Products</div>
-            </div>
-            <div class="stat">
-                <div class="stat-num" id="sn2">0</div>
-                <div class="stat-lbl">Brands</div>
-            </div>
-            <div class="stat">
-                <div class="stat-num" id="sn3">0<em>₹</em></div>
-                <div class="stat-lbl">Extra Cost</div>
-            </div>
-        </div>
-    </div>
-
-    <div class="hero-right">
-        <div class="cards-label">Featured Brands</div>
-
-        <a class="brand-card skinn-card bc1" href="skinn.html">
-            <div class="card-strip"></div>
-            <div class="card-body">
-                <div class="card-icon-wrap">🌸</div>
-                <div class="card-text">
-                    <div class="card-name">SKINN</div>
-                    <div class="card-sub">Fragrances by Titan</div>
-                    <div class="card-pills">
-                        <span class="pill">Perfumes</span>
-                        <span class="pill">Deodorants</span>
-                        <span class="pill">Body Mists</span>
-                    </div>
-                </div>
-                <div class="card-arrow">→</div>
-            </div>
-        </a>
-
-        <a class="brand-card dk-card bc2" href="DK.html">
-            <div class="card-strip"></div>
-            <div class="card-body">
-                <div class="card-icon-wrap">✦</div>
-                <div class="card-text">
-                    <div class="card-name">Dot &amp; Key</div>
-                    <div class="card-sub">Skincare &amp; Beauty</div>
-                    <div class="card-pills">
-                        <span class="pill">Skincare</span>
-                        <span class="pill">Serums</span>
-                        <span class="pill">Sunscreen</span>
-                    </div>
-                </div>
-                <div class="card-arrow">→</div>
-            </div>
-        </a>
-
-        <a class="brand-card tira-card bc3" href="tira.html">
-            <div class="card-strip"></div>
-            <span class="card-badge">New</span>
-            <div class="card-body">
-                <div class="card-icon-wrap">💋</div>
-                <div class="card-text">
-                    <div class="card-name">Tira Beauty</div>
-                    <div class="card-sub">Multi-brand Beauty</div>
-                    <div class="card-pills">
-                        <span class="pill">Makeup</span>
-                        <span class="pill">Skincare</span>
-                        <span class="pill">Haircare</span>
-                    </div>
-                </div>
-                <div class="card-arrow">→</div>
-            </div>
-        </a>
-
-        <a class="brand-card ajio-card bc4" href="ajio.html">
-            <div class="card-strip"></div>
-            <span class="card-badge">Best Finds</span>
-            <div class="card-body">
-                <div class="card-icon-wrap">🛍️</div>
-                <div class="card-text">
-                    <div class="card-name">Ajio</div>
-                    <div class="card-sub">Fashion &amp; Beauty</div>
-                    <div class="card-pills">
-                        <span class="pill">Fashion</span>
-                        <span class="pill">Beauty</span>
-                        <span class="pill">Lifestyle</span>
-                    </div>
-                </div>
-                <div class="card-arrow">→</div>
-            </div>
-        </a>
-    </div>
-
-    <div class="scroll-hint">
-        <span>Scroll</span>
-        <div class="scroll-chevron"></div>
-    </div>
-</section>
-
-<div class="ticker">
-    <div class="ticker-inner">
-        <span class="tick-item"><span class="tick-dot rose"></span>SKINN by Titan</span>
-        <span class="tick-item"><span class="tick-dot gold"></span>Dot &amp; Key Skincare</span>
-        <span class="tick-item"><span class="tick-dot tira"></span>Tira Beauty</span>
-        <span class="tick-item"><span class="tick-dot ajio"></span>Ajio Best Finds</span>
-        <span class="tick-item"><span class="tick-dot rose"></span>Affiliate — No Extra Cost</span>
-        <span class="tick-item"><span class="tick-dot gold"></span>100+ Curated Products</span>
-        <span class="tick-item"><span class="tick-dot tira"></span>Fragrances &amp; Skincare</span>
-        <span class="tick-item"><span class="tick-dot ajio"></span>Fashion &amp; Beauty Picks</span>
-        <span class="tick-item"><span class="tick-dot rose"></span>SKINN by Titan</span>
-        <span class="tick-item"><span class="tick-dot gold"></span>Dot &amp; Key Skincare</span>
-        <span class="tick-item"><span class="tick-dot tira"></span>Tira Beauty</span>
-        <span class="tick-item"><span class="tick-dot ajio"></span>Ajio Best Finds</span>
-        <span class="tick-item"><span class="tick-dot rose"></span>Affiliate — No Extra Cost</span>
-        <span class="tick-item"><span class="tick-dot gold"></span>100+ Curated Products</span>
-        <span class="tick-item"><span class="tick-dot tira"></span>Fragrances &amp; Skincare</span>
-        <span class="tick-item"><span class="tick-dot ajio"></span>Fashion &amp; Beauty Picks</span>
-    </div>
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mm-close" onclick="toggleMobile()">×</button>
+  <a href="#quizzes" onclick="toggleMobile()">Quizzes</a>
+  <a href="#products" onclick="toggleMobile()">Shop</a>
+  <a href="skinn.html" onclick="toggleMobile()">Fragrances</a>
+  <a href="DK.html" onclick="toggleMobile()">Skincare</a>
+  <a href="AJIO.html" onclick="toggleMobile()">Fashion</a>
 </div>
 
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-blob"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">Curated for you</div>
+    <h1 class="hero-title">Beauty<br>that tells<br>your <em>story</em></h1>
+    <p class="hero-sub">Handpicked fragrances, skincare rituals, and style finds — discovered through quizzes built just for you.</p>
+    <div class="hero-btns">
+      <a href="#quizzes" class="btn-primary">Take a Quiz →</a>
+      <a href="#products" class="btn-ghost">Browse Products</a>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    <span>Scroll</span>
+  </div>
+</section>
+
+<!-- CATEGORIES -->
+<section class="categories">
+  <div class="cat-grid">
+    <a href="skinn.html" class="cat-item">
+      <span class="cat-icon">🌸</span>
+      <span class="cat-name">Fragrances</span>
+      <span class="cat-count">SKINN by Titan</span>
+    </a>
+    <a href="DK.html" class="cat-item">
+      <span class="cat-icon">✨</span>
+      <span class="cat-name">Skincare</span>
+      <span class="cat-count">Dot &amp; Key</span>
+    </a>
+    <a href="tira.html" class="cat-item">
+      <span class="cat-icon">💄</span>
+      <span class="cat-name">Beauty</span>
+      <span class="cat-count">Tira Beauty</span>
+    </a>
+    <a href="AJIO.html" class="cat-item">
+      <span class="cat-icon">👗</span>
+      <span class="cat-name">Fashion</span>
+      <span class="cat-count">AJIO Finds</span>
+    </a>
+    <a href="#quizzes" class="cat-item">
+      <span class="cat-icon">🔮</span>
+      <span class="cat-name">Quizzes</span>
+      <span class="cat-count">Find your match</span>
+    </a>
+    <a href="contact.html" class="cat-item">
+      <span class="cat-icon">💌</span>
+      <span class="cat-name">Contact</span>
+      <span class="cat-count">Get in touch</span>
+    </a>
+  </div>
+</section>
+
+<!-- BRAND STRIP -->
+<section class="brands">
+  <div class="brand-track">
+    <span class="brand-pill">SKINN by Titan</span>
+    <span class="brand-sep">◆</span>
+    <span class="brand-pill">Dot &amp; Key</span>
+    <span class="brand-sep">◆</span>
+    <span class="brand-pill">Tira Beauty</span>
+    <span class="brand-sep">◆</span>
+    <span class="brand-pill">AJIO</span>
+  </div>
+</section>
+
+<!-- QUIZZES -->
+<section class="quizzes" id="quizzes">
+  <div class="section-header">
+    <p class="section-eye">Discover Your Match</p>
+    <h2 class="section-title">Find what's <em>yours</em></h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="quiz-grid">
+    <a href="quiz.html" class="quiz-card">
+      <div class="quiz-card-visual qv-1">🌹</div>
+      <div class="quiz-card-body">
+        <span class="quiz-tag">Fragrance · 6 Questions</span>
+        <h3 class="quiz-card-title">Find Your Perfect Scent</h3>
+        <p class="quiz-card-desc">Romantic or bold? Fresh or mysterious? Six questions unlock the SKINN fragrance that speaks your language — for her or for him.</p>
+        <span class="quiz-cta">Take the quiz →</span>
+      </div>
+    </a>
+    <a href="dotandkey-quiz.html" class="quiz-card">
+      <div class="quiz-card-visual qv-2">🌿</div>
+      <div class="quiz-card-body">
+        <span class="quiz-tag">Skincare · 6 Questions</span>
+        <h3 class="quiz-card-title">Your Skin Match</h3>
+        <p class="quiz-card-desc">Oily, dry, sensitive or combination? Tell us your skin story and we'll match you with the exact Dot &amp; Key formula your face has been waiting for.</p>
+        <span class="quiz-cta">Take the quiz →</span>
+      </div>
+    </a>
+    <a href="tira.html" class="quiz-card">
+      <div class="quiz-card-visual qv-4">💋</div>
+      <div class="quiz-card-body">
+        <span class="quiz-tag">Beauty · Curated Picks</span>
+        <h3 class="quiz-card-title">The Edit: Tira Beauty</h3>
+        <p class="quiz-card-desc">From cult K-beauty serums to luxury French perfumes — our hand-selected Tira Beauty edit features only the pieces worth every rupee.</p>
+        <span class="quiz-cta">Shop the edit →</span>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- FEATURED PRODUCTS -->
+<section class="featured featured-bg" id="products">
+  <div style="padding:0 5%">
+    <div class="section-header">
+      <p class="section-eye">Handpicked For You</p>
+      <h2 class="section-title">Gabriella's <em>favourites</em></h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="prod-tabs">
+      <button class="prod-tab active" onclick="switchTab('fragrances',this)">Fragrances</button>
+      <button class="prod-tab" onclick="switchTab('skincare',this)">Skincare</button>
+      <button class="prod-tab" onclick="switchTab('beauty',this)">Beauty</button>
+      <button class="prod-tab" onclick="switchTab('fashion',this)">Fashion</button>
+    </div>
+
+    <!-- FRAGRANCES -->
+    <div class="prod-panel active" id="tab-fragrances">
+      <div class="prod-grid">
+        <div class="prod-card">
+          <div class="prod-img-wrap"><span class="prod-emoji">🌹</span></div>
+          <div class="prod-brand">SKINN by Titan</div>
+          <div class="prod-name">Celeste EDP 100ml</div>
+          <div class="prod-price">₹2,795</div>
+          <a href="https://bilty.co/WDZVYx" class="prod-buy" target="_blank" rel="nofollow noopener">Buy on SKINN →</a>
+        </div>
+        <div class="prod-card">
+          <div class="prod-img-wrap"><span class="prod-emoji">🌊</span></div>
+          <div class="prod-brand">SKINN by Titan</div>
+          <div class="prod-name">Raw EDP 100ml — Men</div>
+          <div class="prod-price">₹2,795</div>
+          <a href="https://bilty.co/ZX9rPI" class="prod-buy" target="_blank" rel="nofollow noopener">Buy on SKINN →</a>
+        </div>
+        <div class="prod-card">
+          <div class="prod-img-wrap"><span class="prod-emoji">✨</span></div>
+          <div class="prod-brand">SKINN by Titan</div>
+          <div class="prod-name">Noura Floret EDP</div>
+          <div class="prod-price">₹3,295</div>
+          <a href="https://bilty.co/iR6304" class="prod-buy" target="_blank" rel="nofollow noopener">Buy on SKINN →</a>
+        </div>
+        <div class="prod-card">
+          <div class="prod-img-wrap"><span class="prod-emoji">🌙</span></div>
+          <div class="prod-brand">SKINN by Titan</div>
+          <div class="prod-name">Nova for Men 100ml</div>
+          <div class="prod-price">₹3,095</div>
+          <a href="https://bilty.co/laqNCW" class="prod-buy" target="_blank" rel="nofollow noopener">Buy on SKINN →</a>
+        </div>
+      </div>
+      <div class="see-more-wrap">
+        <a href="skinn.html" class="btn-see-more">Shop All Fragrances →</a>
+      </div>
+    </div>
+
+    <!-- SKINCARE -->
+    <div class="prod-panel" id="tab-skincare">
+      <div class="prod-grid">
+        <div class="prod-card">
+          <div class="prod-img-wrap"><span class="prod-emoji">☀️</span></div>
+          <div class="prod-brand">Dot &amp; Key</div>
+          <div class="prod-name">Vitamin C+E SPF 50+ PA++++</div>
+          <div class="prod-price">₹595</div>
+          <a href="https://bilty.co/UjxQHA" class="prod-buy" target="_blank" rel="nofollow noopener">Buy on Dot &amp; Key →</a>
+        </div>
+        <div class="prod-card">
+          <div class="prod-img-wrap"><span class="prod-emoji">💧</span></div>
+          <div class="prod-brand">Dot &amp; Key</div>
+          <div class="prod-name">Waterlight Gel Moisturiser</div>
+          <div class="prod-price">₹495</div>
+          <a href="https://bilty.co/6s0QZd" class="prod-buy" target="_blank" rel="nofollow noopener">Buy on Dot &amp; Key →</a>
+        </div>
+        <div class="prod-card">
+          <div class="prod-img-wrap"><span class="prod-emoji">🌿</span></div>
+          <div class="prod-brand">Dot &amp; Key</div>
+          <div class="prod-name">10% Vitamin C+E Serum</div>
+          <div class="prod-price">₹695</div>
+          <a href="https://bilty.co/Iuiwh5" class="prod-buy" target="_blank" rel="nofollow noopener">Buy on Dot &amp; Key →</a>
+        </div>
+        <div class="prod-card">
+          <div class="prod-img-wrap"><span class="prod-emoji">🍓</span></div>
+          <div class="prod-brand">Dot &amp; Key</div>
+          <div class="prod-name">Strawberry 10% Niacinamide Serum</div>
+          <div class="prod-price">₹599</div>
+          <a href="https://bilty.co/Jzdtow" class="prod-buy" target="_blank" rel="nofollow noopener">Buy on Dot &amp; Key →</a>
+        </div>
+      </div>
+      <div class="see-more-wrap">
+        <a href="DK.html" class="btn-see-more">Shop All Skincare →</a>
+      </div>
+    </div>
+
+    <!-- BEAUTY -->
+    <div class="prod-panel" id="tab-beauty">
+      <div class="prod-grid">
+        <div class="prod-card">
+          <div class="prod-img-wrap"><span class="prod-emoji">💋</span></div>
+          <div class="prod-brand">MAC</div>
+          <div class="prod-name">MACximal Matte Lipstick — Mehr</div>
+          <div class="prod-price">₹2,550</div>
+          <a href="https://bilty.co/wXeHIh" class="prod-buy" target="_blank" rel="nofollow noopener">Buy on Tira →</a>
+        </div>
+        <div class="prod-card">
+          <div class="prod-img-wrap"><span class="prod-emoji">✨</span></div>
+          <div class="prod-brand">COSRX</div>
+          <div class="prod-name">Advanced Snail 96 Essence 100ml</div>
+          <div class="prod-price">₹1,450</div>
+          <a href="https://bilty.co/lEq0vp" class="prod-buy" target="_blank" rel="nofollow noopener">Buy on Tira →</a>
+        </div>
+        <div class="prod-card">
+          <div class="prod-img-wrap"><span class="prod-emoji">🌙</span></div>
+          <div class="prod-brand">Estée Lauder</div>
+          <div class="prod-name">Advanced Night Repair Serum 7ml</div>
+          <div class="prod-price">₹1,250</div>
+          <a href="https://bilty.co/DBaJ42" class="prod-buy" target="_blank" rel="nofollow noopener">Buy on Tira →</a>
+        </div>
+        <div class="prod-card">
+          <div class="prod-img-wrap"><span class="prod-emoji">🫧</span></div>
+          <div class="prod-brand">The Ordinary</div>
+          <div class="prod-name">AHA 30%+BHA 2% Peeling Solution</div>
+          <div class="prod-price">₹950</div>
+          <a href="https://bilty.co/kkI6ul" class="prod-buy" target="_blank" rel="nofollow noopener">Buy on Tira →</a>
+        </div>
+      </div>
+      <div class="see-more-wrap">
+        <a href="tira.html" class="btn-see-more">Shop All Beauty →</a>
+      </div>
+    </div>
+
+    <!-- FASHION -->
+    <div class="prod-panel" id="tab-fashion">
+      <div class="prod-grid">
+        <div class="prod-card">
+          <div class="prod-img-wrap"><span class="prod-emoji">🌸</span></div>
+          <div class="prod-brand">STYLI · AJIO</div>
+          <div class="prod-name">Floral Print A-Line Dress</div>
+          <div class="prod-price">₹887</div>
+          <a href="https://ajiio.co/ydVcuJ?" class="prod-buy" target="_blank" rel="nofollow noopener">Buy on AJIO →</a>
+        </div>
+        <div class="prod-card">
+          <div class="prod-img-wrap"><span class="prod-emoji">✨</span></div>
+          <div class="prod-brand">SHEIN · AJIO</div>
+          <div class="prod-name">Sequined Halter Mini Bodycon</div>
+          <div class="prod-price">₹629</div>
+          <a href="https://ajiio.co/oJwm2s?" class="prod-buy" target="_blank" rel="nofollow noopener">Buy on AJIO →</a>
+        </div>
+        <div class="prod-card">
+          <div class="prod-img-wrap"><span class="prod-emoji">🌊</span></div>
+          <div class="prod-brand">LULU &amp; SKY · AJIO</div>
+          <div class="prod-name">One-Shoulder Kaftan Dress</div>
+          <div class="prod-price">₹2,639</div>
+          <a href="https://ajiio.co/LtQXmm?" class="prod-buy" target="_blank" rel="nofollow noopener">Buy on AJIO →</a>
+        </div>
+        <div class="prod-card">
+          <div class="prod-img-wrap"><span class="prod-emoji">🌹</span></div>
+          <div class="prod-brand">HOUSE OF MIRA · AJIO</div>
+          <div class="prod-name">Tropical Bodycon Dress Front-Slit</div>
+          <div class="prod-price">₹1,999</div>
+          <a href="https://ajiio.co/JtRGWK?" class="prod-buy" target="_blank" rel="nofollow noopener">Buy on AJIO →</a>
+        </div>
+      </div>
+      <div class="see-more-wrap">
+        <a href="AJIO.html" class="btn-see-more">Shop All Fashion →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EDITORIAL -->
+<section class="editorial">
+  <div class="ed-visual">
+    <span>🌺</span>
+    <span class="ed-label">Gabriella Curates</span>
+  </div>
+  <div class="ed-body">
+    <p class="section-eye">About This Space</p>
+    <h2 class="section-title">Beauty &<br><em>style that fits</em><br>real life</h2>
+    <div class="section-line"></div>
+    <p>Gabriella Curates is an affiliate platform built on one simple idea: you shouldn't have to scroll through thousands of products to find the right one. Every product here has been selected with care — tested, researched, and considered for real people living real lives in India.</p>
+    <div class="ed-stats">
+      <div>
+        <div class="ed-stat-n">200+</div>
+        <div class="ed-stat-l">Curated picks</div>
+      </div>
+      <div>
+        <div class="ed-stat-n">4</div>
+        <div class="ed-stat-l">Style quizzes</div>
+      </div>
+      <div>
+        <div class="ed-stat-n">6+</div>
+        <div class="ed-stat-l">Trusted brands</div>
+      </div>
+    </div>
+    <a href="About.html" class="btn-primary">Learn More →</a>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section class="newsletter">
+  <div class="nl-inner">
+    <p class="section-eye">Stay in the know</p>
+    <h2 class="section-title">The <em>edit</em>, in your inbox</h2>
+    <p>New finds, quiz drops, and curated deals — delivered when it actually matters. No spam, just style.</p>
+    <form class="nl-form" onsubmit="handleNL(event)">
+      <input class="nl-input" type="email" placeholder="your@email.com" required>
+      <button type="submit" class="nl-submit">Subscribe</button>
+    </form>
+    <p class="nl-note" id="nlNote">No fluff. Unsubscribe anytime.</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
 <footer>
-    <p>Gabriella is an affiliate of SKINN by Titan, Dot &amp; Key, Tira Beauty &amp; Ajio &nbsp;·&nbsp;
-       <a href="contact.html">Contact</a> &nbsp;·&nbsp;
-       <a href="About.html">About</a>
-    </p>
+  <div class="footer-top">
+    <div>
+      <div class="footer-brand-name">Gabriella <span>Curates</span></div>
+      <p class="footer-desc">A curated affiliate platform bringing you the best in Indian beauty, skincare, fragrance and fashion — with quizzes that actually help you decide.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Shop</h4>
+      <a href="skinn.html">Fragrances — Women</a>
+      <a href="MEN.html">Fragrances — Men</a>
+      <a href="DK.html">Dot &amp; Key Skincare</a>
+      <a href="tira.html">Tira Beauty</a>
+      <a href="AJIO.html">AJIO Fashion</a>
+    </div>
+    <div class="footer-col">
+      <h4>Quizzes</h4>
+      <a href="quiz.html">Find Your Scent</a>
+      <a href="dotandkey-quiz.html">Skin Match</a>
+    </div>
+    <div class="footer-col">
+      <h4>Info</h4>
+      <a href="About.html">About</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2026 Gabriella Curates</div>
+    <div class="footer-disc">Affiliate Disclaimer: We earn a small commission on purchases made through our links, at no extra cost to you. All recommendations are genuine and independently selected.</div>
+  </div>
 </footer>
 
 <script>
-    /* Navbar */
-    const navbar = document.getElementById('navbar');
-    let lastY = 0;
-    window.addEventListener('scroll', () => {
-        const y = window.scrollY;
-        navbar.classList.toggle('hidden',   y > lastY && y > 80);
-        navbar.classList.toggle('scrolled', y > 20);
-        lastY = y;
-    }, { passive: true });
+// NAV scroll
+window.addEventListener('scroll',()=>{
+  document.getElementById('mainNav').classList.toggle('scrolled',window.scrollY>50);
+});
 
-    /* Count-up */
-    function countUp(el, target, suffix, delay) {
-        setTimeout(() => {
-            let v = 0, step = Math.ceil(target / 28);
-            const iv = setInterval(() => {
-                v = Math.min(v + step, target);
-                el.innerHTML = v + '<em>' + suffix + '</em>';
-                if (v >= target) clearInterval(iv);
-            }, 35);
-        }, delay);
-    }
-    setTimeout(() => {
-        countUp(document.getElementById('sn1'), 50, '+', 0);
-        countUp(document.getElementById('sn2'), 4,  '',  200);
-    }, 1600);
+// Mobile menu
+function toggleMobile(){
+  document.getElementById('mobileMenu').classList.toggle('open');
+  document.body.style.overflow=document.getElementById('mobileMenu').classList.contains('open')?'hidden':'';
+}
 
-    /* Side menu */
-    function openMenu() {
-        document.getElementById('sideMenu').classList.add('open');
-        document.getElementById('overlay').classList.add('active');
-        document.body.style.overflow = 'hidden';
-    }
-    function closeMenu() {
-        document.getElementById('sideMenu').classList.remove('open');
-        document.getElementById('overlay').classList.remove('active');
-        document.body.style.overflow = '';
-    }
-    function toggleSkinn() {
-        const sub   = document.getElementById('skinnSub');
-        const arrow = document.getElementById('skinnArrow');
-        const open  = sub.style.display === 'flex';
-        sub.style.display = open ? 'none' : 'flex';
-        arrow.classList.toggle('open', !open);
-    }
-    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
+// Product tabs
+function switchTab(id,btn){
+  document.querySelectorAll('.prod-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.prod-tab').forEach(b=>b.classList.remove('active'));
+  document.getElementById('tab-'+id).classList.add('active');
+  btn.classList.add('active');
+}
 
-    /* Custom cursor — dual-layer with lag */
-    const dot  = document.getElementById('cursor-dot');
-    const ring = document.getElementById('cursor-ring');
-    const glow = document.getElementById('cursor-glow');
-    let mx = -500, my = -500, rx = -500, ry = -500, glowX = -500, glowY = -500;
-    window.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+// Scroll to mood quiz
+function scrollToMood(e){
+  e.preventDefault();
+  document.getElementById('moodquiz').scrollIntoView({behavior:'smooth'});
+}
 
-    (function cursorLoop() {
-        dot.style.left  = mx + 'px';
-        dot.style.top   = my + 'px';
-        rx += (mx - rx) * 0.14;  ry += (my - ry) * 0.14;
-        ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
-        glowX += (mx - glowX) * 0.05; glowY += (my - glowY) * 0.05;
-        glow.style.left = glowX + 'px'; glow.style.top = glowY + 'px';
-        requestAnimationFrame(cursorLoop);
-    })();
+// Newsletter
+function handleNL(e){
+  e.preventDefault();
+  document.getElementById('nlNote').textContent='✓ You\'re on the list! Watch your inbox.';
+  e.target.reset();
+}
 
-    /* Particles */
-    const canvas = document.getElementById('particles');
-    const ctx    = canvas.getContext('2d');
-    let W, H;
-    function resize() { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
-    resize();
-    window.addEventListener('resize', resize);
+// ── MOOD DRESS QUIZ ──
+const DQ=[
+  {q:'How are you feeling right now?',opts:[
+    {e:'🌸',l:'Soft & romantic — a little dreamy',v:'romantic'},
+    {e:'⚡',l:'Bold & powerful — I own today',v:'bold'},
+    {e:'🌊',l:'Free & breezy — no rules',v:'boho'},
+    {e:'🔥',l:'Edgy & confident — all eyes on me',v:'edgy'}
+  ]},
+  {q:'Your ideal Saturday plan is...',opts:[
+    {e:'🌹',l:'A candlelit dinner or cosy café date',v:'romantic'},
+    {e:'🎤',l:'A party or event where I want to stand out',v:'bold'},
+    {e:'🏖️',l:'Beach, markets, or exploring somewhere new',v:'boho'},
+    {e:'🌃',l:'Rooftop bar or night out with close friends',v:'edgy'}
+  ]},
+  {q:'Pick a colour that speaks to you today:',opts:[
+    {e:'🌷',l:'Soft pinks, dusty rose, lavender',v:'romantic'},
+    {e:'🖤',l:'Deep red, cobalt, or rich jewel tones',v:'bold'},
+    {e:'🌿',l:'Earthy terracotta, sage, warm whites',v:'boho'},
+    {e:'🌑',l:'Black, deep plum, or bold print',v:'edgy'}
+  ]},
+  {q:'My comfort level with showing skin:',opts:[
+    {e:'🌸',l:'Flowy and modest — elegance over exposure',v:'romantic'},
+    {e:'💎',l:'Structured and polished — power dressing',v:'bold'},
+    {e:'🌻',l:'Natural and relaxed — whatever feels comfortable',v:'boho'},
+    {e:'✨',l:'I love a cut-out or slit — I dress to impress',v:'edgy'}
+  ]},
+  {q:'One word to describe your energy today:',opts:[
+    {e:'🦋',l:'Tender',v:'romantic'},
+    {e:'👑',l:'Unstoppable',v:'bold'},
+    {e:'🌊',l:'Wandering',v:'boho'},
+    {e:'🔥',l:'Magnetic',v:'edgy'}
+  ]}
+];
 
-    const COLS = ['rgba(184,58,82,', 'rgba(160,120,72,', 'rgba(200,16,46,', 'rgba(138,120,112,'];
+const DQ_RESULTS={
+  romantic:{
+    emoji:'🌸',tag:'The Romantic',
+    title:'Soft &amp; Floral — Fit &amp; Flare',
+    desc:'Your energy calls for something with movement and femininity. A floral fit &amp; flare dress — think spaghetti straps, smocked waist, or a delicate square neck — is your perfect match today.',
+    style:'Try: STYLI Floral A-Line · Spaghetti Strap Midi · Back Tie-Up Floral Mini',
+    link:'https://ajiio.co/ydVcuJ?'
+  },
+  bold:{
+    emoji:'💎',tag:'The Powerhouse',
+    title:'Structured &amp; Statement — Bodycon or Sheath',
+    desc:'You want the room to notice when you walk in. A structured bodycon, sleek sheath maxi, or polished fit &amp; flare in a rich solid or jewel-tone print gives you exactly that.',
+    style:'Try: DIVAWALK Sheath · HOUSE OF MIRA Bodycon · LULU & SKY Midi Shirt Dress',
+    link:'https://ajiio.co/JtRGWK?'
+  },
+  boho:{
+    emoji:'🌊',tag:'The Free Spirit',
+    title:'Breezy &amp; Boho — Maxi or Kaftan',
+    desc:'You\'re in your flowing, unstructured, sun-kissed era. A maxi A-line, halter-neck leaf print, or one-shoulder kaftan lets you move through the world on your own terms.',
+    style:'Try: SHEIN Halter Maxi · LULU & SKY Kaftan · INDIE PICKS Boho Print',
+    link:'https://ajiio.co/8DUfWQ'
+  },
+  edgy:{
+    emoji:'🔥',tag:'The Scene-Stealer',
+    title:'Daring &amp; Dramatic — Sequin, Cut-Out or Mermaid',
+    desc:'Tonight is not the night for subtlety. A sequined bodycon, one-shoulder mermaid, or ruched cut-out dress with a slit is your outfit in every scene you deserve to be in.',
+    style:'Try: SHEIN Sequined Mini · One-Shoulder Mermaid · Ruched Off-Shoulder',
+    link:'https://ajiio.co/oJwm2s?'
+  }
+};
 
-    class Particle {
-        constructor() { this.reset(true); }
-        reset(init) {
-            this.x       = Math.random() * W;
-            this.y       = init ? Math.random() * H : H + 8;
-            this.r       = Math.random() * 1.7 + 0.3;
-            this.vy      = -(Math.random() * 0.38 + 0.08);
-            this.vx      = (Math.random() - 0.5) * 0.18;
-            this.alpha   = 0;
-            this.max     = Math.random() * 0.2 + 0.04;
-            this.color   = COLS[Math.floor(Math.random() * COLS.length)];
-            this.phase   = Math.random() * Math.PI * 2;
-            this.twinkle = Math.random() * Math.PI * 2;
-        }
-        tick(t) {
-            this.x += this.vx + Math.sin(t * 0.0007 + this.phase) * 0.13;
-            this.y += this.vy;
-            this.twinkle += 0.03;
-            const tw = 0.75 + 0.25 * Math.sin(this.twinkle);
-            if (this.y < H * 0.28) this.alpha = Math.max(0, this.alpha - 0.004);
-            else                   this.alpha = Math.min(this.max * tw, this.alpha + 0.005);
-            if (this.y < -8) this.reset(false);
-        }
-        draw() {
-            ctx.beginPath();
-            ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
-            ctx.fillStyle = this.color + this.alpha + ')';
-            ctx.fill();
-        }
-    }
+let dqCur=0,dqAns={},dqVotes={romantic:0,bold:0,boho:0,edgy:0};
 
-    const pts = Array.from({ length: 70 }, () => new Particle());
-    let t = 0;
-    (function pLoop() {
-        ctx.clearRect(0, 0, W, H);
-        t++;
-        pts.forEach(p => { p.tick(t); p.draw(); });
-        requestAnimationFrame(pLoop);
-    })();
+function dqRender(){
+  const q=DQ[dqCur],n=DQ.length;
+  // progress dots
+  let pd='';
+  for(let i=0;i<n;i++) pd+='<div class="dq-dot'+(i<dqCur?' done':i===dqCur?' active':'')+'"></div>';
+  document.getElementById('dqProg').innerHTML=pd;
+  document.getElementById('dqQ').textContent=q.q;
+  const oc=document.getElementById('dqOpts');oc.innerHTML='';
+  q.opts.forEach((o,i)=>{
+    const b=document.createElement('button');
+    b.className='dq-opt'+(dqAns[dqCur]===i?' sel':'');
+    b.innerHTML='<span class="dq-opt-em">'+o.e+'</span>'+o.l;
+    b.onclick=()=>dqPick(i,o.v,b);
+    oc.appendChild(b);
+  });
+  const nb=document.getElementById('dqNext');
+  nb.className='dq-btn'+(dqAns[dqCur]!==undefined?' vis':'');
+  // animate card
+  const c=document.getElementById('dqCard');c.style.animation='none';void c.offsetHeight;c.style.animation='fadeUp 0.4s both';
+}
 
-    /* Card 3D magnetic tilt + ripple */
-    document.querySelectorAll('.brand-card').forEach(card => {
-        card.addEventListener('mousemove', e => {
-            const r  = card.getBoundingClientRect();
-            const dx = (e.clientX - r.left - r.width  / 2) / (r.width  / 2);
-            const dy = (e.clientY - r.top  - r.height / 2) / (r.height / 2);
-            card.style.transition = 'box-shadow 0.4s, border-color 0.3s';
-            card.style.transform  = `perspective(700px) rotateY(${dx * 5}deg) rotateX(${-dy * 3.5}deg) translateZ(6px)`;
-        });
-        card.addEventListener('mouseleave', () => {
-            card.style.transition = 'transform 0.7s cubic-bezier(.16,1,.3,1), box-shadow 0.5s, border-color 0.3s';
-            card.style.transform  = '';
-            setTimeout(() => { card.style.transition = ''; }, 700);
-        });
-        card.addEventListener('click', function(e) {
-            const r   = this.getBoundingClientRect();
-            const rip = document.createElement('span');
-            const sz  = Math.max(r.width, r.height) * 2;
-            rip.style.cssText = `position:absolute;border-radius:50%;pointer-events:none;z-index:10;
-                width:${sz}px;height:${sz}px;
-                left:${e.clientX - r.left - sz/2}px;top:${e.clientY - r.top - sz/2}px;
-                background:rgba(255,255,255,0.18);
-                transform:scale(0);animation:ripple 0.55s ease-out forwards;`;
-            this.appendChild(rip);
-            setTimeout(() => rip.remove(), 600);
-        });
-    });
+function dqPick(i,v,btn){
+  dqAns[dqCur]=i;dqVotes[v]=(dqVotes[v]||0)+1;
+  document.querySelectorAll('.dq-opt').forEach(b=>b.classList.remove('sel'));
+  btn.classList.add('sel');
+  document.getElementById('dqNext').classList.add('vis');
+}
 
-    /* Inject ripple keyframe */
-    const ks = document.createElement('style');
-    ks.textContent = '@keyframes ripple{to{transform:scale(1);opacity:0}}';
-    document.head.appendChild(ks);
+function dqNext(){
+  if(dqAns[dqCur]===undefined)return;
+  dqCur++;
+  if(dqCur>=DQ.length){dqShowResult();}else{dqRender();}
+}
+
+function dqShowResult(){
+  document.getElementById('dqCard').style.display='none';
+  document.getElementById('dqNext').style.display='none';
+  const winner=Object.keys(dqVotes).reduce((a,b)=>dqVotes[a]>=dqVotes[b]?a:b);
+  const r=DQ_RESULTS[winner];
+  document.getElementById('drEmoji').textContent=r.emoji;
+  document.getElementById('drTag').textContent=r.tag;
+  document.getElementById('drTitle').innerHTML=r.title;
+  document.getElementById('drDesc').innerHTML=r.desc;
+  document.getElementById('drStyle').textContent=r.style;
+  document.getElementById('drShopBtn').href=r.link;
+  document.getElementById('dqResult').style.display='block';
+  // update progress all done
+  let pd='';for(let i=0;i<DQ.length;i++) pd+='<div class="dq-dot done"></div>';
+  document.getElementById('dqProg').innerHTML=pd;
+}
+
+function dqRetake(){
+  dqCur=0;dqAns={};dqVotes={romantic:0,bold:0,boho:0,edgy:0};
+  document.getElementById('dqCard').style.display='block';
+  document.getElementById('dqNext').style.display='flex';
+  document.getElementById('dqResult').style.display='none';
+  dqRender();
+}
+
+dqRender();
 </script>
-<script src="https://pl29344583.profitablecpmratenetwork.com/19/ae/7c/19ae7cadaada5cbb94fbcac59fde34ad.js"></script>
-
 </body>
 </html>
