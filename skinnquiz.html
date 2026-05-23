@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Find Your Scent — SKINN × Gabriella Curates</title>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,700;1,6..96,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0c0407;--surface:#180810;--border:rgba(201,169,110,0.22);
+  --gold:#c9a96e;--gold-lt:#e8d5a8;--cream:#f0e0c8;
+  --muted:rgba(240,224,200,0.48);--btn-bg:rgba(201,169,110,0.08);
+}
+body{background:var(--bg);color:var(--cream);font-family:'Cormorant Garamond',serif;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:2.5rem 1.25rem 4rem}
+a.back{display:block;width:100%;max-width:640px;font-size:0.72rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--muted);text-decoration:none;margin-bottom:3rem;transition:color 0.2s}
+a.back:hover{color:var(--gold)}
+.wrap{width:100%;max-width:640px}
+.hd{text-align:center;margin-bottom:3rem}
+.hd-eye{font-size:0.7rem;letter-spacing:0.32em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem}
+.hd-title{font-family:'Bodoni Moda',serif;font-size:clamp(2rem,5vw,3rem);font-weight:400;line-height:1.1;margin-bottom:0.75rem}
+.hd-title em{font-style:italic}
+.hd-sub{font-size:1.05rem;color:var(--muted);font-style:italic}
+.prog{display:flex;align-items:center;gap:12px;margin-bottom:2.5rem}
+.prog-bar{flex:1;height:1px;background:rgba(201,169,110,0.18);position:relative}
+.prog-fill{position:absolute;inset:0 auto 0 0;background:var(--gold);transition:width 0.5s ease}
+.prog-lbl{font-size:0.7rem;letter-spacing:0.22em;color:var(--gold);text-transform:uppercase;white-space:nowrap}
+.qcard{background:var(--surface);border:1px solid var(--border);padding:2.5rem 2.25rem;position:relative;animation:up 0.38s ease both}
+.qcard::before{content:'';position:absolute;top:0;left:2rem;right:2rem;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+@keyframes up{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+.q-num{font-size:0.68rem;letter-spacing:0.25em;color:var(--gold);text-transform:uppercase;margin-bottom:0.7rem}
+.q-text{font-family:'Bodoni Moda',serif;font-size:1.4rem;font-weight:400;line-height:1.4;margin-bottom:1.9rem}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.opt{background:transparent;border:1px solid var(--border);color:var(--cream);padding:1.2rem 1rem;text-align:left;cursor:pointer;font-family:'Cormorant Garamond',serif;font-size:1rem;line-height:1.45;transition:all 0.22s ease}
+.opt-ltr{display:block;font-size:0.65rem;letter-spacing:0.2em;color:var(--gold);text-transform:uppercase;margin-bottom:0.35rem;opacity:0.7}
+.opt:hover{border-color:var(--gold);color:var(--gold-lt);background:var(--btn-bg)}
+.opt.sel{border-color:var(--gold);background:var(--btn-bg);color:var(--gold-lt)}
+.nav{display:flex;justify-content:flex-end;margin-top:1.4rem}
+.btn-next{background:transparent;border:1px solid var(--gold);color:var(--gold);padding:0.72rem 2rem;font-family:'Cormorant Garamond',serif;font-size:0.88rem;letter-spacing:0.2em;text-transform:uppercase;cursor:pointer;transition:all 0.22s ease;opacity:0;pointer-events:none}
+.btn-next.vis{opacity:1;pointer-events:auto}
+.btn-next:hover{background:var(--gold);color:var(--bg)}
+.rcard{background:var(--surface);border:1px solid var(--border);padding:2.75rem 2.25rem;text-align:center;animation:up 0.45s ease both;display:none;position:relative}
+.rcard::before{content:'';position:absolute;top:0;left:2rem;right:2rem;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+.r-eye{font-size:0.7rem;letter-spacing:0.32em;text-transform:uppercase;color:var(--gold);margin-bottom:1.5rem}
+.r-badge{display:inline-block;border:1px solid var(--gold);color:var(--gold);font-size:0.68rem;letter-spacing:0.22em;text-transform:uppercase;padding:0.28rem 0.85rem;margin-bottom:1.4rem}
+.r-name{font-family:'Bodoni Moda',serif;font-size:1.9rem;font-weight:400;line-height:1.2;margin-bottom:1rem}
+.r-desc{font-size:1.05rem;color:var(--muted);font-style:italic;line-height:1.7;max-width:420px;margin:0 auto 1.2rem}
+.r-profile{font-size:0.82rem;color:var(--muted);letter-spacing:0.1em;margin-bottom:1.6rem}
+.r-profile span{color:var(--gold)}
+.r-notes{display:flex;justify-content:center;gap:1.4rem;flex-wrap:wrap;margin-bottom:2.2rem;font-size:0.88rem;color:var(--muted)}
+.r-note::before{content:'—';color:var(--gold);margin-right:0.4rem}
+.btn-buy{display:inline-block;background:var(--gold);color:var(--bg);font-family:'Cormorant Garamond',serif;font-size:0.9rem;letter-spacing:0.2em;text-transform:uppercase;padding:1rem 2.5rem;text-decoration:none;transition:background 0.22s ease}
+.btn-buy:hover{background:var(--gold-lt)}
+.btn-retake{display:block;margin-top:1.2rem;color:var(--muted);font-size:0.8rem;letter-spacing:0.18em;text-transform:uppercase;cursor:pointer;border:none;background:none;font-family:inherit;transition:color 0.2s}
+.btn-retake:hover{color:var(--gold)}
+@media(max-width:480px){.opts{grid-template-columns:1fr}.qcard,.rcard{padding:1.6rem 1.25rem}}
+</style>
+</head>
+<body>
+<a class="back" href="index.html">&larr; Gabriella Curates</a>
+<div class="wrap">
+  <div class="hd" id="hd">
+    <p class="hd-eye">Gabriella Curates &times; SKINN by Titan</p>
+    <h1 class="hd-title">Find Your<br><em>Perfect Scent</em></h1>
+    <p class="hd-sub">Six questions. One fragrance made entirely for you.</p>
+  </div>
+  <div id="quiz-area">
+    <div class="prog">
+      <div class="prog-bar"><div class="prog-fill" id="pfill" style="width:0%"></div></div>
+      <span class="prog-lbl" id="plbl">1 of 6</span>
+    </div>
+    <div class="qcard" id="qcard">
+      <p class="q-num" id="qnum">Question 01</p>
+      <h2 class="q-text" id="qtext"></h2>
+      <div class="opts" id="opts"></div>
+    </div>
+    <div class="nav">
+      <button class="btn-next" id="btn-next" onclick="next()">Continue &rarr;</button>
+    </div>
+  </div>
+  <div class="rcard" id="rcard">
+    <p class="r-eye">Your Fragrance Profile</p>
+    <div class="r-badge" id="rbadge"></div>
+    <h2 class="r-name" id="rname"></h2>
+    <p class="r-desc" id="rdesc"></p>
+    <p class="r-profile" id="rprofile"></p>
+    <div class="r-notes" id="rnotes"></div>
+    <a href="#" class="btn-buy" id="rlink" target="_blank" rel="noopener">Shop This Fragrance &rarr;</a>
+    <button class="btn-retake" onclick="retake()">Retake the quiz</button>
+  </div>
+</div>
+<script>
+const Ls=['A','B','C','D'];
+const Qs=[
+  {id:'gender',text:'I\'m shopping for...',opts:[
+    {l:'Herself',v:'women'},{l:'Himself',v:'men'},
+    {l:'A gift for her',v:'women'},{l:'A gift for him',v:'men'}
+  ]},
+  {id:'vibe',text:'The word that best describes my energy...',opts:[
+    {l:'Romantic & tender',v:'romantic'},{l:'Bold & commanding',v:'bold'},
+    {l:'Fresh & effortless',v:'fresh'},{l:'Mysterious & alluring',v:'mysterious'}
+  ]},
+  {id:'moment',text:'I reach for fragrance most when...',opts:[
+    {l:'Someone special is near',v:'romantic'},{l:'I want to own every room',v:'bold'},
+    {l:'It\'s just another beautiful morning',v:'fresh'},{l:'The evening begins and lights dim',v:'mysterious'}
+  ]},
+  {id:'scene',text:'Pick the scene that draws you in most...',opts:[
+    {l:'A moonlit garden — roses at midnight',v:'romantic'},
+    {l:'A rooftop bar — skyline, champagne, confidence',v:'bold'},
+    {l:'A cliffside at dawn — sea salt, open sky',v:'fresh'},
+    {l:'A firelit library — amber, smoke, secrets',v:'mysterious'}
+  ]},
+  {id:'intensity',text:'My ideal fragrance trail is...',opts:[
+    {l:'Soft and intimate — only those close notice',v:'romantic'},
+    {l:'Powerful and lasting — unmistakably present',v:'bold'},
+    {l:'Light and clean — never overwhelming',v:'fresh'},
+    {l:'Deep and lingering — a signature that stays',v:'mysterious'}
+  ]},
+  {id:'weekend',text:'My ideal weekend looks like...',opts:[
+    {l:'A candlelit dinner with someone I adore',v:'romantic'},
+    {l:'Networking at a party I\'m absolutely ready for',v:'bold'},
+    {l:'A long walk, great music, wide open space',v:'fresh'},
+    {l:'Curled up with a book, rain outside, no plans',v:'mysterious'}
+  ]}
+];
+const Rs={
+  women:{
+    romantic:{name:'SKINN Celeste EDP',badge:'The Romantic',
+      desc:'Luminous peony, jasmine, and white musk. As soft and sincere as you — a scent that leads with the heart.',
+      profile:'Your profile: <span>Romantic &bull; Intimate &bull; Floral</span>',
+      notes:['Peony','Jasmine','White Musk'],link:'https://bilty.co/skinn-celeste'},
+    bold:{name:'SKINN Nude EDP',badge:'The Powerhouse',
+      desc:'Warm sandalwood, sensual vanilla, and a commanding musk base. Understated power that never needs to announce itself.',
+      profile:'Your profile: <span>Bold &bull; Sensual &bull; Warm</span>',
+      notes:['Sandalwood','Vanilla','Musk'],link:'https://bilty.co/skinn-nude'},
+    fresh:{name:'SKINN Sheer EDP',badge:'The Free Spirit',
+      desc:'Crisp bergamot, dewy white florals, and a whisper of cedar. For the woman who moves through the world with effortless grace.',
+      profile:'Your profile: <span>Fresh &bull; Light &bull; Floral-Citrus</span>',
+      notes:['Bergamot','White Florals','Cedar'],link:'https://bilty.co/skinn-sheer'},
+    mysterious:{name:'SKINN Elixir EDP',badge:'The Enigma',
+      desc:'Rich oud, dark amber, oriental spices. A fragrance that doesn\'t enter a room — it transforms it.',
+      profile:'Your profile: <span>Mysterious &bull; Intense &bull; Oriental</span>',
+      notes:['Oud','Amber','Oriental Spice'],link:'https://bilty.co/skinn-elixir'}
+  },
+  men:{
+    romantic:{name:'SKINN Verge EDP',badge:'The Gentleman',
+      desc:'Fresh florals over a warm woody heart. For the man who believes romance is never out of style.',
+      profile:'Your profile: <span>Romantic &bull; Warm &bull; Woody-Floral</span>',
+      notes:['Fresh Accord','Woods','Amber'],link:'https://bilty.co/skinn-verge'},
+    bold:{name:'SKINN Titanium EDP',badge:'The Powerhouse',
+      desc:'Dark woods, leather, a bold aromatic core. The signature for men who don\'t follow trends — they set them.',
+      profile:'Your profile: <span>Bold &bull; Commanding &bull; Woody</span>',
+      notes:['Leather','Dark Woods','Aromatic'],link:'https://bilty.co/skinn-titanium'},
+    fresh:{name:'SKINN Amalfi EDP',badge:'The Free Spirit',
+      desc:'Sun-drenched citrus over an aquatic heart. Light, confident, and made for the man always moving forward.',
+      profile:'Your profile: <span>Fresh &bull; Light &bull; Aquatic-Citrus</span>',
+      notes:['Citrus','Aquatic','Light Woods'],link:'https://bilty.co/skinn-amalfi'},
+    mysterious:{name:'SKINN Raw EDP',badge:'The Enigma',
+      desc:'Smoky woods, dark vetiver, earthy musk. A primal, unforgettable scent for men who leave lasting impressions.',
+      profile:'Your profile: <span>Mysterious &bull; Intense &bull; Earthy</span>',
+      notes:['Vetiver','Smoky Woods','Dark Musk'],link:'https://bilty.co/skinn-raw'}
+  }
+};
+let cur=0,ans={};
+function render(){
+  const q=Qs[cur],n=Qs.length;
+  document.getElementById('pfill').style.width=((cur/n)*100)+'%';
+  document.getElementById('plbl').textContent=(cur+1)+' of '+n;
+  document.getElementById('qnum').textContent='Question 0'+(cur+1);
+  document.getElementById('qtext').textContent=q.text;
+  const g=document.getElementById('opts');g.innerHTML='';
+  q.opts.forEach((o,i)=>{
+    const b=document.createElement('button');
+    b.className='opt'+(ans[q.id]===o.v&&ans['_i'+q.id]===i?' sel':'');
+    b.innerHTML='<span class="opt-ltr">'+Ls[i]+'</span>'+o.l;
+    b.onclick=()=>pick(o.v,i,b,q.id);
+    g.appendChild(b);
+  });
+  const nx=document.getElementById('btn-next');
+  nx.className='btn-next'+(ans[q.id]!==undefined?' vis':'');
+  const c=document.getElementById('qcard');c.style.animation='none';void c.offsetHeight;c.style.animation='up 0.38s ease both';
+}
+function pick(v,i,btn,qid){
+  ans[qid]=v;ans['_i'+qid]=i;
+  document.querySelectorAll('.opt').forEach(b=>b.classList.remove('sel'));
+  btn.classList.add('sel');
+  document.getElementById('btn-next').classList.add('vis');
+}
+function next(){
+  if(ans[Qs[cur].id]===undefined)return;
+  cur++;if(cur>=Qs.length)showResult();else render();
+}
+function showResult(){
+  document.getElementById('quiz-area').style.display='none';
+  const gender=ans.gender||'women';
+  const sc={romantic:0,bold:0,fresh:0,mysterious:0};
+  ['vibe','moment','scene','intensity','weekend'].forEach(k=>{if(ans[k]&&sc[ans[k]]!==undefined)sc[ans[k]]++;});
+  const winner=Object.keys(sc).reduce((a,b)=>sc[a]>=sc[b]?a:b);
+  const r=Rs[gender][winner];
+  document.getElementById('rbadge').textContent=r.badge;
+  document.getElementById('rname').textContent=r.name;
+  document.getElementById('rdesc').textContent=r.desc;
+  document.getElementById('rprofile').innerHTML=r.profile;
+  document.getElementById('rlink').href=r.link;
+  document.getElementById('rnotes').innerHTML=r.notes.map(n=>'<span class="r-note">'+n+'</span>').join('');
+  document.getElementById('rcard').style.display='block';
+}
+function retake(){
+  cur=0;ans={};
+  document.getElementById('quiz-area').style.display='block';
+  document.getElementById('rcard').style.display='none';
+  render();
+}
+render();
+</script>
+</body>
+</html>
