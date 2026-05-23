@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Skin Match Quiz — Dot &amp; Key × Gabriella Curates</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400;1,9..144,600&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,400&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#f5fdf8;--surface:#ffffff;--teal:#009e72;--teal-lt:#e0f5ed;
+  --teal-dk:#006b4e;--coral:#e05c3a;--text:#14291f;--muted:#6b8c7a;
+  --border:#c8e8d8;--border-hv:#6dccaa;--sel-bg:#e8f8f0;
+}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:2.5rem 1.25rem 4rem}
+a.back{display:block;width:100%;max-width:640px;font-size:0.75rem;letter-spacing:0.12em;color:var(--muted);text-decoration:none;margin-bottom:2.5rem;transition:color 0.2s}
+a.back:hover{color:var(--teal)}
+.wrap{width:100%;max-width:640px}
+.hd{text-align:center;margin-bottom:3rem}
+.hd-eye{display:inline-flex;align-items:center;gap:8px;font-size:0.72rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--teal);background:var(--teal-lt);padding:0.3rem 0.9rem;border-radius:999px;margin-bottom:1.25rem}
+.hd-dot{width:6px;height:6px;border-radius:50%;background:var(--teal)}
+.hd-title{font-family:'Fraunces',serif;font-size:clamp(2rem,5vw,2.9rem);font-weight:600;line-height:1.1;margin-bottom:0.8rem}
+.hd-title em{font-style:italic;color:var(--teal)}
+.hd-sub{font-size:0.95rem;color:var(--muted);max-width:380px;margin:0 auto}
+.prog{margin-bottom:2rem}
+.prog-top{display:flex;justify-content:space-between;font-size:0.78rem;color:var(--muted);margin-bottom:8px}
+.prog-bar{height:4px;background:#d6ede4;border-radius:999px;overflow:hidden}
+.prog-fill{height:100%;background:var(--teal);border-radius:999px;transition:width 0.45s ease}
+.qcard{background:var(--surface);border:1.5px solid var(--border);border-radius:16px;padding:2.25rem 2rem;animation:up 0.35s ease both}
+@keyframes up{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+.q-chip{display:inline-block;background:var(--teal-lt);color:var(--teal-dk);font-size:0.7rem;letter-spacing:0.14em;text-transform:uppercase;padding:0.25rem 0.7rem;border-radius:999px;margin-bottom:1rem;font-weight:500}
+.q-text{font-family:'Fraunces',serif;font-size:1.35rem;font-weight:600;line-height:1.35;margin-bottom:1.75rem}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.opt{background:transparent;border:1.5px solid var(--border);border-radius:12px;padding:1.1rem 0.9rem;text-align:left;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:0.9rem;line-height:1.45;color:var(--text);transition:all 0.2s ease;display:flex;flex-direction:column;gap:4px}
+.opt-emoji{font-size:1.35rem;line-height:1;margin-bottom:2px}
+.opt:hover{border-color:var(--border-hv);background:#f0fbf5}
+.opt.sel{border-color:var(--teal);background:var(--sel-bg);color:var(--teal-dk)}
+.nav{display:flex;justify-content:flex-end;margin-top:1.25rem}
+.btn-next{background:var(--teal);color:#fff;border:none;border-radius:10px;padding:0.8rem 2rem;font-family:'DM Sans',sans-serif;font-size:0.9rem;font-weight:500;cursor:pointer;letter-spacing:0.04em;transition:all 0.2s ease;opacity:0;pointer-events:none;transform:translateY(4px)}
+.btn-next.vis{opacity:1;pointer-events:auto;transform:translateY(0)}
+.btn-next:hover{background:var(--teal-dk)}
+.rcard{background:var(--surface);border:1.5px solid var(--border);border-radius:16px;padding:2.75rem 2.25rem;text-align:center;animation:up 0.45s ease both;display:none}
+.r-top-chip{display:inline-flex;align-items:center;gap:6px;background:var(--teal-lt);color:var(--teal-dk);font-size:0.72rem;letter-spacing:0.14em;text-transform:uppercase;font-weight:500;padding:0.3rem 0.85rem;border-radius:999px;margin-bottom:1.5rem}
+.r-skin-badge{display:inline-flex;align-items:center;gap:6px;background:#fff;border:1.5px solid var(--border);color:var(--muted);font-size:0.8rem;padding:0.3rem 0.8rem;border-radius:999px;margin-bottom:1.25rem}
+.r-type{font-size:0.85rem;font-weight:500;color:var(--muted);margin-bottom:0.5rem;letter-spacing:0.06em}
+.r-name{font-family:'Fraunces',serif;font-size:1.75rem;font-weight:600;line-height:1.2;margin-bottom:1.1rem}
+.r-desc{font-size:0.96rem;color:var(--muted);line-height:1.7;max-width:420px;margin:0 auto 1.5rem}
+.r-tags{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-bottom:1.75rem}
+.r-tag{background:var(--teal-lt);color:var(--teal-dk);font-size:0.78rem;padding:0.28rem 0.75rem;border-radius:999px;font-weight:500}
+.r-profile{font-size:0.85rem;color:var(--muted);margin-bottom:1.25rem;line-height:1.6}
+.r-profile strong{color:var(--teal-dk)}
+.r-skin-note{background:#fef9ec;border:1px solid #fce09a;border-radius:10px;padding:0.9rem 1.1rem;font-size:0.88rem;color:#7a5e08;margin-bottom:2rem;line-height:1.55;text-align:left}
+.btn-buy{display:inline-block;background:var(--coral);color:#fff;font-family:'DM Sans',sans-serif;font-size:0.9rem;font-weight:500;border-radius:10px;padding:0.9rem 2.25rem;text-decoration:none;transition:background 0.2s ease;letter-spacing:0.04em}
+.btn-buy:hover{background:#c44a2b}
+.btn-retake{display:block;margin-top:1rem;background:none;border:none;font-family:'DM Sans',sans-serif;font-size:0.82rem;color:var(--muted);cursor:pointer;transition:color 0.2s;letter-spacing:0.04em}
+.btn-retake:hover{color:var(--teal)}
+@media(max-width:480px){.opts{grid-template-columns:1fr}.qcard,.rcard{padding:1.5rem 1.1rem}}
+</style>
+</head>
+<body>
+<a class="back" href="dotandkey.html">&larr; Dot &amp; Key</a>
+<div class="wrap">
+  <div class="hd" id="hd">
+    <div class="hd-eye"><span class="hd-dot"></span>Gabriella Curates &times; Dot &amp; Key<span class="hd-dot"></span></div>
+    <h1 class="hd-title">Find Your<br><em>Skin Match</em></h1>
+    <p class="hd-sub">Six questions to discover the formula your skin has been waiting for.</p>
+  </div>
+  <div id="quiz-area">
+    <div class="prog">
+      <div class="prog-top"><span id="plbl-l">Question 1</span><span id="plbl-r">1 of 6</span></div>
+      <div class="prog-bar"><div class="prog-fill" id="pfill" style="width:0%"></div></div>
+    </div>
+    <div class="qcard" id="qcard">
+      <div class="q-chip" id="qchip"></div>
+      <h2 class="q-text" id="qtext"></h2>
+      <div class="opts" id="opts"></div>
+    </div>
+    <div class="nav"><button class="btn-next" id="btn-next" onclick="next()">Continue &rarr;</button></div>
+  </div>
+  <div class="rcard" id="rcard">
+    <div class="r-top-chip"><span>✦</span>Your Skin Match<span>✦</span></div>
+    <div class="r-skin-badge" id="rskin"></div>
+    <p class="r-type" id="rtype"></p>
+    <h2 class="r-name" id="rname"></h2>
+    <p class="r-desc" id="rdesc"></p>
+    <div class="r-tags" id="rtags"></div>
+    <p class="r-profile" id="rprofile"></p>
+    <div class="r-skin-note" id="rnote"></div>
+    <a href="#" class="btn-buy" id="rlink" target="_blank" rel="noopener">Shop on Dot &amp; Key &rarr;</a>
+    <button class="btn-retake" onclick="retake()">Retake the quiz</button>
+  </div>
+</div>
+<script>
+const Qs=[
+  {id:'skin',chip:'Step 1 of 6 — Skin Type',text:'How does my skin usually feel by midday?',opts:[
+    {e:'✨',l:'Oily and shiny — my T-zone runs free',v:'oily'},
+    {e:'🌵',l:'Tight and dry — needs moisture all day',v:'dry'},
+    {e:'⚖️',l:'Combo — oily centre, dry cheeks',v:'combo'},
+    {e:'🌸',l:'Sensitive — reacts to most things',v:'sensitive'}
+  ]},
+  {id:'goal',chip:'Step 2 of 6 — Your Goal',text:'My biggest skin goal right now is...',opts:[
+    {e:'🔍',l:'Clearer skin — fewer breakouts, smaller pores',v:'clear'},
+    {e:'☀️',l:'Brighter skin — glow, even tone, no dark spots',v:'glow'},
+    {e:'💧',l:'More hydration — plump, dewy, soft',v:'hydrate'},
+    {e:'🛡️',l:'Sun protection — safe from daily UV damage',v:'protect'}
+  ]},
+  {id:'concern',chip:'Step 3 of 6 — Secondary Concern',text:'If I had to pick a second skin issue, it would be...',opts:[
+    {e:'🏙️',l:'Pollution & dullness from city life',v:'glow'},
+    {e:'😓',l:'Stress breakouts that appear out of nowhere',v:'clear'},
+    {e:'🥵',l:'Dehydration — my skin drinks up moisturiser fast',v:'hydrate'},
+    {e:'🌞',l:'Sun exposure even on quick outdoor trips',v:'protect'}
+  ]},
+  {id:'climate',chip:'Step 4 of 6 — Your Climate',text:'The weather where I live is mostly...',opts:[
+    {e:'🌡️',l:'Hot and humid — Indian summer vibes',v:'humid'},
+    {e:'🏜️',l:'Dry and sunny — scorching without moisture',v:'dry'},
+    {e:'🌤️',l:'Mild and comfortable most of the year',v:'mild'},
+    {e:'🌪️',l:'Mixed — changes every season',v:'mixed'}
+  ]},
+  {id:'texture',chip:'Step 5 of 6 — Texture Preference',text:'When it comes to skincare textures, I prefer...',opts:[
+    {e:'💨',l:'Light gels and water-based formulas',v:'gel'},
+    {e:'🧴',l:'Creamy lotions that feel nourishing',v:'cream'},
+    {e:'💎',l:'Fast-absorbing serums — I want results',v:'serum'},
+    {e:'🎯',l:'Whatever works — I\'m not fussy about texture',v:'any'}
+  ]},
+  {id:'routine',chip:'Step 6 of 6 — Your Lifestyle',text:'My morning skincare routine honestly looks like...',opts:[
+    {e:'⚡',l:'Two minutes flat — cleanser and go',v:'minimal'},
+    {e:'🌿',l:'A few thoughtful steps — I take my time',v:'moderate'},
+    {e:'💆',l:'A full ritual — I love layering products',v:'full'},
+    {e:'🎲',l:'Completely depends on my mood that day',v:'moderate'}
+  ]}
+];
+
+const skinLabels={oily:'Oily skin',dry:'Dry skin',combo:'Combination skin',sensitive:'Sensitive skin'};
+
+const Rs={
+  clear:{
+    name:'CICA + Ceramide Barrier Repair Serum',
+    type:'Best for: Acne-prone & Sensitive Skin',
+    desc:'Cica calms active breakouts while ceramides rebuild your skin barrier from within. Skin gets clearer without ever feeling stripped or irritated.',
+    tags:['Barrier Repair','Anti-Acne','Ceramide-Rich','Fragrance-Free'],
+    link:'https://bilty.co/dk-cica-serum',
+    note:'💡 Pair with: Waterlight Gel Moisturizer for a lightweight, non-comedogenic finish that controls oil while healing the barrier.'
+  },
+  glow:{
+    name:'Vitamin C + E Supercharged Serum',
+    type:'Best for: Dull & Uneven Skin Tone',
+    desc:'High-dose stabilised Vitamin C and E that fades dark spots, brightens overall tone, and gives you a lit-from-within glow — morning after morning.',
+    tags:['Brightening','Dark Spot Fade','Antioxidant','Even Tone'],
+    link:'https://bilty.co/dk-vitamin-c-serum',
+    note:'💡 Always follow with SPF during the day — Vitamin C and unprotected sun exposure will work against each other.'
+  },
+  hydrate:{
+    name:'Waterlight Gel Moisturiser',
+    type:'Best for: All Skin Types, Especially Oily',
+    desc:'72-hour hydration in a gel so lightweight it vanishes into the skin. Your face stays plump and dewy all day — zero grease.',
+    tags:['72-Hour Hydration','Oil-Free','Lightweight Gel','Non-Comedogenic'],
+    link:'https://bilty.co/dk-waterlight-gel',
+    note:'💡 Works beautifully as the last step before SPF and makeup — gives a naturally airbrushed, skin-like base.'
+  },
+  protect:{
+    name:'SPF 50 PA++++ Aqua Gel Sunscreen',
+    type:'Best for: Daily Sun Protection',
+    desc:'Ultra-lightweight, no white cast, zero greasiness. The sunscreen that finally makes you want to wear SPF every single day. Broad spectrum PA++++.',
+    tags:['SPF 50','PA++++','No White Cast','Water-Based'],
+    link:'https://bilty.co/dk-spf50-aqua',
+    note:'💡 If your skin leans dry, try the Dewy Glow SPF 50 variant instead — it hydrates while it protects.'
+  }
+};
+
+let cur=0,ans={};
+
+function render(){
+  const q=Qs[cur],n=Qs.length;
+  document.getElementById('pfill').style.width=((cur/n)*100)+'%';
+  document.getElementById('plbl-l').textContent='Question '+(cur+1);
+  document.getElementById('plbl-r').textContent=(cur+1)+' of '+n;
+  document.getElementById('qchip').textContent=q.chip;
+  document.getElementById('qtext').textContent=q.text;
+  const g=document.getElementById('opts');g.innerHTML='';
+  q.opts.forEach((o,i)=>{
+    const b=document.createElement('button');
+    b.className='opt'+(ans[q.id]===o.v&&ans['_i'+q.id]===i?' sel':'');
+    b.innerHTML='<span class="opt-emoji">'+o.e+'</span>'+o.l;
+    b.onclick=()=>pick(o.v,i,b,q.id);
+    g.appendChild(b);
+  });
+  const nx=document.getElementById('btn-next');
+  nx.className='btn-next'+(ans[q.id]!==undefined?' vis':'');
+  const c=document.getElementById('qcard');c.style.animation='none';void c.offsetHeight;c.style.animation='up 0.35s ease both';
+}
+
+function pick(v,i,btn,qid){
+  ans[qid]=v;ans['_i'+qid]=i;
+  document.querySelectorAll('.opt').forEach(b=>b.classList.remove('sel'));
+  btn.classList.add('sel');
+  document.getElementById('btn-next').classList.add('vis');
+}
+
+function next(){
+  if(ans[Qs[cur].id]===undefined)return;
+  cur++;if(cur>=Qs.length)showResult();else render();
+}
+
+function showResult(){
+  document.getElementById('quiz-area').style.display='none';
+  const sc={clear:0,glow:0,hydrate:0,protect:0};
+  ['goal','concern'].forEach(k=>{if(ans[k]&&sc[ans[k]]!==undefined)sc[ans[k]]++;});
+  if(ans.climate==='humid')sc.hydrate+=0.5;
+  if(ans.climate==='dry')sc.hydrate+=0.5;
+  const winner=Object.keys(sc).reduce((a,b)=>sc[a]>=sc[b]?a:b);
+  const r=Rs[winner];
+  const skinLabel=skinLabels[ans.skin]||'Your skin';
+  const routineLabels={minimal:'Quick routine',moderate:'Balanced routine',full:'Full ritual'};
+  const textureLabels={gel:'Gel textures',cream:'Creamy formulas',serum:'Serums',any:'Open to anything'};
+  document.getElementById('rskin').textContent=skinLabel;
+  document.getElementById('rtype').textContent=r.type;
+  document.getElementById('rname').textContent=r.name;
+  document.getElementById('rdesc').textContent=r.desc;
+  document.getElementById('rlink').href=r.link;
+  document.getElementById('rtags').innerHTML=r.tags.map(t=>'<span class="r-tag">'+t+'</span>').join('');
+  const prof='Your profile: <strong>'+skinLabel+'</strong> &bull; <strong>'+(routineLabels[ans.routine]||'Flexible routine')+'</strong> &bull; <strong>'+(textureLabels[ans.texture]||'Flexible texture')+'</strong>';
+  document.getElementById('rprofile').innerHTML=prof;
+  document.getElementById('rnote').textContent=r.note;
+  document.getElementById('rcard').style.display='block';
+}
+
+function retake(){
+  cur=0;ans={};
+  document.getElementById('quiz-area').style.display='block';
+  document.getElementById('rcard').style.display='none';
+  render();
+}
+
+render();
+</script>
+</body>
+</html>
