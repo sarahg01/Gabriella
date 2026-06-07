@@ -6,630 +6,74 @@
     <link rel="icon" type="image/png" href="favicon.png?v=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
-
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Lato', sans-serif; }
-
-        /* ===== NAVBAR ===== */
-        .navbar {
-            background: #000;
-            padding: 14px 24px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            position: relative;
-            z-index: 1001;
-            gap: 14px;
-        }
-
-        .menu-icon {
-            font-size: 26px;
-            color: white;
-            cursor: pointer;
-            padding: 6px 8px;
-            flex-shrink: 0;
-            line-height: 1;
-            background: none;
-            border: none;
-        }
+        .navbar { background: #000; padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; position: relative; z-index: 1001; gap: 14px; }
+        .menu-icon { font-size: 26px; color: white; cursor: pointer; padding: 6px 8px; flex-shrink: 0; line-height: 1; background: none; border: none; }
         .menu-icon:hover { color: #e91e63; }
-
-        .search-wrap {
-            display: flex;
-            align-items: center;
-            background: #1a1a1a;
-            border: 1.5px solid #333;
-            border-radius: 30px;
-            padding: 7px 16px;
-            gap: 8px;
-            flex: 1;
-            max-width: 380px;
-            margin-left: auto;
-            transition: border-color 0.2s;
-            position: relative;
-        }
+        .search-wrap { display: flex; align-items: center; background: #1a1a1a; border: 1.5px solid #333; border-radius: 30px; padding: 7px 16px; gap: 8px; flex: 1; max-width: 380px; margin-left: auto; transition: border-color 0.2s; position: relative; }
         .search-wrap:focus-within { border-color: #e91e63; }
         .search-wrap svg { flex-shrink: 0; }
-        .search-input {
-            background: none;
-            border: none;
-            outline: none;
-            color: white;
-            font-size: 14px;
-            font-family: 'Lato', sans-serif;
-            width: 100%;
-        }
+        .search-input { background: none; border: none; outline: none; color: white; font-size: 14px; font-family: 'Lato', sans-serif; width: 100%; }
         .search-input::placeholder { color: #888; }
-
-        .search-results {
-            display: none;
-            position: absolute;
-            top: calc(100% + 6px);
-            right: 0;
-            width: 320px;
-            background: #fff;
-            border-radius: 10px;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.18);
-            z-index: 2000;
-            overflow: hidden;
-        }
+        .search-results { display: none; position: absolute; top: calc(100% + 6px); right: 0; width: 320px; background: #fff; border-radius: 10px; box-shadow: 0 8px 30px rgba(0,0,0,0.18); z-index: 2000; overflow: hidden; }
         .search-results.open { display: block; }
-        .search-result-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 11px 16px;
-            cursor: pointer;
-            border-bottom: 1px solid #f5f5f5;
-            text-decoration: none;
-            color: #111;
-            transition: background 0.15s;
-            font-family: 'Lato', sans-serif;
-        }
+        .search-result-item { display: flex; align-items: center; gap: 12px; padding: 11px 16px; cursor: pointer; border-bottom: 1px solid #f5f5f5; text-decoration: none; color: #111; transition: background 0.15s; font-family: 'Lato', sans-serif; }
         .search-result-item:last-child { border-bottom: none; }
         .search-result-item:hover { background: #fce4ec; }
-        .search-result-item img {
-            width: 42px; height: 42px; object-fit: contain;
-            background: #f7f7f7; border-radius: 6px; flex-shrink: 0;
-        }
+        .search-result-item img { width: 42px; height: 42px; object-fit: contain; background: #f7f7f7; border-radius: 6px; flex-shrink: 0; }
         .search-result-name { font-size: 13px; font-weight: 600; line-height: 1.35; }
         .search-result-price { font-size: 12px; color: #e91e63; margin-top: 2px; }
         .search-no-result { padding: 16px; font-size: 13px; color: #888; text-align: center; font-family: 'Lato', sans-serif; }
-
-        .nav-links { display: none; }
-
-        /* ===== OVERLAY ===== */
-        .overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.5); opacity: 0; visibility: hidden;
-            transition: 0.3s; z-index: 1000;
-        }
+        .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); opacity: 0; visibility: hidden; transition: 0.3s; z-index: 1000; }
         .overlay.active { opacity: 1; visibility: visible; }
-
-        /* ===== SIDE MENU ===== */
-        .side-menu {
-            position: fixed; top: 0; left: -270px; width: 260px; height: 100%;
-            background: #000; display: flex; flex-direction: column;
-            padding-top: 70px; transition: 0.35s cubic-bezier(.4,0,.2,1);
-            z-index: 1002; overflow-y: auto;
-        }
+        .side-menu { position: fixed; top: 0; left: -270px; width: 260px; height: 100%; background: #000; display: flex; flex-direction: column; padding-top: 70px; transition: 0.35s cubic-bezier(.4,0,.2,1); z-index: 1002; overflow-y: auto; }
         .side-menu.open { left: 0; }
-        .side-menu a, .side-menu .menu-item {
-            color: white; text-decoration: none; padding: 14px 24px; font-size: 16px;
-            font-family: 'Lato', sans-serif;
-            cursor: pointer; display: flex; justify-content: space-between;
-            align-items: center; min-height: 48px; border-bottom: 1px solid #111;
-        }
+        .side-menu a, .side-menu .menu-item { color: white; text-decoration: none; padding: 14px 24px; font-size: 16px; font-family: 'Lato', sans-serif; cursor: pointer; display: flex; justify-content: space-between; align-items: center; min-height: 48px; border-bottom: 1px solid #111; }
         .side-menu a:hover, .side-menu .menu-item:hover { background: #181818; color: #e91e63; }
-        .side-menu .close-btn {
-            position: absolute; top: 16px; right: 16px; font-size: 28px;
-            cursor: pointer; color: white; padding: 6px; line-height: 1; background: none; border: none;
-        }
+        .side-menu .close-btn { position: absolute; top: 16px; right: 16px; font-size: 28px; cursor: pointer; color: white; padding: 6px; line-height: 1; background: none; border: none; }
         .side-menu .close-btn:hover { color: #e91e63; }
-        .side-sub-menu { display: none; flex-direction: column; background: #111; }
-        .side-sub-menu a { padding-left: 44px; font-size: 15px; border-bottom: 1px solid #1a1a1a; }
-        #sideArrow { transition: transform 0.3s; display: inline-block; }
-        #sideArrow.rotate { transform: rotate(180deg); }
-
-        /* ===== PAGE ===== */
-        .page-title {
-            text-align: center;
-            margin: 60px 0 40px;
-            font-size: 32px;
-            color: #e91e63;
-            font-family: 'Playfair Display', serif;
-            font-weight: 600;
-        }
-
-        .product-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-            gap: 30px; padding: 0 60px 80px;
-        }
-        .product-card {
-            background: white; padding: 20px; border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08); text-align: center;
-            transition: 0.3s; position: relative;
-        }
+        .page-title { text-align: center; margin: 60px 0 40px; font-size: 32px; color: #e91e63; font-family: 'Playfair Display', serif; font-weight: 600; }
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 30px; padding: 0 60px 80px; }
+        .product-card { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); text-align: center; transition: 0.3s; position: relative; }
         .product-card:hover { transform: translateY(-5px); box-shadow: 0 6px 18px rgba(0,0,0,0.15); }
         .product-card img { width: 100%; height: 220px; object-fit: contain; background: #fff; padding: 10px; }
-        .product-card h3 {
-            margin-top: 15px;
-            font-size: 15px;
-            font-family: 'Playfair Display', serif;
-            font-weight: 600;
-            line-height: 1.5;
-        }
-
-        .buy-btn {
-            display: inline-flex; align-items: center; justify-content: center;
-            margin-top: 15px; padding: 10px 20px; background: #e91e63; color: white;
-            text-decoration: none; border-radius: 6px; font-size: 14px;
-            font-family: 'Lato', sans-serif; font-weight: 700; letter-spacing: 0.5px;
-            min-height: 44px; width: 100%; transition: 0.3s;
-        }
+        .product-card h3 { margin-top: 15px; font-size: 15px; font-family: 'Playfair Display', serif; font-weight: 600; line-height: 1.5; }
+        .buy-btn { display: inline-flex; align-items: center; justify-content: center; margin-top: 15px; padding: 10px 20px; background: #e91e63; color: white; text-decoration: none; border-radius: 6px; font-size: 14px; font-family: 'Lato', sans-serif; font-weight: 700; letter-spacing: 0.5px; min-height: 44px; width: 100%; transition: 0.3s; }
         .buy-btn:hover { background: #c2185b; }
-
-        .eye-btn {
-            position: absolute; top: 12px; right: 12px;
-            width: 36px; height: 36px; background: rgba(255,255,255,0.95);
-            border: 1.5px solid #ddd; border-radius: 50%; cursor: pointer;
-            display: flex; align-items: center; justify-content: center;
-            transition: 0.2s; z-index: 2;
-        }
+        .eye-btn { position: absolute; top: 12px; right: 12px; width: 36px; height: 36px; background: rgba(255,255,255,0.95); border: 1.5px solid #ddd; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.2s; z-index: 2; }
         .eye-btn:hover { background: #e91e63; border-color: #e91e63; }
         .eye-btn:hover svg path, .eye-btn:hover svg circle { stroke: white; }
         .eye-btn svg { width: 17px; height: 17px; }
-
-        /* ===== POPUP ===== */
-        .popup-overlay {
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.65); z-index: 2000;
-            align-items: center; justify-content: center; padding: 20px;
-        }
-        .popup-overlay.open { display: flex; }
-        .popup-box {
-            background: white; border-radius: 14px; width: 100%; max-width: 420px;
-            max-height: 90vh; overflow-y: auto; position: relative;
-            animation: popIn 0.22s ease;
-        }
-        @keyframes popIn { from { transform: scale(0.93); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-        .popup-close {
-            position: absolute; top: 12px; right: 16px; font-size: 26px;
-            cursor: pointer; color: #555; z-index: 10; line-height: 1; background: none; border: none;
-        }
-        .popup-close:hover { color: #e91e63; }
-        .slider-wrap { position: relative; background: #f7f7f7; border-radius: 14px 14px 0 0; overflow: hidden; }
-        .slides { display: flex; transition: transform 0.32s ease; }
-        .slides img { min-width: 100%; height: 280px; object-fit: contain; padding: 20px; background: #f7f7f7; }
-        .slider-arrow {
-            position: absolute; top: 50%; transform: translateY(-50%);
-            background: rgba(255,255,255,0.92); border: none; border-radius: 50%;
-            width: 34px; height: 34px; font-size: 20px; cursor: pointer;
-            display: flex; align-items: center; justify-content: center; color: #333; transition: 0.2s; z-index: 5;
-        }
-        .slider-arrow:hover { background: #e91e63; color: white; }
-        .slider-arrow.prev { left: 10px; }
-        .slider-arrow.next { right: 10px; }
-        .slider-dots { display: flex; justify-content: center; gap: 7px; padding: 10px 0 6px; background: #f7f7f7; }
-        .dot { width: 8px; height: 8px; border-radius: 50%; background: #ccc; cursor: pointer; transition: 0.2s; }
-        .dot.active { background: #e91e63; }
-        .new-badge {
-            position: absolute; top: 14px; left: 14px; background: #e91e63; color: white;
-            font-size: 11px; font-weight: bold; padding: 4px 10px; border-radius: 4px; z-index: 5;
-            font-family: 'Lato', sans-serif; letter-spacing: 1px;
-        }
-        .popup-details { padding: 18px 22px 24px; font-family: 'Lato', sans-serif; }
-        .popup-details .sku { font-size: 12px; color: #999; margin-bottom: 5px; }
-        .popup-details h2 {
-            font-size: 17px; font-weight: bold; color: #111; margin-bottom: 10px; line-height: 1.45;
-            font-family: 'Playfair Display', serif;
-        }
-        .popup-stars { font-size: 17px; margin-bottom: 13px; letter-spacing: 1px; }
-        .star-filled { color: #f5a623; }
-        .star-empty { color: #ddd; }
-        .popup-price { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 3px; }
-        .popup-price .offer { font-size: 22px; font-weight: bold; color: #111; }
-        .popup-price .mrp { font-size: 14px; color: #aaa; text-decoration: line-through; }
-        .popup-price .discount { font-size: 12px; background: #f0f0f0; color: #666; padding: 3px 10px; border-radius: 20px; }
-        .popup-tax { font-size: 12px; color: #999; margin-bottom: 15px; }
-        .popup-desc { font-size: 14px; color: #444; line-height: 1.65; margin-bottom: 16px; border-top: 1px solid #f0f0f0; padding-top: 14px; }
-        .size-label { font-size: 13px; font-weight: bold; color: #333; margin-bottom: 8px; }
-        .size-box { display: inline-block; border: 1.5px solid #333; padding: 8px 22px; border-radius: 6px; font-size: 14px; color: #333; margin-bottom: 18px; }
-        .popup-buy-btn {
-            display: block; width: 100%; padding: 14px; background: #e91e63; color: white;
-            text-align: center; text-decoration: none; border-radius: 8px; font-size: 15px;
-            font-family: 'Lato', sans-serif; font-weight: bold; letter-spacing: 1px;
-            transition: 0.3s; min-height: 50px; line-height: 1.4;
-        }
-        .popup-buy-btn:hover { background: #c2185b; }
-
-        footer {
-            text-align: center; padding: 20px 15px; margin-top: 30px;
-            font-size: 14px; line-height: 1.6;
-            font-family: 'Lato', sans-serif; color: #555;
-        }
-
-        /* ===== RESPONSIVE ===== */
-        @media (max-width: 768px) {
-            .page-title { font-size: 24px; margin: 40px 0 25px; }
-            .product-grid { grid-template-columns: 1fr 1fr; gap: 20px; padding: 0 20px 60px; }
-            .product-card img { height: 180px; }
-            .product-card h3 { font-size: 13px; }
-            .buy-btn { font-size: 13px; padding: 8px 14px; }
-            .slides img { height: 240px; }
-            .search-wrap { max-width: 220px; }
-        }
-
-        @media (max-width: 480px) {
-            .navbar { padding: 12px 14px; }
-            .search-wrap { max-width: 180px; padding: 6px 12px; }
-            .page-title { font-size: 20px; margin: 30px 0 20px; }
-            .product-grid { grid-template-columns: 1fr; gap: 15px; padding: 0 15px 50px; }
-            .product-card { padding: 15px; }
-            .product-card img { height: 200px; }
-            .product-card h3 { font-size: 14px; }
-            footer { font-size: 12px; }
-            .popup-overlay { align-items: flex-end; padding: 0; }
-            .popup-box { max-width: 100%; border-radius: 18px 18px 0 0; }
-            .slides img { height: 210px; }
-            .search-results { width: 260px; right: -10px; }
-        }
+        footer { text-align: center; padding: 20px 15px; margin-top: 30px; font-size: 14px; line-height: 1.6; font-family: 'Lato', sans-serif; color: #555; }
+        @media (max-width: 768px) { .page-title { font-size: 24px; margin: 40px 0 25px; } .product-grid { grid-template-columns: 1fr 1fr; gap: 20px; padding: 0 20px 60px; } }
+        @media (max-width: 480px) { .navbar { padding: 12px 14px; } .search-wrap { max-width: 180px; padding: 6px 12px; } .page-title { font-size: 20px; margin: 30px 0 20px; } .product-grid { grid-template-columns: 1fr; gap: 15px; padding: 0 15px 50px; } }
     </style>
-  
 </head>
-    
 <body>
-
-<!-- NAVBAR -->
 <div class="navbar">
-    <button class="menu-icon" onclick="openMenu()" aria-label="Open menu">☰</button>
-    <div class="search-wrap">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-            <circle cx="11" cy="11" r="8" stroke="#888" stroke-width="2"/>
-            <path d="M21 21l-4.35-4.35" stroke="#888" stroke-width="2" stroke-linecap="round"/>
-        </svg>
-        <input
-            class="search-input"
-            id="searchInput"
-            type="text"
-            placeholder="Search products..."
-            autocomplete="off"
-            oninput="handleSearch(this.value)"
-            onfocus="handleSearch(this.value)"
-        >
+    <button class="menu-icon" onclick="openMenu()" aria-label="Open menu">&#9776;</button>
+    <div class="search-wrap" style="position:relative;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="8" stroke="#888" stroke-width="2"/><path d="M21 21l-4.35-4.35" stroke="#888" stroke-width="2" stroke-linecap="round"/></svg>
+        <input class="search-input" id="searchInput" type="text" placeholder="Search products..." autocomplete="off" oninput="handleSearch(this.value)" onfocus="handleSearch(this.value)">
         <div class="search-results" id="searchResults"></div>
     </div>
 </div>
-
-<!-- Overlay -->
 <div class="overlay" id="overlay" onclick="closeMenu()"></div>
-
-<!-- Side Menu -->
 <div class="side-menu" id="sideMenu">
-    <button class="close-btn" onclick="closeMenu()" aria-label="Close menu">×</button>
-    <a href="MB.html">Home</a>
-        <a href="DK.html">Dot&Key</a>
+    <button class="close-btn" onclick="closeMenu()" aria-label="Close menu">&times;</button>
+    <a href="index.html">Home</a>
     <a href="About.html">About</a>
-       <a href="skinn.html">SKINN</a>
-         <a href="contact.html">Contact</a>
-
-    </div>
-   </div>
-
-<!-- PAGE TITLE -->
-<h1 class="page-title">Power. Presence. Perfume</h1>
-
-<!-- PRODUCT GRID -->
-<div class="product-grid">
-
-    <div class="product-card">
-        <button class="eye-btn" onclick="openPopup(0)" aria-label="Quick view"><svg viewBox="0 0 24 24" fill="none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="#333" stroke-width="2"/></svg></button>
-        <img src="mp1.PNG" alt="Skinn Nova for Men">
-        <h3>Skinn by Titan Nova for Men - 100 ml<br>₹3,095</h3>
-        <a href="https://bilty.co/laqNCW" target="_blank" rel="nofollow noopener" class="buy-btn">Buy on SKINN</a>
-    </div>
-
-    <div class="product-card">
-        <button class="eye-btn" onclick="openPopup(1)" aria-label="Quick view"><svg viewBox="0 0 24 24" fill="none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="#333" stroke-width="2"/></svg></button>
-        <img src="mp2.PNG" alt="Skinn Amalfi Riviera Unisex">
-        <h3>Skinn Amalfi Riviera Unisex Eau de Parfum 90 ml<br>₹3,095</h3>
-        <a href="https://bilty.co/LRX06U" target="_blank" rel="nofollow noopener" class="buy-btn">Buy on SKINN</a>
-    </div>
-
-    <div class="product-card">
-        <button class="eye-btn" onclick="openPopup(2)" aria-label="Quick view"><svg viewBox="0 0 24 24" fill="none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="#333" stroke-width="2"/></svg></button>
-        <img src="mp3.PNG" alt="Skinn Raw Instinct">
-        <h3>Skinn by Titan Raw Instinct 100 ML Perfume for Men EDP<br>₹2,895</h3>
-        <a href="https://bilty.co/aQzaIl" target="_blank" rel="nofollow noopener" class="buy-btn">Buy on SKINN</a>
-    </div>
-
-    <div class="product-card">
-        <button class="eye-btn" onclick="openPopup(3)" aria-label="Quick view"><svg viewBox="0 0 24 24" fill="none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="#333" stroke-width="2"/></svg></button>
-        <img src="mp4.PNG" alt="Skinn Amalfi Bleu">
-        <h3>Skinn by Titan Amalfi Bleu 90 ML Perfume for Men<br>₹2,795</h3>
-        <a href="https://bilty.co/4tKUHw" target="_blank" rel="nofollow noopener" class="buy-btn">Buy on SKINN</a>
-    </div>
-
-    <div class="product-card">
-        <button class="eye-btn" onclick="openPopup(4)" aria-label="Quick view"><svg viewBox="0 0 24 24" fill="none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="#333" stroke-width="2"/></svg></button>
-        <img src="mp5.PNG" alt="Skinn Raw">
-        <h3>Skinn by Titan Raw 100 ML Perfume for Men EDP<br>₹2,795</h3>
-        <a href="https://bilty.co/ZX9rPI" target="_blank" rel="nofollow noopener" class="buy-btn">Buy on SKINN</a>
-    </div>
-
-    <div class="product-card">
-        <button class="eye-btn" onclick="openPopup(5)" aria-label="Quick view"><svg viewBox="0 0 24 24" fill="none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="#333" stroke-width="2"/></svg></button>
-        <img src="mp6.PNG" alt="Skinn Steele">
-        <h3>Skinn by Titan Steele 100 ML Perfume for Men EDP<br>₹2,795</h3>
-        <a href="https://bilty.co/EYynEe" target="_blank" rel="nofollow noopener" class="buy-btn">Buy on SKINN</a>
-    </div>
-
-    <div class="product-card">
-        <button class="eye-btn" onclick="openPopup(6)" aria-label="Quick view"><svg viewBox="0 0 24 24" fill="none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="#333" stroke-width="2"/></svg></button>
-        <img src="mp7.PNG" alt="Skinn Verge">
-        <h3>Skinn by Titan Verge 100 ML Perfume for Men EDP<br>₹2,795</h3>
-        <a href="https://bilty.co/B8Ehfb" target="_blank" rel="nofollow noopener" class="buy-btn">Buy on SKINN</a>
-    </div>
-
-    <div class="product-card">
-        <button class="eye-btn" onclick="openPopup(7)" aria-label="Quick view"><svg viewBox="0 0 24 24" fill="none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="#333" stroke-width="2"/></svg></button>
-        <img src="mp8.PNG" alt="Skinn Raw Coffret">
-        <h3>Skinn by Titan Raw Coffret for Men<br>₹1,696</h3>
-        <a href="https://bilty.co/EtELHr" target="_blank" rel="nofollow noopener" class="buy-btn">Buy on SKINN</a>
-    </div>
-
-    <div class="product-card">
-        <button class="eye-btn" onclick="openPopup(8)" aria-label="Quick view"><svg viewBox="0 0 24 24" fill="none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="#333" stroke-width="2"/></svg></button>
-        <img src="mp9.PNG" alt="Skinn Steele 20ml">
-        <h3>Skinn by Titan Steele 20 ML Perfume for Men EDP<br>₹556</h3>
-        <a href="https://bilty.co/UIEcS5" target="_blank" rel="nofollow noopener" class="buy-btn">Buy on SKINN</a>
-    </div>
-
-    <div class="product-card">
-        <button class="eye-btn" onclick="openPopup(9)" aria-label="Quick view"><svg viewBox="0 0 24 24" fill="none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="#333" stroke-width="2"/></svg></button>
-        <img src="mp10.PNG" alt="Skinn Mini Gift Set for Men">
-        <h3>Skinn by Titan Mini Gift Set for Men<br>₹1,995</h3>
-        <a href="https://bilty.co/emjnZ2" target="_blank" rel="nofollow noopener" class="buy-btn">Buy on SKINN</a>
-    </div>
-
-    <div class="product-card">
-        <button class="eye-btn" onclick="openPopup(10)" aria-label="Quick view"><svg viewBox="0 0 24 24" fill="none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="#333" stroke-width="2"/></svg></button>
-        <img src="mp11.PNG" alt="Skinn Premium Deo Bundle pack of 3">
-        <h3>Skinn Premium Deo Bundle pack of 3 for Men<br>₹1,595</h3>
-        <a href="https://bilty.co/FIFecl" target="_blank" rel="nofollow noopener" class="buy-btn">Buy on SKINN</a>
-    </div>
-
-    <div class="product-card">
-        <button class="eye-btn" onclick="openPopup(11)" aria-label="Quick view"><svg viewBox="0 0 24 24" fill="none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="#333" stroke-width="2"/></svg></button>
-        <img src="mp12.PNG" alt="Skinn Raw 50ml">
-        <h3>Skinn by Titan Raw 50 ML Perfume for Men EDP<br>₹1,595</h3>
-        <a href="https://bilty.co/Es7CqZ" target="_blank" rel="nofollow noopener" class="buy-btn">Buy on SKINN</a>
-    </div>
-
-    <div class="product-card">
-        <button class="eye-btn" onclick="openPopup(12)" aria-label="Quick view"><svg viewBox="0 0 24 24" fill="none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="#333" stroke-width="2"/></svg></button>
-        <img src="mp13.PNG" alt="Skinn Verge 50ml">
-        <h3>Skinn by Titan Verge 50 ML Perfume for Men EDP<br>₹1,595</h3>
-        <a href="https://bilty.co/Y7HLmv" target="_blank" rel="nofollow noopener" class="buy-btn">Buy on SKINN</a>
-    </div>
-
-    <div class="product-card">
-        <button class="eye-btn" onclick="openPopup(13)" aria-label="Quick view"><svg viewBox="0 0 24 24" fill="none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="#333" stroke-width="2"/></svg></button>
-        <img src="mp14.PNG" alt="Skinn Escapade Deo Pack of 3">
-        <h3>Skinn Escapade Deo Pack of 3 for Men<br>₹1,595</h3>
-        <a href="https://bilty.co/7xWqnV" target="_blank" rel="nofollow noopener" class="buy-btn">Buy on SKINN</a>
-    </div>
-
-    <div class="product-card">
-        <button class="eye-btn" onclick="openPopup(14)" aria-label="Quick view"><svg viewBox="0 0 24 24" fill="none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="#333" stroke-width="2"/></svg></button>
-        <img src="mp15.PNG" alt="Skinn Steele 50ml">
-        <h3>Skinn by Titan Steele 50 ML Perfume for Men EDP<br>₹1,595</h3>
-        <a href="https://bilty.co/VsV2jO" target="_blank" rel="nofollow noopener" class="buy-btn">Buy on SKINN</a>
-    </div>
-
-    <div class="product-card">
-        <button class="eye-btn" onclick="openPopup(15)" aria-label="Quick view"><svg viewBox="0 0 24 24" fill="none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="#333" stroke-width="2"/></svg></button>
-        <img src="mp16.PNG" alt="SKINN 247 Aqua 100ml">
-        <h3>SKINN 247 Aqua 100 ml Eau De Parfum<br>₹1,396</h3>
-        <a href="https://bilty.co/g2cdEA" target="_blank" rel="nofollow noopener" class="buy-btn">Buy on SKINN</a>
-    </div>
-
-    <div class="product-card">
-        <button class="eye-btn" onclick="openPopup(16)" aria-label="Quick view"><svg viewBox="0 0 24 24" fill="none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="#333" stroke-width="2"/></svg></button>
-        <img src="mp17.PNG" alt="SKINN 247 Amber 100ml">
-        <h3>SKINN 247 Amber 100 ml Eau De Parfum<br>₹1,396</h3>
-        <a href="https://bilty.co/B84OR1" target="_blank" rel="nofollow noopener" class="buy-btn">Buy on SKINN</a>
-    </div>
-
-    <div class="product-card">
-        <button class="eye-btn" onclick="openPopup(17)" aria-label="Quick view"><svg viewBox="0 0 24 24" fill="none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="#333" stroke-width="2"/></svg></button>
-        <img src="mp18.PNG" alt="Skinn Deodorant Steele">
-        <h3>Skinn Deodorant Spray Steele For Men<br>₹595</h3>
-        <a href="https://bilty.co/bWhi9Q" target="_blank" rel="nofollow noopener" class="buy-btn">Buy on SKINN</a>
-    </div>
-
-    <div class="product-card">
-        <button class="eye-btn" onclick="openPopup(18)" aria-label="Quick view"><svg viewBox="0 0 24 24" fill="none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="#333" stroke-width="2"/></svg></button>
-        <img src="mp19.PNG" alt="Skinn Deodorant Raw">
-        <h3>Skinn Deodorant Spray Raw For Men<br>₹595</h3>
-        <a href="https://bilty.co/XArXGz" target="_blank" rel="nofollow noopener" class="buy-btn">Buy on SKINN</a>
-    </div>
-
-    <div class="product-card">
-        <button class="eye-btn" onclick="openPopup(19)" aria-label="Quick view"><svg viewBox="0 0 24 24" fill="none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="#333" stroke-width="2"/></svg></button>
-        <img src="mp20.PNG" alt="Skinn Deodorant Amalfi Bleu">
-        <h3>Skinn Deodorant Spray Amalfi Bleu For Men<br>₹595</h3>
-        <a href="https://bilty.co/iPLhA7" target="_blank" rel="nofollow noopener" class="buy-btn">Buy on SKINN</a>
-    </div>
-
+    <a href="skinn.html">SKINN</a>
+    <a href="contact.html">Contact</a>
 </div>
-
-<!-- QUICK VIEW POPUP -->
-<div class="popup-overlay" id="popupOverlay" onclick="handleOverlayClick(event)">
-    <div class="popup-box" id="popupBox">
-        <button class="popup-close" onclick="closePopup()">×</button>
-        <div class="slider-wrap">
-            <span class="new-badge" id="popupBadge">New Drop</span>
-            <div class="slides" id="popupSlides"></div>
-            <button class="slider-arrow prev" onclick="slideMove(-1)">&#8249;</button>
-            <button class="slider-arrow next" onclick="slideMove(1)">&#8250;</button>
-            <div class="slider-dots" id="sliderDots"></div>
-        </div>
-        <div class="popup-details">
-            <div class="sku" id="popupSku"></div>
-            <h2 id="popupTitle"></h2>
-            <div class="popup-stars" id="popupStars"></div>
-            <div class="popup-price">
-                <span class="offer" id="popupOffer"></span>
-                <span class="mrp" id="popupMrp"></span>
-                <span class="discount" id="popupDiscount"></span>
-            </div>
-            <div class="popup-tax">(Inclusive of all taxes)</div>
-            <div class="popup-desc" id="popupDesc"></div>
-            <div class="size-label">Size</div>
-            <div class="size-box" id="popupSize"></div>
-            <a class="popup-buy-btn" id="popupBuyBtn" target="_blank" rel="nofollow noopener">BUY ON SKINN</a>
-        </div>
-    </div>
-</div>
-
-<!-- FOOTER -->
-<footer>
-    <p>Disclaimer: GT is an affiliate of SKINN And Dot & Key.<br>
-    We earn a small commission if you purchase through our links at no extra cost to you.</p>
-    <p style="margin-top:8px;">© 2026 Gabriella</p>
-</footer>
-
+<h1 class="page-title">MEN ✨</h1>
+<div class="product-grid"></div>
+<footer>Disclaimer: Gabriella is an affiliate of SKINN And Dot &amp; Key. We earn a small commission if you purchase through our links at no extra cost to you.</footer>
 <script>
-const products = [
-    { sku:"FCLM04PC", title:"Skinn by Titan Nova for Men - 100 ml", stars:4, offer:"₹3,095", mrp:"₹3,595", discount:"14% OFF", size:"100 ml", badge:true, desc:"Nova is a bold, sophisticated fragrance for the modern man. Fresh top notes of bergamot and grapefruit open into a heart of cedarwood and vetiver, settling into a warm base of amber and musk. Long-lasting and commanding.", images:["mp1.PNG"], link:"https://www.skinn.in/product/skinn-by-titan-nova-for-men---100-ml-fclm04pc.html" },
-    { sku:"FAQU02PK", title:"Skinn Amalfi Riviera Unisex Eau de Parfum 90 ml", stars:5, offer:"₹3,095", mrp:"₹3,595", discount:"14% OFF", size:"90 ml", badge:true, desc:"Inspired by the sun-kissed coasts of the Amalfi Riviera, this unisex EDP opens with sparkling citrus and sea breeze notes, blossoming into a floral heart with a warm driftwood base. Effortlessly elegant.", images:["mp2.PNG"], link:"https://www.skinn.in/product/skinn-amalfi-riviera-unisex-eau-de-parfum-90-ml-faqu02pk.html" },
-    { sku:"FCFM01PC", title:"Skinn by Titan Raw Instinct 100 ML Perfume for Men EDP", stars:4, offer:"₹2,895", mrp:"₹3,295", discount:"12% OFF", size:"100 ml", badge:false, desc:"Raw Instinct is an intense, primal fragrance built for confidence. Smoky oud and black pepper ignite the opening, while leather and patchouli deepen the character. A powerful statement for the bold man.", images:["mp3.PNG"], link:"https://www.skinn.in/product/skinn-by-titan-raw-instinct-100-ml-perfume-for-men-edp-fcfm01pc.html" },
-    { sku:"NFFM14PK1", title:"Skinn by Titan Amalfi Bleu 90 ML Perfume for Men", stars:4, offer:"₹2,795", mrp:"₹3,295", discount:"15% OFF", size:"90 ml", badge:false, desc:"Amalfi Bleu captures the essence of a Mediterranean escape. Crisp aquatic notes and lavender open into a woody heart of cedarwood, finishing with a clean musk base. Fresh, refined, and effortlessly cool.", images:["mp4.PNg"], link:"https://www.skinn.in/product/skinn-by-titan-amalfi-bleu-90ml-perfume-for-men-nffm14pk1.html" },
-    { sku:"FCLM01PC", title:"Skinn by Titan Raw 100 ML Perfume for Men EDP", stars:4, offer:"₹2,795", mrp:"₹3,295", discount:"15% OFF", size:"100 ml", badge:false, desc:"Raw is an earthy, masculine fragrance with an untamed energy. Woody amber and sandalwood form a rich base, elevated by spicy cardamom and green vetiver. Perfect for the man who wears confidence naturally.", images:["mp5.PNG"], link:"https://www.skinn.in/product/skinn-by-titan-steele-100-ml-perfume-for-men-edp-fclm02pc.html" },
-    { sku:"FCLM02PC", title:"Skinn by Titan Steele 100 ML Perfume for Men EDP", stars:5, offer:"₹2,795", mrp:"₹3,295", discount:"15% OFF", size:"100 ml", badge:false, desc:"Steele is sharp, sleek, and powerfully modern. Cool metallic accords meet aromatic herbs and a dry woody base of grey amber. This EDP is designed for the man who commands any room he walks into.", images:["mp6.PNG"], link:"https://www.skinn.in/product/skinn-by-titan-steele-100-ml-perfume-for-men-edp-fclm02pc.html" },
-    { sku:"FCLM03PC", title:"Skinn by Titan Verge 100 ML Perfume for Men EDP", stars:4, offer:"₹2,795", mrp:"₹3,295", discount:"15% OFF", size:"100 ml", badge:false, desc:"Verge is a dynamic, energetic fragrance for the man always on the move. Lively citrus and mint notes open into a spicy heart of ginger and black pepper, grounded by a warm vetiver and cedar base.", images:["mp7.PNG"], link:"https://bilty.co/B8Ehfb" },
-    { sku:"RAWCOFFRET", title:"Skinn by Titan Raw Coffret for Men", stars:4, offer:"₹1,696", mrp:"₹1,990", discount:"15% OFF", size:"Gift Set", badge:false, desc:"The Raw Coffret is a curated gift set for the man who loves bold, earthy scents. Includes a selection of Raw fragrances in a beautifully packaged set — perfect for gifting or treating yourself.", images:["mp8.PNG"], link:"https://bilty.co/EtELHr" },
-    { sku:"STEELE20ML", title:"Skinn by Titan Steele 20 ML Perfume for Men EDP", stars:4, offer:"₹556", mrp:"₹650", discount:"15% OFF", size:"20 ml", badge:false, desc:"Steele in a compact 20 ml size — perfect for travel or trying the scent before committing to a full bottle. Sharp metallic accords meet aromatic herbs and a dry grey amber base. Sleek, modern, and powerful.", images:["mp9.PNG"], link:"https://bilty.co/UIEcS5" },
-    { sku:"MINIGIFTMEN", title:"Skinn by Titan Mini Gift Set for Men", stars:5, offer:"₹1,995", mrp:"₹2,395", discount:"17% OFF", size:"Gift Set", badge:false, desc:"Discover your signature scent with this mini gift set. Features a curated collection of Skinn's bestselling men's fragrances in travel-friendly sizes — ideal as a gift or for exploring multiple scents.", images:["mp10.PNG"], link:"https://bilty.co/emjnZ2" },
-    { sku:"PREMDEOPACK3", title:"Skinn Premium Deo Bundle Pack of 3 for Men", stars:4, offer:"₹1,595", mrp:"₹1,785", discount:"11% OFF", size:"Pack of 3", badge:false, desc:"Get Skinn's premium deodorant sprays in a value bundle of 3. Long-lasting freshness with signature masculine fragrances — great for daily use or gifting. Save more when you buy the bundle.", images:["mp11.PNG"], link:"https://bilty.co/FIFecl" },
-    { sku:"RAW50ML", title:"Skinn by Titan Raw 50 ML Perfume for Men EDP", stars:4, offer:"₹1,595", mrp:"₹1,895", discount:"16% OFF", size:"50 ml", badge:false, desc:"Raw in a convenient 50 ml size — the same earthy, masculine fragrance with woody amber, sandalwood, and spicy cardamom, now in a travel-friendly bottle. Great value for an everyday signature scent.", images:["mp12.PNG"], link:"https://bilty.co/Es7CqZ" },
-    { sku:"VERGE50ML", title:"Skinn by Titan Verge 50 ML Perfume for Men EDP", stars:4, offer:"₹1,595", mrp:"₹1,895", discount:"16% OFF", size:"50 ml", badge:false, desc:"Verge in a compact 50 ml bottle — dynamic and energetic with lively citrus, mint, ginger, and black pepper over a warm vetiver and cedar base. Perfect for on-the-go freshness throughout the day.", images:["mp13.PNG"], link:"https://bilty.co/Y7HLmv" },
-    { sku:"ESCAPADEDEO3", title:"Skinn Escapade Deo Pack of 3 for Men", stars:4, offer:"₹1,595", mrp:"₹1,785", discount:"11% OFF", size:"Pack of 3", badge:false, desc:"Skinn Escapade deodorant sprays in a value pack of 3. Refreshing, adventurous fragrance notes designed for the active man — keeps you fresh all day with a clean, invigorating scent trail.", images:["mp14.PNG"], link:"https://bilty.co/7xWqnV" },
-    { sku:"STEELE50ML", title:"Skinn by Titan Steele 50 ML Perfume for Men EDP", stars:4, offer:"₹1,595", mrp:"₹1,895", discount:"16% OFF", size:"50 ml", badge:false, desc:"Steele in a sleek 50 ml format — sharp metallic accords, aromatic herbs, and a dry grey amber base in a portable size. The same powerful, room-commanding character, now easier to carry everywhere.", images:["mp15.PNG"], link:"https://bilty.co/VsV2jO" },
-    { sku:"247AQUA100", title:"SKINN 247 Aqua 100 ml Eau De Parfum", stars:4, offer:"₹1,396", mrp:"₹1,595", discount:"12% OFF", size:"100 ml", badge:false, desc:"SKINN 247 Aqua is a fresh, everyday EDP built for all-day wear. Cool aquatic and citrus notes blend into a light woody base — clean, versatile, and perfect for office or casual outings.", images:["mp16.PNG"], link:"https://bilty.co/g2cdEA" },
-    { sku:"247AMBER100", title:"SKINN 247 Amber 100 ml Eau De Parfum", stars:4, offer:"₹1,396", mrp:"₹1,595", discount:"12% OFF", size:"100 ml", badge:false, desc:"SKINN 247 Amber is a warm, everyday EDP designed for all-day confidence. Rich amber and vanilla base notes are balanced with subtle spice for a smooth, approachable fragrance that works any time of day.", images:["mp17.PNG"], link:"https://bilty.co/B84OR1" },
-    { sku:"DEOSTEELEMEN", title:"Skinn Deodorant Spray Steele For Men", stars:4, offer:"₹595", mrp:"₹695", discount:"14% OFF", size:"150 ml", badge:false, desc:"Skinn Steele Deodorant Spray brings the signature sharp, modern character of Steele in a long-lasting deo format. Keeps you fresh and confident all day with cool aromatic notes and a clean dry finish.", images:["mp18.PNG"], link:"https://bilty.co/bWhi9Q" },
-    { sku:"DEORAWMEN", title:"Skinn Deodorant Spray Raw For Men", stars:4, offer:"₹595", mrp:"₹695", discount:"14% OFF", size:"150 ml", badge:false, desc:"Skinn Raw Deodorant Spray delivers the bold, earthy character of Raw in a deodorant format. Woody and spicy notes provide all-day freshness with a natural, untamed edge for the confident man.", images:["mp19.PNG"], link:"https://bilty.co/XArXGz" },
-    { sku:"DEOAMALFIBLUEMEN", title:"Skinn Deodorant Spray Amalfi Bleu For Men", stars:4, offer:"₹595", mrp:"₹695", discount:"14% OFF", size:"150 ml", badge:false, desc:"Skinn Amalfi Bleu Deodorant Spray brings the fresh, aquatic spirit of Amalfi Bleu into an everyday deodorant. Crisp marine notes and lavender keep you cool and refreshed from morning through evening.", images:["mp20.PNG"], link:"https://bilty.co/iPLhA7" }
-];
-
-const navLinks = [
-    { name: "Home", url: "index.html" },
-    { name: "About", url: "index1.html" },
-    { name: "Shop – Women", url: "WOMEN.html" },
-    { name: "Shop – Men", url: "MEN.html" },
-    { name: "Contact", url: "contact.html" }
-];
-
-function handleSearch(query) {
-    const resultsEl = document.getElementById("searchResults");
-    const q = query.trim().toLowerCase();
-    if (!q) { resultsEl.classList.remove("open"); resultsEl.innerHTML = ""; return; }
-    const matchedNav = navLinks.filter(n => n.name.toLowerCase().includes(q));
-    const matchedProducts = products.map((p, i) => ({ ...p, index: i })).filter(p => p.title.toLowerCase().includes(q)).slice(0, 5);
-    if (matchedNav.length === 0 && matchedProducts.length === 0) {
-        resultsEl.innerHTML = `<div class="search-no-result">No results for "${query}"</div>`;
-        resultsEl.classList.add("open"); return;
-    }
-    let html = "";
-    matchedNav.forEach(n => {
-        html += `<a class="search-result-item" href="${n.url}"><div style="width:42px;height:42px;display:flex;align-items:center;justify-content:center;background:#f7f7f7;border-radius:6px;flex-shrink:0;font-size:20px;">🔗</div><div><div class="search-result-name">${n.name}</div><div class="search-result-price" style="color:#888;">Page</div></div></a>`;
-    });
-    matchedProducts.forEach(p => {
-        html += `<div class="search-result-item" onclick="openPopup(${p.index}); closeSearchResults();"><img src="${p.images[0]}" alt="${p.title}"><div><div class="search-result-name">${p.title}</div><div class="search-result-price">${p.offer}</div></div></div>`;
-    });
-    resultsEl.innerHTML = html;
-    resultsEl.classList.add("open");
-}
-
-function closeSearchResults() {
-    document.getElementById("searchResults").classList.remove("open");
-    document.getElementById("searchInput").value = "";
-}
-
-document.addEventListener("click", function(e) {
-    if (!e.target.closest(".search-wrap")) document.getElementById("searchResults").classList.remove("open");
-});
-
-let currentSlide = 0, totalSlides = 0;
-
-function openPopup(index) {
-    const p = products[index];
-    currentSlide = 0; totalSlides = p.images.length;
-    document.getElementById("popupBadge").style.display = p.badge ? "block" : "none";
-    const slidesEl = document.getElementById("popupSlides");
-    slidesEl.innerHTML = p.images.map(src => `<img src="${src}" alt="${p.title}">`).join("");
-    slidesEl.style.transform = "translateX(0)";
-    const dotsEl = document.getElementById("sliderDots");
-    dotsEl.innerHTML = p.images.map((_, i) => `<div class="dot ${i===0?'active':''}" onclick="goToSlide(${i})"></div>`).join("");
-    const showArrows = totalSlides > 1;
-    document.querySelector(".slider-arrow.prev").style.display = showArrows ? "flex" : "none";
-    document.querySelector(".slider-arrow.next").style.display = showArrows ? "flex" : "none";
-    document.getElementById("popupSku").textContent = p.sku;
-    document.getElementById("popupTitle").textContent = p.title;
-    const starsEl = document.getElementById("popupStars");
-    starsEl.innerHTML = '<span class="star-filled">'+"★".repeat(p.stars)+'</span><span class="star-empty">'+"★".repeat(5-p.stars)+'</span>';
-    document.getElementById("popupOffer").textContent = p.offer;
-    document.getElementById("popupMrp").textContent = "MRP " + p.mrp;
-    document.getElementById("popupDiscount").textContent = p.discount;
-    document.getElementById("popupDesc").textContent = p.desc;
-    document.getElementById("popupSize").textContent = p.size;
-    document.getElementById("popupBuyBtn").href = p.link;
-    document.getElementById("popupOverlay").classList.add("open");
-    document.body.style.overflow = "hidden";
-}
-
-function closePopup() {
-    document.getElementById("popupOverlay").classList.remove("open");
-    document.body.style.overflow = "";
-}
-function handleOverlayClick(e) { if (e.target === document.getElementById("popupOverlay")) closePopup(); }
-function slideMove(dir) { currentSlide = (currentSlide+dir+totalSlides)%totalSlides; goToSlide(currentSlide); }
-function goToSlide(n) {
-    currentSlide = n;
-    document.getElementById("popupSlides").style.transform = `translateX(-${n*100}%)`;
-    document.querySelectorAll(".dot").forEach((d,i) => d.classList.toggle("active", i===n));
-}
-
-let touchStartX = 0;
-document.getElementById("popupSlides").addEventListener("touchstart", e => { touchStartX = e.touches[0].clientX; });
-document.getElementById("popupSlides").addEventListener("touchend", e => {
-    const diff = touchStartX - e.changedTouches[0].clientX;
-    if (Math.abs(diff) > 40) slideMove(diff > 0 ? 1 : -1);
-});
-
-document.addEventListener("keydown", e => { if (e.key === "Escape") closePopup(); });
-
-function openMenu() {
-    document.getElementById("sideMenu").classList.add("open");
-    document.getElementById("overlay").classList.add("active");
-    document.body.style.overflow = "hidden";
-}
-function closeMenu() {
-    document.getElementById("sideMenu").classList.remove("open");
-    document.getElementById("overlay").classList.remove("active");
-    document.body.style.overflow = "";
-}
-function toggleSideShop() {
-    const sub = document.getElementById("sideShopMenu");
-    const arrow = document.getElementById("sideArrow");
-    const isOpen = sub.style.display === "flex";
-    sub.style.display = isOpen ? "none" : "flex";
-    arrow.classList.toggle("rotate", !isOpen);
-}
+function openMenu() { document.getElementById("sideMenu").classList.add("open"); document.getElementById("overlay").classList.add("active"); document.body.style.overflow = "hidden"; }
+function closeMenu() { document.getElementById("sideMenu").classList.remove("open"); document.getElementById("overlay").classList.remove("active"); document.body.style.overflow = ""; }
 </script>
-
 </body>
 </html>
